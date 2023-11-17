@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_event_logs"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_calendar"
         android:title="@string/title_event_logs" />
 
 </menu>
