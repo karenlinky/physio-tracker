@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">PhysioTracker</string>
     <string name="title_home">Home</string>
+    <string name="title_edit_exercise">Edit Exercise</string>
     <string name="title_exercise_tracker">Exercise Tracker</string>
     <string name="title_event_logs">Event Logs</string>
+    <string name="txt_add_new_exercise">Add new exercise</string>
+    <string name="header_exercises">My Exercises</string>
 </resources>
