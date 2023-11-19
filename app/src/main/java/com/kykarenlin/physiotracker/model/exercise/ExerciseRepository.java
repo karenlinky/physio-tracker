@@ -52,7 +52,7 @@ public class ExerciseRepository {
         });
     }
 
-    public LiveData<List<Exercise>> getAllExercises(Exercise exercise) {
+    public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
     }
 

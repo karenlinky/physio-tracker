@@ -12,6 +12,7 @@ public class Exercise {
     private String numSets;
     private int numReps;
     private int repDuration;
+    private String description;
 
 
 
@@ -55,6 +56,4 @@ public class Exercise {
     public String getDescription() {
         return description;
     }
-
-    private String description;
 }
