@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/menuDefaultGrey</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#005EFF</item>
+        <item name="colorSecondary">#3800A1</item>
         <item name="colorSecondaryVariant">#00CDFF</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
