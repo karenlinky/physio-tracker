@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,21 +46,42 @@ public class ViewExerciseFragment extends Fragment {
         exerciseViewModel =
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
 
-        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+//        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+//            @Override
+//            public void onChanged(List<Exercise> exercises) {
+//                // update view
+//                if (exercises.size() == 0) {
+//                    return;         // list not fetched
+//                }
+//                List<Exercise> targetExercises = exercises.stream()
+//                        .filter(exercise -> exercise.getId() == exerciseId)
+//                        .collect(Collectors.toList());
+//                if (targetExercises.size() == 0) {
+//                    // TODO: data error return
+//                    return;
+//                }
+//                exercise = targetExercises.get(0);
+//                txtViewExerciseName.setText(exercise.getName());
+//
+//            }
+//        });
+
+        exerciseViewModel.getExerciseById(exerciseId).observe(getViewLifecycleOwner(), new Observer<Exercise>() {
             @Override
-            public void onChanged(List<Exercise> exercises) {
+            public void onChanged(Exercise fetchedExercise) {
                 // update view
-                if (exercises.size() == 0) {
-                    return;         // list not fetched
-                }
-                List<Exercise> targetExercises = exercises.stream()
-                        .filter(exercise -> exercise.getId() == exerciseId)
-                        .collect(Collectors.toList());
-                if (targetExercises.size() == 0) {
-                    // TODO: data error return
-                    return;
-                }
-                exercise = targetExercises.get(0);
+//                if (exercises.size() == 0) {
+//                    return;         // list not fetched
+//                }
+//                List<Exercise> targetExercises = exercises.stream()
+//                        .filter(exercise -> exercise.getId() == exerciseId)
+//                        .collect(Collectors.toList());
+//                if (targetExercises.size() == 0) {
+//                    // TODO: data error return
+//                    return;
+//                }
+//                Log.i("TAG", "onChanged: Exercise: " + exercise + " name: " + exercise.getName());
+                exercise = fetchedExercise;
                 txtViewExerciseName.setText(exercise.getName());
 
             }

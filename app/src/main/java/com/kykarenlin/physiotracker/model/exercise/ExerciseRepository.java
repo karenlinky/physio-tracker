@@ -56,6 +56,10 @@ public class ExerciseRepository {
         return allExercises;
     }
 
+    public LiveData<Exercise> getExerciseById(int id) {
+        return exerciseDao.getExerciseById(id);
+    }
+
 //    private static class InsertExerciseAsyncTask extends AsyncTask<Exercise, Void, Void> {
 //
 //        private ExerciseDao exerciseDao;
