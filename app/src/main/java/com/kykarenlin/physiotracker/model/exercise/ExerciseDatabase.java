@@ -48,6 +48,7 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                                 "1 per leg",
                                 5,
                                 0,
+                                "s",
                                 "This exercise challenges single leg balance. " +
                                         "If you feel ankle discomfort, focus more on sitting your hips back and this should bias your glute muscles more and alleviate the ankle discomfort. " +
                                         "Perform 5 times in a row on each leg. Progression: Perform with eyes closed."
@@ -60,6 +61,7 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                                 "1 per leg",
                                 10,
                                 0,
+                                "s",
                                 "If you have your front foot elevated on a step it will be easier to practice this exercise. " +
                                         "Tie the resistance band to form a loop. You can either use your other leg to step on the band or secure the band to a heavy object. " +
                                         "Place the band around the front of your ankle at the hinge point. " +
@@ -68,6 +70,17 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                                         "Don't let the front knee cave inwards. Perform 15 reps each side with control."
                         )
                 );
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Final Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
             });
         }
     };

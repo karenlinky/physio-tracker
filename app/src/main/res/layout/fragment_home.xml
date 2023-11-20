@@ -7,6 +7,7 @@
     tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,14 +29,28 @@
             android:id="@+id/btnAddExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingVertical="3dp"
-            android:paddingHorizontal="8dp"
             android:background="@drawable/shp_img_btn_background"
             android:backgroundTint="?attr/colorPrimary"
             android:contentDescription="@string/txt_add_new_exercise"
-            app:tint="@color/white"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add" />
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rclvExercises"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/exercise_item" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

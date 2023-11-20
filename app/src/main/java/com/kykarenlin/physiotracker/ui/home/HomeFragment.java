@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentHomeBinding;
@@ -37,6 +39,16 @@ public class HomeFragment extends Fragment {
             Navigation.findNavController(root).navigate(R.id.action_home_to_editExercise);
         });
 
+
+
+        final RecyclerView rclvExercises = binding.rclvExercises;
+        rclvExercises.setLayoutManager(new LinearLayoutManager(getContext()));
+        rclvExercises.setHasFixedSize(true);
+
+        final ExerciseAdapter adapter = new ExerciseAdapter();
+        rclvExercises.setAdapter(adapter);
+
+
 //        final TextView textView = binding.textHome;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         exerciseViewModel =
@@ -45,7 +57,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(List<Exercise> exercises) {
                 // update view
-                Toast.makeText(getContext(), "There are " + exercises.size() + " exercises", Toast.LENGTH_SHORT).show();
+                adapter.setExercises(exercises);
             }
         });
 

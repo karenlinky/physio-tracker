@@ -12,16 +12,19 @@ public class Exercise {
     private String numSets;
     private int numReps;
     private int repDuration;
+
+    private String repDurationUnit;
     private String description;
 
 
 
-    public Exercise(String name, String videoUrl, String numSets, int numReps, int repDuration, String description) {
+    public Exercise(String name, String videoUrl, String numSets, int numReps, int repDuration, String repDurationUnit, String description) {
         this.name = name;
         this.videoUrl = videoUrl;
         this.numSets = numSets;
         this.numReps = numReps;
         this.repDuration = repDuration;
+        this.repDurationUnit = repDurationUnit;
         this.description = description;
     }
 
@@ -51,6 +54,10 @@ public class Exercise {
 
     public int getRepDuration() {
         return repDuration;
+    }
+
+    public String getRepDurationUnit() {
+        return repDurationUnit;
     }
 
     public String getDescription() {
