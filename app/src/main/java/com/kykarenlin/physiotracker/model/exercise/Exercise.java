@@ -13,7 +13,6 @@ public class Exercise {
     private String numSets;
     private int numReps;
     private int repDuration;
-
     private String repDurationUnit;
     private String description;
 

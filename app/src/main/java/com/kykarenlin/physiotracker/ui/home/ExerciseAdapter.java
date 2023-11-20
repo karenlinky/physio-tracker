@@ -3,13 +3,16 @@ package com.kykarenlin.physiotracker.ui.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
+import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,27 +22,34 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     private List<Exercise> exercises = new ArrayList<>();
     private OnItemClickListener listener;
 
+    private FragmentActivity fragmentActivity;
+
+//    private ExerciseDetailsFragment exerciseDetailsFragment;
+
+    public ExerciseAdapter(FragmentActivity fragmentActivity) {
+        this.fragmentActivity = fragmentActivity;
+    }
+
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.exercise_item, parent, false);
 
-        return new ExerciseHolder(itemView);
+        return new ExerciseHolder(itemView, this.fragmentActivity);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
         holder.txtExerciseName.setText(currentExercise.getName());
-        holder.txtNumSets.setText(currentExercise.getNumSets());
-        holder.txtNumReps.setText(String.valueOf(currentExercise.getNumReps()));
-        String strDuration = "--";
-        int intDuration = currentExercise.getRepDuration();
-        if (intDuration != 0) {
-            strDuration = intDuration + currentExercise.getRepDurationUnit();
-        }
-        holder.txtDuration.setText(strDuration);
+
+        String numSets = currentExercise.getNumSets();
+        int numReps = currentExercise.getNumReps();
+        int duration = currentExercise.getRepDuration();
+        String durationUnit = currentExercise.getRepDurationUnit();
+
+        holder.exerciseDetailsFragment.updateValues(numSets, numReps, duration, durationUnit);
     }
 
     @Override
@@ -54,16 +64,22 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     class ExerciseHolder extends RecyclerView.ViewHolder {
         private TextView txtExerciseName;
-        private TextView txtNumSets;
-        private TextView txtNumReps;
-        private TextView txtDuration;
+        private ExerciseDetailsFragment exerciseDetailsFragment;
 
-        public ExerciseHolder (View itemView) {
+        public ExerciseHolder (View itemView, FragmentActivity fragmentActivity) {
             super(itemView);
             txtExerciseName = itemView.findViewById(R.id.txtExerciseName);
-            txtNumSets = itemView.findViewById(R.id.txtNumSets);
-            txtNumReps = itemView.findViewById(R.id.txtNumReps);
-            txtDuration = itemView.findViewById(R.id.txtDuration);
+
+            FrameLayout exerciseItemDetailsPlaceholder = itemView.findViewById(R.id.exerciseItemDetailsPlaceholder);
+            int newId = View.generateViewId();
+
+            exerciseItemDetailsPlaceholder.setId(newId);
+
+            exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
+
+            fragmentActivity.getSupportFragmentManager().beginTransaction()
+                    .replace(newId, exerciseDetailsFragment)
+                    .commit();
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
