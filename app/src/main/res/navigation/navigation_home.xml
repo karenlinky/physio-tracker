@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/viewExerciseFragment"
         android:name="com.kykarenlin.physiotracker.ui.home.ViewExerciseFragment"
-        android:label="fragment_view_exercise"
+        android:label="@string/title_view_exercise"
         tools:layout="@layout/fragment_view_exercise" >
         <action
             android:id="@+id/action_viewExerciseFragment_to_editExerciseFragment"

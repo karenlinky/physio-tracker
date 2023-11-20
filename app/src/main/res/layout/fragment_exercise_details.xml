@@ -35,7 +35,8 @@
                 android:layout_below="@+id/txtDescNumSets"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
-                android:text="1 per leg" />
+                android:text="1 per leg"
+                android:textSize="16sp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -63,7 +64,8 @@
                 android:layout_below="@+id/txtDescNumReps"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
-                android:text="5" />
+                android:text="5"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -90,7 +92,8 @@
                 android:layout_below="@+id/txtDescDuration"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
-                android:text="10s" />
+                android:text="10s"
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 

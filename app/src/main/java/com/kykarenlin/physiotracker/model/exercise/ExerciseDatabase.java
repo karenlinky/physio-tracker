@@ -71,7 +71,7 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                         )
                 );
                 exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(new Exercise("Exercise name","","2",10,10,"s",""));
                 exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
                 exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
                 exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));

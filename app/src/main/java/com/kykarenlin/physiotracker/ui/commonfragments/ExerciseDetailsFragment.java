@@ -28,7 +28,10 @@ public class ExerciseDetailsFragment extends Fragment {
     private FragmentExerciseDetailsBinding binding;
 
     public ExerciseDetailsFragment() {
-        // Required empty public constructor
+        this.numSets = "0";
+        this.numReps = 0;
+        this.duration = 0;
+        this.durationUnit = "s";
     }
 
     public static ExerciseDetailsFragment newInstance() {
