@@ -19,12 +19,6 @@ import com.kykarenlin.physiotracker.databinding.FragmentExerciseDetailsBinding;
  */
 public class ExerciseDetailsFragment extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM_SETS = "numSets";
-    private static final String ARG_PARAM_REPS = "numReps";
-    private static final String ARG_PARAM_DURATION = "duration";
-    private static final String ARG_PARAM_DURATION_UNIT = "durationUnit";
-
     private String numSets;
     private int numReps;
     private int duration;
@@ -40,17 +34,6 @@ public class ExerciseDetailsFragment extends Fragment {
     public static ExerciseDetailsFragment newInstance() {
         return new ExerciseDetailsFragment();
     }
-
-//    public static ExerciseDetailsFragment newInstance(String numSets, int numReps, int duration, String durationUnit) {
-//        ExerciseDetailsFragment fragment = new ExerciseDetailsFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM_SETS, numSets);
-//        args.putInt(ARG_PARAM_REPS, numReps);
-//        args.putInt(ARG_PARAM_DURATION, duration);
-//        args.putString(ARG_PARAM_DURATION_UNIT, durationUnit);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     private void updateView() {
         if (binding == null) {
@@ -71,21 +54,6 @@ public class ExerciseDetailsFragment extends Fragment {
         this.duration = duration;
         this.durationUnit = durationUnit;
         updateView();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            numSets = getArguments().getString(ARG_PARAM_SETS);
-//            numReps = getArguments().getInt(ARG_PARAM_REPS);
-//            duration = getArguments().getInt(ARG_PARAM_DURATION);
-//            durationUnit = getArguments().getString(ARG_PARAM_DURATION_UNIT);
-            numSets = "HI";
-            numReps = 2;
-            duration = 5;
-            durationUnit = "BYE";
-        }
     }
 
     @Override
