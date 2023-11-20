@@ -58,6 +58,17 @@ public class HomeFragment extends Fragment {
             public void onChanged(List<Exercise> exercises) {
                 // update view
                 adapter.setExercises(exercises);
+//                if (exercises.size() == 0) return;
+//                Toast.makeText(getActivity(), "Archived: " + exercises.get(0).getIsArchived() + " Completed: " + exercises.get(0).getIsCompleted() + " Timestamp: " + exercises.get(0).progressTimestamp(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        adapter.setOnItemClickListener(new ExerciseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Exercise exercise) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("exerciseId", exercise.getId());
+                Navigation.findNavController(root).navigate(R.id.action_home_to_viewExercise, bundle);
             }
         });
 

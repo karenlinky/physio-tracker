@@ -13,10 +13,22 @@
         <action
             android:id="@+id/action_home_to_editExercise"
             app:destination="@id/editExerciseFragment" />
+        <action
+            android:id="@+id/action_home_to_viewExercise"
+            app:destination="@id/viewExerciseFragment" />
     </fragment>
     <fragment
         android:id="@+id/editExerciseFragment"
         android:name="com.kykarenlin.physiotracker.ui.home.EditExerciseFragment"
         android:label="@string/title_edit_exercise"
         tools:layout="@layout/fragment_edit_exercise" />
+    <fragment
+        android:id="@+id/viewExerciseFragment"
+        android:name="com.kykarenlin.physiotracker.ui.home.ViewExerciseFragment"
+        android:label="fragment_view_exercise"
+        tools:layout="@layout/fragment_view_exercise" >
+        <action
+            android:id="@+id/action_viewExerciseFragment_to_editExerciseFragment"
+            app:destination="@id/editExerciseFragment" />
+    </fragment>
 </navigation>
