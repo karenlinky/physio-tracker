@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEditExerciseBinding;
@@ -33,6 +34,10 @@ public class EditExerciseFragment extends Fragment {
 
         binding = FragmentEditExerciseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        int exerciseId = getArguments().getInt("exerciseId");
+
+        Toast.makeText(getContext(), "exercise id is " + exerciseId, Toast.LENGTH_SHORT).show();
 
         return root;
     }

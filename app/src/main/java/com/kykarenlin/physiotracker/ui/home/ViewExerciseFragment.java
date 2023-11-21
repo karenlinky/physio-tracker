@@ -1,37 +1,34 @@
 package com.kykarenlin.physiotracker.ui.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.R;
-import com.kykarenlin.physiotracker.databinding.FragmentEditExerciseBinding;
-import com.kykarenlin.physiotracker.databinding.FragmentHomeBinding;
 import com.kykarenlin.physiotracker.databinding.FragmentViewExerciseBinding;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
+import com.kykarenlin.physiotracker.ui.commonfragments.BaseFragment;
 import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
-import org.w3c.dom.Text;
+import java.net.URL;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class ViewExerciseFragment extends Fragment {
+public class ViewExerciseFragment extends BaseFragment {
 
     private FragmentViewExerciseBinding binding;
 
@@ -74,12 +71,17 @@ public class ViewExerciseFragment extends Fragment {
 
         ExerciseDetailsFragment exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
 
-        getActivity().getSupportFragmentManager().beginTransaction()
+        FragmentActivity fragmentActivity = getActivity();
+
+        fragmentActivity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.viewExerciseDetailsPlaceholder, exerciseDetailsFragment)
                 .commit();
 
         final Button btnVideoLinkClicked = binding.btnVideoLinkClicked;
         final TextView txtViewExerciseDescr = binding.txtViewExerciseDescr;
+
+        final Button btnDeleteExercise = binding.btnDeleteExercise;
+        final Button btnEditExercise = binding.btnEditExercise;
 
         exerciseViewModel.getExerciseById(exerciseId).observe(getViewLifecycleOwner(), new Observer<Exercise>() {
             @Override
@@ -94,8 +96,19 @@ public class ViewExerciseFragment extends Fragment {
 //                if (targetExercises.size() == 0) {
 //                    return;
 //                }
-//                Log.i("TAG", "onChanged: Exercise: " + exercise + " name: " + exercise.getName());
+
+                if (fetchedExercise == null) {
+                    return;
+                }
+
                 exercise = fetchedExercise;
+
+                if (exercise == null) {
+                    btnDeleteExercise.setEnabled(false);
+                } else {
+                    btnDeleteExercise.setEnabled(true);
+                }
+
                 txtViewExerciseName.setText(exercise.getName());
 
                 String numSets = exercise.getNumSets();
@@ -109,6 +122,7 @@ public class ViewExerciseFragment extends Fragment {
 
                 if (!videoUrl.equals("")) {
                     try {
+                        new URL(videoUrl).toURI();
                         Uri uri = Uri.parse(videoUrl);
                         btnVideoLinkClicked.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -124,9 +138,34 @@ public class ViewExerciseFragment extends Fragment {
                     btnVideoLinkClicked.setEnabled(false);
                 }
 
-                txtViewExerciseDescr.setText(exercise.getDescription());
+                String description = exercise.getDescription();
+
+                txtViewExerciseDescr.setText(description);
 
 
+            }
+        });
+        btnDeleteExercise.setOnClickListener(view -> {
+            btnEditExercise.setEnabled(false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(fragmentActivity);
+            builder.setTitle("Confirm Deletion").setMessage("Are you sure you want to delete this exercise?");
+            builder.setPositiveButton(R.string.lbl_confirm, (dialogInterface, i) -> {
+                exerciseViewModel.delete(exercise);
+                fragmentActivity.getSupportFragmentManager().popBackStack();
+            });
+
+            builder.setNegativeButton(R.string.lbl_cancel, (dialogInterface, i) -> {});
+            builder.setOnDismissListener(dialogInterface -> btnEditExercise.setEnabled(true));
+
+            builder.show();
+        });
+
+        btnEditExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("exerciseId", exercise.getId());
+                Navigation.findNavController(root).navigate(R.id.action_viewExercise_to_editExercise, bundle);
             }
         });
 
@@ -139,5 +178,4 @@ public class ViewExerciseFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

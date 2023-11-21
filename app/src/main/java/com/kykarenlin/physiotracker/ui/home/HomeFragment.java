@@ -1,5 +1,6 @@
 package com.kykarenlin.physiotracker.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,11 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentHomeBinding;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
+import com.kykarenlin.physiotracker.ui.commonfragments.BaseFragment;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private ExerciseViewModel exerciseViewModel;
     private FragmentHomeBinding binding;
@@ -36,7 +40,9 @@ public class HomeFragment extends Fragment {
         final ImageButton btnAddExercise = binding.btnAddExercise;
 
         btnAddExercise.setOnClickListener(view -> {
-            Navigation.findNavController(root).navigate(R.id.action_home_to_editExercise);
+            Bundle bundle = new Bundle();
+            bundle.putInt("exerciseId", -1);
+            Navigation.findNavController(root).navigate(R.id.action_home_to_editExercise, bundle);
         });
 
 

@@ -28,7 +28,7 @@
         android:label="@string/title_view_exercise"
         tools:layout="@layout/fragment_view_exercise" >
         <action
-            android:id="@+id/action_viewExerciseFragment_to_editExerciseFragment"
+            android:id="@+id/action_viewExercise_to_editExercise"
             app:destination="@id/editExerciseFragment" />
     </fragment>
 </navigation>

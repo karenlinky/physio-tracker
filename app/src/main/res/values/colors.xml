@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="menuDefaultGrey">#888888</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="delete_button">#8F4646</color>
 </resources>

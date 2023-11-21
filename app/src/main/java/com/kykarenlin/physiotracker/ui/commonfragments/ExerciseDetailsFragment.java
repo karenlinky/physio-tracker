@@ -1,7 +1,10 @@
 package com.kykarenlin.physiotracker.ui.commonfragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +14,8 @@ import android.view.ViewGroup;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEditExerciseBinding;
 import com.kykarenlin.physiotracker.databinding.FragmentExerciseDetailsBinding;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
