@@ -70,17 +70,86 @@ public abstract class ExerciseDatabase extends RoomDatabase {
                                         "Don't let the front knee cave inwards. Perform 15 reps each side with control."
                         )
                 );
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","k;kljk","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
-                exerciseDao.insert(new Exercise("Final Exercise name","https://www.kykarenlin.com","2",10,10,"s",""));
+                exerciseDao.insert(
+                        new Exercise(
+                                "Single Leg Soleus Bridge",
+                                "https://www.youtube.com/watch?v=mVfoGFiZzDc",
+                                "1/leg",
+                                10,
+                                10,
+                                "s",
+                                "Use a textbook or some stairs to help elevate your feet. " +
+                                        "When you are bridging up, make sure your heel is not touching the elevated surface and you are pushing through the balls of your foot. " +
+                                        "You should feel your lower leg muscles, thigh muscles, glute muscles, and abdominal muscles working. " +
+                                        "Hold for 10 seconds each repetition, repeat 10 repetitions on each leg"
+                        )
+                );
+                exerciseDao.insert(
+                        new Exercise(
+                                "FHL Calf Raise (Single Leg)",
+                                "https://www.youtube.com/watch?v=X7Va-ujGCp0",
+                                "1/leg",
+                                15,
+                                10,
+                                "s",
+                                "The further you slide your foot back, the more stretch you should feel in the calf. " +
+                                        "Make sure you lower your heel back to the ground with control with each repetition. " +
+                                        "Perform 15 reps each side, hold for 3 seconds at the top. " +
+                                        "Possible Progression: Hold for 10 seconds at the top."
+                        )
+                );
+                exerciseDao.insert(
+                        new Exercise(
+                                "Chin Tuck Head Lift",
+                                "https://www.youtube.com/watch?v=UaIheiSGXHE",
+                                "1",
+                                15,
+                                3,
+                                "s",
+                                "Keep your chin tucked (i.e., chin touching your throat) throughout the entire exercise. " +
+                                        "Do not let your shoulders shrug. " +
+                                        "Hold your head up for 3 seconds before lowering back down with control. " +
+                                        "We added rotation, doing this while maintaining the chin tuck. " +
+                                        "Perform 15 reps each side. " +
+                                        "Possible Progression: Perform with your head \"dangling off\" the bed. " +
+                                        "You will need to slowly lower your head all the way down (neck extension)."
+                        )
+                );
+                exerciseDao.insert(
+                        new Exercise(
+                                "Tibialis Anterior Stretch",
+                                "https://www.youtube.com/watch?v=iaA5PT85azU",
+                                "1 per leg",
+                                3,
+                                10,
+                                "s",
+                                "To stretch the front of your ankle. Hold for 10 seconds each side, perform 3 reps each side."
+                        )
+                );
+                exerciseDao.insert(
+                        new Exercise(
+                                "Cat Cow",
+                                "https://www.youtube.com/watch?v=hv5QnaDPyfY",
+                                "1",
+                                10,
+                                0,
+                                "s",
+                                "Notice how he moves segment by segment, ensuring every part of his spine is bending/arching. " +
+                                        "Your goal is to make sure you're not just folding/hinging through your low back and neck. " +
+                                        "(10 reps each direction, everyday)"
+                        )
+                );
+                exerciseDao.insert(
+                        new Exercise(
+                                "Quad Squats and Glute squats",
+                                "",
+                                "3 (2 quad, 1 glute)",
+                                10,
+                                0,
+                                "s",
+                                ""
+                        )
+                );
             });
         }
     };

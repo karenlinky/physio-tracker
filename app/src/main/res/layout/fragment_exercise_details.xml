@@ -27,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:textStyle="bold"
                 android:text="Sets" />
             <TextView
                 android:id="@+id/txtNumSets"
@@ -34,9 +35,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtDescNumSets"
                 android:layout_centerHorizontal="true"
-                android:textStyle="bold"
                 android:text="1 per leg"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textAlignment="center"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -56,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:textStyle="bold"
                 android:text="Reps" />
             <TextView
                 android:id="@+id/txtNumReps"
@@ -63,9 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtDescNumReps"
                 android:layout_centerHorizontal="true"
-                android:textStyle="bold"
                 android:text="5"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textAlignment="center" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -84,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:textStyle="bold"
                 android:text="Duration"/>
             <TextView
                 android:id="@+id/txtDuration"
@@ -91,9 +94,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtDescDuration"
                 android:layout_centerHorizontal="true"
-                android:textStyle="bold"
                 android:text="10s"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textAlignment="center" />
         </RelativeLayout>
     </LinearLayout>
 

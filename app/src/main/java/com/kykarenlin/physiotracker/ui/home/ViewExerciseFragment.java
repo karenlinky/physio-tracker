@@ -45,6 +45,7 @@ public class ViewExerciseFragment extends BaseFragment {
         int exerciseId = getArguments().getInt("exerciseId");
 
         final TextView txtViewExerciseName = binding.txtViewExerciseName;
+        final TextView txtDescriptionLabel = binding.txtDescriptionLabel;
 
         exerciseViewModel =
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
@@ -97,17 +98,19 @@ public class ViewExerciseFragment extends BaseFragment {
 //                    return;
 //                }
 
-                if (fetchedExercise == null) {
-                    return;
-                }
-
-                exercise = fetchedExercise;
-
                 if (exercise == null) {
                     btnDeleteExercise.setEnabled(false);
                 } else {
                     btnDeleteExercise.setEnabled(true);
                 }
+
+                if (fetchedExercise == null) {
+                    return;
+                }
+
+                btnDeleteExercise.setEnabled(true);
+
+                exercise = fetchedExercise;
 
                 txtViewExerciseName.setText(exercise.getName());
 
@@ -124,12 +127,9 @@ public class ViewExerciseFragment extends BaseFragment {
                     try {
                         new URL(videoUrl).toURI();
                         Uri uri = Uri.parse(videoUrl);
-                        btnVideoLinkClicked.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                                startActivity(intent);
-                            }
+                        btnVideoLinkClicked.setOnClickListener(view -> {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(intent);
                         });
                     } catch (Exception e) {
                         btnVideoLinkClicked.setEnabled(false);
@@ -140,9 +140,11 @@ public class ViewExerciseFragment extends BaseFragment {
 
                 String description = exercise.getDescription();
 
-                txtViewExerciseDescr.setText(description);
-
-
+                if (!description.equals("")) {
+                    txtViewExerciseDescr.setText(description);
+                } else {
+                    txtDescriptionLabel.setText("");
+                }
             }
         });
         btnDeleteExercise.setOnClickListener(view -> {
