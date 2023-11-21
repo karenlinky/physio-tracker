@@ -14,7 +14,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.R;
@@ -57,6 +60,24 @@ public class EditExerciseFragment extends Fragment {
         final EditText edtVideoUrl = binding.edtVideoUrl;
         final EditText edtNumSets = binding.edtNumSets;
         final EditText edtNumReps = binding.edtNumReps;
+        final EditText edtDuration = binding.edtDuration;
+        final EditText edtDescription = binding.edtDescription;
+
+        final Spinner spnDurationUnit = binding.spnDurationUnit;
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.units, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDurationUnit.setAdapter(spinnerAdapter);
+        spnDurationUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         if (exerciseId != -1) {
             exerciseViewModel.getExerciseById(exerciseId).observe(getViewLifecycleOwner(), new Observer<Exercise>() {
@@ -78,6 +99,8 @@ public class EditExerciseFragment extends Fragment {
                     edtVideoUrl.setText(exercise.getVideoUrl());
                     edtNumSets.setText(exercise.getNumSets());
                     edtNumReps.setText(String.valueOf(exercise.getNumReps()));
+                    edtDuration.setText(String.valueOf(exercise.getRepDuration()));
+                    edtDescription.setText(exercise.getDescription());
                 }
             });
         }

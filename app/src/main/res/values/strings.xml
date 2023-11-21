@@ -14,4 +14,8 @@
     <string name="lbl_delete">Delete</string>
     <string name="lbl_confirm">Confirm</string>
     <string name="lbl_cancel">Cancel</string>
+    <string-array name="units">
+        <item>s</item>
+        <item>min</item>
+    </string-array>
 </resources>
