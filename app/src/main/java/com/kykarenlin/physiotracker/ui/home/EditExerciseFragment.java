@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEditExerciseBinding;
+import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.model.exercise.ExerciseRepository;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
@@ -51,7 +52,22 @@ public class EditExerciseFragment extends Fragment {
         binding = FragmentEditExerciseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        int exerciseId = getArguments().getInt("exerciseId");
+        int exerciseId = getArguments().getInt(ExerciseBundleKeys.ID.toString());
+        String initName = getArguments().getString(ExerciseBundleKeys.NAME.toString());
+        String initVideoUrl = getArguments().getString(ExerciseBundleKeys.VIDEOURL.toString());
+        String initNumSets = getArguments().getString(ExerciseBundleKeys.NUMSETS.toString());
+        int numReps = getArguments().getInt(ExerciseBundleKeys.NUMREPS.toString());
+        String initNumReps = String.valueOf(numReps);
+        if (numReps == 0) {
+            initNumReps = "";
+        }
+        int duration = getArguments().getInt(ExerciseBundleKeys.DURATION.toString());
+        String initDuration = String.valueOf(duration);
+        if (duration == 0) {
+            initDuration = "";
+        }
+        String initDurationUnit = getArguments().getString(ExerciseBundleKeys.DURATIONUNIT.toString());
+        String initDescription =getArguments().getString(ExerciseBundleKeys.DESCRIPTION.toString());
 
         exerciseViewModel =
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
@@ -79,31 +95,32 @@ public class EditExerciseFragment extends Fragment {
             }
         });
 
-        if (exerciseId != -1) {
-            exerciseViewModel.getExerciseById(exerciseId).observe(getViewLifecycleOwner(), new Observer<Exercise>() {
-                @Override
-                public void onChanged(Exercise fetchedExercise) {
+        edtName.setText(initName);
+        edtVideoUrl.setText(initVideoUrl);
+        edtNumSets.setText(initNumSets);
+        edtNumReps.setText(initNumReps);
+        edtDuration.setText(initDuration);
+        edtDescription.setText(initDescription);
 
-                    if (exercise == null) {
-//                        btnDeleteExercise.setEnabled(false);
-                    } else {
-//                        btnDeleteExercise.setEnabled(true);
-                    }
-
-                    if (fetchedExercise == null) {
-                        return;
-                    }
-
-                    exercise = fetchedExercise;
-                    edtName.setText(exercise.getName());
-                    edtVideoUrl.setText(exercise.getVideoUrl());
-                    edtNumSets.setText(exercise.getNumSets());
-                    edtNumReps.setText(String.valueOf(exercise.getNumReps()));
-                    edtDuration.setText(String.valueOf(exercise.getRepDuration()));
-                    edtDescription.setText(exercise.getDescription());
-                }
-            });
-        }
+//        if (exerciseId != -1) {
+//            exerciseViewModel.getExerciseById(exerciseId).observe(getViewLifecycleOwner(), new Observer<Exercise>() {
+//                @Override
+//                public void onChanged(Exercise fetchedExercise) {
+//
+//                    if (exercise != null || fetchedExercise == null) {
+//                        return;
+//                    }
+//
+//                    exercise = fetchedExercise;
+//                    edtName.setText(exercise.getName());
+//                    edtVideoUrl.setText(exercise.getVideoUrl());
+//                    edtNumSets.setText(exercise.getNumSets());
+//                    edtNumReps.setText(String.valueOf(exercise.getNumReps()));
+//                    edtDuration.setText(String.valueOf(exercise.getRepDuration()));
+//                    edtDescription.setText(exercise.getDescription());
+//                }
+//            });
+//        }
 
         Toast.makeText(getContext(), "exercise id is " + exerciseId, Toast.LENGTH_SHORT).show();
 

@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentViewExerciseBinding;
+import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.commonfragments.BaseFragment;
 import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
@@ -42,7 +43,7 @@ public class ViewExerciseFragment extends BaseFragment {
         binding = FragmentViewExerciseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        int exerciseId = getArguments().getInt("exerciseId");
+        int exerciseId = getArguments().getInt(ExerciseBundleKeys.ID.toString());
 
         final TextView txtViewExerciseName = binding.txtViewExerciseName;
         final TextView txtDescriptionLabel = binding.txtDescriptionLabel;
@@ -166,7 +167,14 @@ public class ViewExerciseFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("exerciseId", exercise.getId());
+                bundle.putInt(ExerciseBundleKeys.ID.toString(), exercise.getId());
+                bundle.putString(ExerciseBundleKeys.NAME.toString(), exercise.getName());
+                bundle.putString(ExerciseBundleKeys.VIDEOURL.toString(), exercise.getVideoUrl());
+                bundle.putString(ExerciseBundleKeys.NUMSETS.toString(), exercise.getNumSets());
+                bundle.putInt(ExerciseBundleKeys.NUMREPS.toString(), exercise.getNumReps());
+                bundle.putInt(ExerciseBundleKeys.DURATION.toString(), exercise.getRepDuration());
+                bundle.putString(ExerciseBundleKeys.DURATIONUNIT.toString(), exercise.getRepDurationUnit());
+                bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), exercise.getDescription());
                 Navigation.findNavController(root).navigate(R.id.action_viewExercise_to_editExercise, bundle);
             }
         });

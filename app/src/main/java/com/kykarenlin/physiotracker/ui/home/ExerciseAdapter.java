@@ -49,7 +49,11 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         int duration = currentExercise.getRepDuration();
         String durationUnit = currentExercise.getRepDurationUnit();
 
-        holder.exerciseDetailsFragment.updateValues(numSets, numReps, duration, durationUnit);
+//        holder.exerciseDetailsFragment.updateValues(numSets, numReps, duration, durationUnit);
+        holder.txtNumSets.setText(numSets);
+        holder.txtNumReps.setText(String.valueOf(numReps));
+        String strDuration = ExerciseDetailsFragment.getDurationTxt(duration, durationUnit);
+        holder.txtDuration.setText(strDuration);
     }
 
     @Override
@@ -64,22 +68,29 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     class ExerciseHolder extends RecyclerView.ViewHolder {
         private TextView txtExerciseName;
-        private ExerciseDetailsFragment exerciseDetailsFragment;
+        private TextView txtNumSets;
+        private TextView txtNumReps;
+        private TextView txtDuration;
+//        private ExerciseDetailsFragment exerciseDetailsFragment;
 
         public ExerciseHolder (View itemView, FragmentActivity fragmentActivity) {
             super(itemView);
             txtExerciseName = itemView.findViewById(R.id.txtExerciseName);
 
-            FrameLayout exerciseItemDetailsPlaceholder = itemView.findViewById(R.id.exerciseItemDetailsPlaceholder);
-            int newId = View.generateViewId();
+            txtNumSets = itemView.findViewById(R.id.txtNumSets);
+            txtNumReps = itemView.findViewById(R.id.txtNumReps);
+            txtDuration = itemView.findViewById(R.id.txtDuration);
 
-            exerciseItemDetailsPlaceholder.setId(newId);
-
-            exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
-
-            fragmentActivity.getSupportFragmentManager().beginTransaction()
-                    .replace(newId, exerciseDetailsFragment)
-                    .commit();
+//            FrameLayout exerciseItemDetailsPlaceholder = itemView.findViewById(R.id.exerciseItemDetailsPlaceholder);
+//            int newId = View.generateViewId();
+//
+//            exerciseItemDetailsPlaceholder.setId(newId);
+//
+//            exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
+//
+//            fragmentActivity.getSupportFragmentManager().beginTransaction()
+//                    .replace(newId, exerciseDetailsFragment)
+//                    .commit();
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

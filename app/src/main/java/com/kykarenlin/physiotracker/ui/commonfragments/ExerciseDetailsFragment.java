@@ -43,16 +43,21 @@ public class ExerciseDetailsFragment extends Fragment {
         return new ExerciseDetailsFragment();
     }
 
+    public static String getDurationTxt(int duration, String durationUnit) {
+        String strDuration = "--";
+        if (duration != 0) {
+            strDuration = duration + durationUnit;
+        }
+        return strDuration;
+    }
+
     private void updateView() {
         if (binding == null) {
             return;
         }
         binding.txtNumSets.setText(numSets);
         binding.txtNumReps.setText(String.valueOf(numReps));
-        String strDuration = "--";
-        if (duration != 0) {
-            strDuration = duration + durationUnit;
-        }
+        String strDuration = ExerciseDetailsFragment.getDurationTxt(duration, durationUnit);
         binding.txtDuration.setText(strDuration);
     }
 

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentHomeBinding;
+import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.commonfragments.BaseFragment;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
@@ -41,7 +42,14 @@ public class HomeFragment extends BaseFragment {
 
         btnAddExercise.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("exerciseId", -1);
+            bundle.putInt(ExerciseBundleKeys.ID.toString(), -1);
+            bundle.putString(ExerciseBundleKeys.NAME.toString(), "");
+            bundle.putString(ExerciseBundleKeys.VIDEOURL.toString(), "");
+            bundle.putString(ExerciseBundleKeys.NUMSETS.toString(), "");
+            bundle.putInt(ExerciseBundleKeys.NUMREPS.toString(), 0);
+            bundle.putInt(ExerciseBundleKeys.DURATION.toString(), 0);
+            bundle.putString(ExerciseBundleKeys.DURATIONUNIT.toString(), "s");
+            bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), "");
             Navigation.findNavController(root).navigate(R.id.action_home_to_editExercise, bundle);
         });
 
@@ -73,7 +81,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(Exercise exercise) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("exerciseId", exercise.getId());
+                bundle.putInt(ExerciseBundleKeys.ID.toString(), exercise.getId());
                 Navigation.findNavController(root).navigate(R.id.action_home_to_viewExercise, bundle);
             }
         });
