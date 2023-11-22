@@ -1,17 +1,12 @@
 package com.kykarenlin.physiotracker.ui.home;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -26,7 +21,6 @@ import com.kykarenlin.physiotracker.ui.commonfragments.BaseFragment;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class HomeFragment extends BaseFragment {
 
@@ -48,8 +42,11 @@ public class HomeFragment extends BaseFragment {
             bundle.putString(ExerciseBundleKeys.NUMSETS.toString(), "");
             bundle.putInt(ExerciseBundleKeys.NUMREPS.toString(), 0);
             bundle.putInt(ExerciseBundleKeys.DURATION.toString(), 0);
-            bundle.putString(ExerciseBundleKeys.DURATIONUNIT.toString(), "s");
+            bundle.putString(ExerciseBundleKeys.DURATION_UNIT.toString(), "s");
             bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), "");
+            bundle.putBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString(), false);
+            bundle.putBoolean(ExerciseBundleKeys.IS_COMPLETED.toString(), false);
+            bundle.putInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString(), 0);
             Navigation.findNavController(root).navigate(R.id.action_home_to_editExercise, bundle);
         });
 

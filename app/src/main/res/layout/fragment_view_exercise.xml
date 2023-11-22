@@ -49,6 +49,7 @@
                 android:id="@+id/btnVideoLinkClicked"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:text="@string/lbl_watch_video"/>
 
 <!--            <androidx.cardview.widget.CardView-->
@@ -89,23 +90,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingRight="8dp">
+            android:paddingRight="4dp">
             <Button
                 android:id="@+id/btnEditExercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:text="@string/lbl_edit"/>
         </FrameLayout>
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="8dp">
+            android:paddingLeft="4dp">
             <Button
                 android:id="@+id/btnDeleteExercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/lbl_delete"
+                android:textAllCaps="false"
                 android:backgroundTint="@color/delete_button"/>
         </FrameLayout>
     </LinearLayout>

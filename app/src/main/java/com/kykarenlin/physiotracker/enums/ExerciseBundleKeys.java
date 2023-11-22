@@ -7,6 +7,9 @@ public enum ExerciseBundleKeys {
     NUMSETS,
     NUMREPS,
     DURATION,
-    DURATIONUNIT,
-    DESCRIPTION
+    DURATION_UNIT,
+    DESCRIPTION,
+    IS_ARCHIVED,
+    IS_COMPLETED,
+    PROGRESS_TIMESTAMP
 }

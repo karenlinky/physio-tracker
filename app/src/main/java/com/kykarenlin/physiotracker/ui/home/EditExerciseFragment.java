@@ -1,10 +1,7 @@
 package com.kykarenlin.physiotracker.ui.home;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,10 +22,7 @@ import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEditExerciseBinding;
 import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
-import com.kykarenlin.physiotracker.model.exercise.ExerciseRepository;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
-
-import java.net.URL;
 
 public class EditExerciseFragment extends Fragment {
 
@@ -35,7 +30,7 @@ public class EditExerciseFragment extends Fragment {
 
     private ExerciseViewModel exerciseViewModel;
 
-    private Exercise exercise;
+    private String unitSelected;
 
     public static EditExerciseFragment newInstance() {
         return new EditExerciseFragment();
@@ -46,8 +41,7 @@ public class EditExerciseFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 //        return inflater.inflate(R.layout.fragment_edit_exercise, container, false);
 
-        EditExerciseViewModel editExerciseViewModel =
-                new ViewModelProvider(this).get(EditExerciseViewModel.class);
+        exerciseViewModel = new ViewModelProvider(this).get(ExerciseViewModel.class);
 
         binding = FragmentEditExerciseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -66,8 +60,11 @@ public class EditExerciseFragment extends Fragment {
         if (duration == 0) {
             initDuration = "";
         }
-        String initDurationUnit = getArguments().getString(ExerciseBundleKeys.DURATIONUNIT.toString());
-        String initDescription =getArguments().getString(ExerciseBundleKeys.DESCRIPTION.toString());
+        String initDurationUnit = getArguments().getString(ExerciseBundleKeys.DURATION_UNIT.toString());
+        String initDescription = getArguments().getString(ExerciseBundleKeys.DESCRIPTION.toString());
+        boolean isArchived = getArguments().getBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString());
+        boolean isCompleted = getArguments().getBoolean(ExerciseBundleKeys.IS_COMPLETED.toString());
+        int progressTimestamp = getArguments().getInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString());
 
         exerciseViewModel =
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
@@ -83,10 +80,13 @@ public class EditExerciseFragment extends Fragment {
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.units, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnDurationUnit.setAdapter(spinnerAdapter);
+
+        unitSelected = initDurationUnit;
+        spnDurationUnit.setSelection(spinnerAdapter.getPosition(unitSelected));
         spnDurationUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                unitSelected = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
@@ -102,27 +102,38 @@ public class EditExerciseFragment extends Fragment {
         edtDuration.setText(initDuration);
         edtDescription.setText(initDescription);
 
-//        if (exerciseId != -1) {
-//            exerciseViewModel.getExerciseById(exerciseId).observe(getViewLifecycleOwner(), new Observer<Exercise>() {
-//                @Override
-//                public void onChanged(Exercise fetchedExercise) {
-//
-//                    if (exercise != null || fetchedExercise == null) {
-//                        return;
-//                    }
-//
-//                    exercise = fetchedExercise;
-//                    edtName.setText(exercise.getName());
-//                    edtVideoUrl.setText(exercise.getVideoUrl());
-//                    edtNumSets.setText(exercise.getNumSets());
-//                    edtNumReps.setText(String.valueOf(exercise.getNumReps()));
-//                    edtDuration.setText(String.valueOf(exercise.getRepDuration()));
-//                    edtDescription.setText(exercise.getDescription());
-//                }
-//            });
-//        }
+        final Button btnSave = binding.btnSave;
 
-        Toast.makeText(getContext(), "exercise id is " + exerciseId, Toast.LENGTH_SHORT).show();
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = edtName.getText().toString();
+                String videoUrl = edtVideoUrl.getText().toString();
+                String numSets = edtNumSets.getText().toString();
+                String numReps = edtNumReps.getText().toString();
+                String duration = edtDuration.getText().toString();
+                String description = edtDescription.getText().toString();
+                Exercise newExercise = new Exercise(
+                        name,
+                        videoUrl,
+                        numSets,
+                        Integer.parseInt(numReps),
+                        Integer.parseInt(duration),
+                        unitSelected,
+                        description);
+                if (exerciseId == -1) {
+                    exerciseViewModel.insert(newExercise);
+                } else {
+                    newExercise.setId(exerciseId);
+                    newExercise.setIsArchived(isArchived);
+                    newExercise.setIsCompleted(isCompleted);
+                    newExercise.setProgressTimestamp(progressTimestamp);
+                    exerciseViewModel.update(newExercise);
+                }
+
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
         return root;
     }

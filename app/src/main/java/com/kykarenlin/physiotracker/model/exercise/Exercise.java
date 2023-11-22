@@ -93,7 +93,7 @@ public class Exercise {
         return isCompleted;
     }
 
-    public int progressTimestamp() {
+    public int getProgressTimestamp() {
         return progressTimestamp;
     }
 }

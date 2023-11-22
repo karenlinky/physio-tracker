@@ -1,7 +1,6 @@
 package com.kykarenlin.physiotracker.ui.home;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,6 +42,8 @@ public class ViewExerciseFragment extends BaseFragment {
         binding = FragmentViewExerciseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        FragmentActivity fragmentActivity = getActivity();
+
         int exerciseId = getArguments().getInt(ExerciseBundleKeys.ID.toString());
 
         final TextView txtViewExerciseName = binding.txtViewExerciseName;
@@ -71,13 +72,13 @@ public class ViewExerciseFragment extends BaseFragment {
 //            }
 //        });
 
-        ExerciseDetailsFragment exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
-
-        FragmentActivity fragmentActivity = getActivity();
-
-        fragmentActivity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.viewExerciseDetailsPlaceholder, exerciseDetailsFragment)
-                .commit();
+//        ExerciseDetailsFragment exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
+//
+//        FragmentActivity fragmentActivity = getActivity();
+//
+//        fragmentActivity.getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.viewExerciseDetailsPlaceholder, exerciseDetailsFragment)
+//                .commit();
 
         final Button btnVideoLinkClicked = binding.btnVideoLinkClicked;
         final TextView txtViewExerciseDescr = binding.txtViewExerciseDescr;
@@ -119,6 +120,12 @@ public class ViewExerciseFragment extends BaseFragment {
                 int numReps = exercise.getNumReps();
                 int duration = exercise.getRepDuration();
                 String durationUnit = exercise.getRepDurationUnit();
+
+                ExerciseDetailsFragment exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
+
+                fragmentActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.viewExerciseDetailsPlaceholder, exerciseDetailsFragment)
+                        .commit();
 
                 exerciseDetailsFragment.updateValues(numSets, numReps, duration, durationUnit);
 
@@ -163,20 +170,20 @@ public class ViewExerciseFragment extends BaseFragment {
             builder.show();
         });
 
-        btnEditExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(ExerciseBundleKeys.ID.toString(), exercise.getId());
-                bundle.putString(ExerciseBundleKeys.NAME.toString(), exercise.getName());
-                bundle.putString(ExerciseBundleKeys.VIDEOURL.toString(), exercise.getVideoUrl());
-                bundle.putString(ExerciseBundleKeys.NUMSETS.toString(), exercise.getNumSets());
-                bundle.putInt(ExerciseBundleKeys.NUMREPS.toString(), exercise.getNumReps());
-                bundle.putInt(ExerciseBundleKeys.DURATION.toString(), exercise.getRepDuration());
-                bundle.putString(ExerciseBundleKeys.DURATIONUNIT.toString(), exercise.getRepDurationUnit());
-                bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), exercise.getDescription());
-                Navigation.findNavController(root).navigate(R.id.action_viewExercise_to_editExercise, bundle);
-            }
+        btnEditExercise.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(ExerciseBundleKeys.ID.toString(), exercise.getId());
+            bundle.putString(ExerciseBundleKeys.NAME.toString(), exercise.getName());
+            bundle.putString(ExerciseBundleKeys.VIDEOURL.toString(), exercise.getVideoUrl());
+            bundle.putString(ExerciseBundleKeys.NUMSETS.toString(), exercise.getNumSets());
+            bundle.putInt(ExerciseBundleKeys.NUMREPS.toString(), exercise.getNumReps());
+            bundle.putInt(ExerciseBundleKeys.DURATION.toString(), exercise.getRepDuration());
+            bundle.putString(ExerciseBundleKeys.DURATION_UNIT.toString(), exercise.getRepDurationUnit());
+            bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), exercise.getDescription());
+            bundle.putBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString(), exercise.getIsArchived());
+            bundle.putBoolean(ExerciseBundleKeys.IS_COMPLETED.toString(), exercise.getIsCompleted());
+            bundle.putInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString(), exercise.getProgressTimestamp());
+            Navigation.findNavController(root).navigate(R.id.action_viewExercise_to_editExercise, bundle);
         });
 
 
