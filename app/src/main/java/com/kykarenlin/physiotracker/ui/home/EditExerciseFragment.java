@@ -1,7 +1,10 @@
 package com.kykarenlin.physiotracker.ui.home;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,9 @@ import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EditExerciseFragment extends Fragment {
 
     private FragmentEditExerciseBinding binding;
@@ -31,6 +37,8 @@ public class EditExerciseFragment extends Fragment {
     private ExerciseViewModel exerciseViewModel;
 
     private String unitSelected;
+
+    private FragmentActivity fragmentActivity;
 
     public static EditExerciseFragment newInstance() {
         return new EditExerciseFragment();
@@ -45,6 +53,8 @@ public class EditExerciseFragment extends Fragment {
 
         binding = FragmentEditExerciseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        fragmentActivity = getActivity();
 
         int exerciseId = getArguments().getInt(ExerciseBundleKeys.ID.toString());
         String initName = getArguments().getString(ExerciseBundleKeys.NAME.toString());
@@ -105,30 +115,106 @@ public class EditExerciseFragment extends Fragment {
         final Button btnSave = binding.btnSave;
 
         btnSave.setOnClickListener(new View.OnClickListener() {
+
+            private void displayError(String title, String errMsg) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(fragmentActivity);
+                builder.setTitle(title).setMessage(errMsg);
+                builder.setPositiveButton("Confirm", (dialogInterface, i) -> {});
+                builder.show();
+            }
             @Override
             public void onClick(View view) {
-                String name = edtName.getText().toString();
-                String videoUrl = edtVideoUrl.getText().toString();
-                String numSets = edtNumSets.getText().toString();
-                String numReps = edtNumReps.getText().toString();
-                String duration = edtDuration.getText().toString();
-                String description = edtDescription.getText().toString();
+                String name = edtName.getText().toString().trim();
+                String videoUrl = edtVideoUrl.getText().toString().trim();
+                String numSets = edtNumSets.getText().toString().trim();
+                String numReps = edtNumReps.getText().toString().trim();
+                String duration = edtDuration.getText().toString().trim();
+                String description = edtDescription.getText().toString().trim();
+
+                List<String> emptyFields = new ArrayList<>();
+                int numEmptyFields = 0;
+
+                if (name.equals("")) {
+                    emptyFields.add("name");
+                }
+
+                if (numSets.equals("")) {
+                    emptyFields.add("number of sets");
+                }
+
+                if (numReps.equals("")) {
+                    emptyFields.add("number of reps");
+                }
+
+                numEmptyFields = emptyFields.size();
+
+                if (numEmptyFields > 0) {
+                    String errMsgPrefix = "Please provide the ";
+                    String errMsgSuffix = ".";
+                    String errMsg = "";
+                    for (int i = 0; i < numEmptyFields; i++) {
+                        if (emptyFields.size() == 1) {
+                            errMsg = emptyFields.get(i);
+                            break;
+                        }
+                        if (i == 0) {
+                            errMsg = emptyFields.get(i);
+                        } else if (i < numEmptyFields - 1) {
+                            errMsg += ", " + emptyFields.get(i);
+                        } else {
+                            // last element
+                            errMsg += " and " + emptyFields.get(i);
+                        }
+                    }
+                    errMsg = errMsgPrefix + errMsg + errMsgSuffix;
+
+                    displayError("Required Fields", errMsg);
+                    return;
+                }
+
+                int intNumReps = Integer.parseInt(numReps);
+                boolean emptyDuration = duration.equals("");
+
+                int intDuration = 0;
+                if (!emptyDuration) {
+                    intDuration = Integer.parseInt(duration);
+                }
+                String errMsg = "";
+
+                if (intNumReps == 0 || (!emptyDuration && intDuration < 0)) {
+                    String zeroError = " cannot be 0.";
+                    String durationError = " You may leave the duration empty if you do not wish to specify one.";
+                    if (intNumReps == 0 && (!emptyDuration && intDuration < 0)) {
+                        errMsg = "Number of reps and duration" + zeroError + durationError;
+                    } else if (!emptyDuration && intDuration < 0) {
+                        errMsg = "Duration" + zeroError + durationError;
+                    } else {
+                        errMsg = "Number of reps" + zeroError;
+                    }
+                    displayError("Invalid Value", errMsg);
+                    return;
+                }
+
+
+
                 Exercise newExercise = new Exercise(
                         name,
                         videoUrl,
                         numSets,
-                        Integer.parseInt(numReps),
-                        Integer.parseInt(duration),
+                        intNumReps,
+                        intDuration,
                         unitSelected,
                         description);
                 if (exerciseId == -1) {
                     exerciseViewModel.insert(newExercise);
+                    Toast.makeText(getContext(), "New exercise created", Toast.LENGTH_SHORT).show();
                 } else {
                     newExercise.setId(exerciseId);
                     newExercise.setIsArchived(isArchived);
                     newExercise.setIsCompleted(isCompleted);
                     newExercise.setProgressTimestamp(progressTimestamp);
                     exerciseViewModel.update(newExercise);
+                    Toast.makeText(getContext(), "Exercise updated", Toast.LENGTH_SHORT).show();
                 }
 
                 getActivity().getSupportFragmentManager().popBackStack();
