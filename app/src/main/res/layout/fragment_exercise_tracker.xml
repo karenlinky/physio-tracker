@@ -96,7 +96,16 @@
                             android:textAllCaps="false" />
                     </FrameLayout>
                 </LinearLayout>
-
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/shp_tracker_exercise_lst_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="12dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/containerTrackerDetails">
                 <LinearLayout
                     android:id="@+id/selectExerciseHint"
                     android:layout_width="match_parent"
@@ -109,30 +118,17 @@
                         android:layout_height="wrap_content"
                         android:text="@string/str_select_exercise_hint" />
                 </LinearLayout>
-            </LinearLayout>
-            <!--            <FrameLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="0dp"-->
-            <!--                android:layout_marginTop="16dp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/containerTrackerDetails"-->
-            <!--                android:padding="8dp"-->
-            <!--                android:background="@drawable/shp_tracker_exercise_lst_background">-->
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/shp_tracker_exercise_lst_background"
-                android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/containerTrackerDetails">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rclvTrackerExercises"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/exercise_item" />
-            </ScrollView>
-            <!--            </FrameLayout>-->
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rclvTrackerExercises"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/tracker_exercise_item" />
+                </ScrollView>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

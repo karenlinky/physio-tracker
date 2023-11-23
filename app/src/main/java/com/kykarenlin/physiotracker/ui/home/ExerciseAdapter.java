@@ -22,21 +22,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     private List<Exercise> exercises = new ArrayList<>();
     private OnItemClickListener listener;
 
-    private FragmentActivity fragmentActivity;
-
-//    private ExerciseDetailsFragment exerciseDetailsFragment;
-
-    public ExerciseAdapter(FragmentActivity fragmentActivity) {
-        this.fragmentActivity = fragmentActivity;
-    }
-
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.exercise_item, parent, false);
 
-        return new ExerciseHolder(itemView, this.fragmentActivity);
+        return new ExerciseHolder(itemView);
     }
 
     @Override
@@ -73,7 +65,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         private TextView txtDuration;
 //        private ExerciseDetailsFragment exerciseDetailsFragment;
 
-        public ExerciseHolder (View itemView, FragmentActivity fragmentActivity) {
+        public ExerciseHolder (View itemView) {
             super(itemView);
             txtExerciseName = itemView.findViewById(R.id.txtExerciseName);
 

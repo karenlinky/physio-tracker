@@ -56,7 +56,7 @@ public class HomeFragment extends BaseFragment {
         rclvExercises.setLayoutManager(new LinearLayoutManager(getContext()));
         rclvExercises.setHasFixedSize(true);
 
-        final ExerciseAdapter adapter = new ExerciseAdapter(getActivity());
+        final ExerciseAdapter adapter = new ExerciseAdapter();
         rclvExercises.setAdapter(adapter);
 
 
