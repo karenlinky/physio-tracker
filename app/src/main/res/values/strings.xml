@@ -19,7 +19,7 @@
     <string name="lbl_save">Save</string>
     <string name="lbl_cancel_exercise">Cancel</string>
     <string name="lbl_finish_exercise">Finish</string>
-    <string name="str_select_exercise_hint">Select an exercise from below to get started</string>
+    <string name="str_select_exercise_hint">Select your next exercise from below to get started.</string>
     <string-array name="units">
         <item>s</item>
         <item>min</item>

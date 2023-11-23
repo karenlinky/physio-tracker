@@ -121,13 +121,11 @@ public class ViewExerciseFragment extends BaseFragment {
                 int duration = exercise.getRepDuration();
                 String durationUnit = exercise.getRepDurationUnit();
 
-                ExerciseDetailsFragment exerciseDetailsFragment = ExerciseDetailsFragment.newInstance();
+                ExerciseDetailsFragment exerciseDetailsFragment = ExerciseDetailsFragment.newInstance(numSets, numReps, duration, durationUnit);
 
                 fragmentActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.viewExerciseDetailsPlaceholder, exerciseDetailsFragment)
                         .commit();
-
-                exerciseDetailsFragment.updateValues(numSets, numReps, duration, durationUnit);
 
                 String videoUrl = exercise.getVideoUrl();
 

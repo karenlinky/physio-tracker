@@ -1,5 +1,7 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker;
 
+import static com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment.DEFAULT_VALUE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentExerciseTrackerBinding;
+import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
 
 public class DashboardFragment extends Fragment {
 
@@ -24,8 +28,13 @@ public class DashboardFragment extends Fragment {
         binding = FragmentExerciseTrackerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        final TextView textView = binding.textDashboard;
-//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        ExerciseDetailsFragment exerciseDetailsFragment = ExerciseDetailsFragment.newInstance(
+                DEFAULT_VALUE, 0, 0, "s");
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.trackerDetailsPlaceholder, exerciseDetailsFragment)
+                .commit();
+
         return root;
     }
 

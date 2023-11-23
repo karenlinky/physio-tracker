@@ -24,6 +24,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class ExerciseDetailsFragment extends Fragment {
 
+    public static final String DEFAULT_VALUE = "--";
+
+    private static final String ARG_NUM_SETS = "numSets";
+    private static final String ARG_NUM_REPS = "numReps";
+    private static final String ARG_DURATION = "duration";
+    private static final String ARG_DURATION_UNIT = "durationUnit";
+
     private String numSets;
     private int numReps;
     private int duration;
@@ -32,19 +39,21 @@ public class ExerciseDetailsFragment extends Fragment {
 
     private FragmentExerciseDetailsBinding binding;
 
-    public ExerciseDetailsFragment() {
-        this.numSets = "0";
-        this.numReps = 0;
-        this.duration = 0;
-        this.durationUnit = "s";
-    }
+    public ExerciseDetailsFragment() {}
 
-    public static ExerciseDetailsFragment newInstance() {
-        return new ExerciseDetailsFragment();
+    public static ExerciseDetailsFragment newInstance(String numSets, int numReps, int duration, String durationUnit) {
+        ExerciseDetailsFragment fragment = new ExerciseDetailsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_NUM_SETS, numSets);
+        args.putInt(ARG_NUM_REPS, numReps);
+        args.putInt(ARG_DURATION, duration);
+        args.putString(ARG_DURATION_UNIT, durationUnit);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public static String getDurationTxt(int duration, String durationUnit) {
-        String strDuration = "--";
+        String strDuration = ExerciseDetailsFragment.DEFAULT_VALUE;
         if (duration != 0) {
             strDuration = duration + durationUnit;
         }
@@ -56,7 +65,11 @@ public class ExerciseDetailsFragment extends Fragment {
             return;
         }
         binding.txtNumSets.setText(numSets);
-        binding.txtNumReps.setText(String.valueOf(numReps));
+        if (numReps == 0) {
+            binding.txtNumReps.setText(ExerciseDetailsFragment.DEFAULT_VALUE);
+        } else {
+            binding.txtNumReps.setText(String.valueOf(numReps));
+        }
         String strDuration = ExerciseDetailsFragment.getDurationTxt(duration, durationUnit);
         binding.txtDuration.setText(strDuration);
     }
@@ -67,6 +80,17 @@ public class ExerciseDetailsFragment extends Fragment {
         this.duration = duration;
         this.durationUnit = durationUnit;
         updateView();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            numSets = getArguments().getString(ARG_NUM_SETS);
+            numReps = getArguments().getInt(ARG_NUM_REPS);
+            duration = getArguments().getInt(ARG_DURATION);
+            durationUnit = getArguments().getString(ARG_DURATION_UNIT);
+        }
     }
 
     @Override
