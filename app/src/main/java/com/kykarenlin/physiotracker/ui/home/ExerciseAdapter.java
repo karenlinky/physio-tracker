@@ -31,6 +31,18 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         return new ExerciseHolder(itemView);
     }
 
+    /*
+                return oldItem.getName().equals(newItem.getName()) &&
+                    oldItem.getVideoUrl().equals(newItem.getName()) &&
+                    oldItem.getNumSets().equals(newItem.getNumSets()) &&
+                    oldItem.getNumReps() == newItem.getNumReps() &&
+                    oldItem.getRepDuration() == newItem.getRepDuration() &&
+                    oldItem.getRepDurationUnit().equals(newItem.getRepDurationUnit()) &&
+                    oldItem.getDescription().equals(newItem.getDescription()) &&
+                    oldItem.getIsArchived() == newItem.getIsArchived() &&
+                    oldItem.getIsCompleted() == newItem.getIsCompleted();
+     */
+
     @Override
     public void onBindViewHolder(@NonNull ExerciseHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
