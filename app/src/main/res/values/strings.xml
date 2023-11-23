@@ -6,6 +6,8 @@
     <string name="title_exercise_tracker">Exercise Tracker</string>
     <string name="title_event_logs">Event Logs</string>
     <string name="txt_add_new_exercise">Add new exercise</string>
+    <string name="txt_finish_session">Finish session</string>
+    <string name="txt_pause_session">Pause session</string>
     <string name="header_exercises">My Exercises</string>
     <string name="lbl_watch_video">Watch Video</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -15,6 +17,9 @@
     <string name="lbl_confirm">Confirm</string>
     <string name="lbl_cancel">Cancel</string>
     <string name="lbl_save">Save</string>
+    <string name="lbl_cancel_exercise">Cancel</string>
+    <string name="lbl_finish_exercise">Finish</string>
+    <string name="str_select_exercise_hint">Select an exercise from below to get started</string>
     <string-array name="units">
         <item>s</item>
         <item>min</item>

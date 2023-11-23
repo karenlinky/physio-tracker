@@ -24,8 +24,8 @@ public class EventLogsFragment extends Fragment {
         binding = FragmentEventLogsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        eventsLogsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textNotifications;
+//        eventsLogsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
