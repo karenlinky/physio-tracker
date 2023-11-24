@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentExerciseTrackerBinding;
 import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
+import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerStopwatchObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseControlObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseProgressObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerStatusSubject;
@@ -70,12 +71,14 @@ public class DashboardFragment extends Fragment {
         adapter.setOnItemClickListener(exerciseProgress -> trackerStatusSubject.onExerciseProgressClicked(exerciseProgress));
 
 
+        final Chronometer cnmtTracker = binding.cnmtTracker;
+        TrackerStopwatchObserver trackerStopwatchObserver = new TrackerStopwatchObserver(trackerStatusSubject, cnmtTracker);
+        trackerStatusSubject.registerObserver(trackerStopwatchObserver);
 
         final TextView txtTrackerStatus = binding.txtTrackerStatus;
-        final Chronometer cnmtTracker = binding.cnmtTracker;
         final TextView txtTrackerExerciseName = binding.txtTrackerExerciseName;
 
-        TrackerTextObserver trackerTextObserver = new TrackerTextObserver(trackerStatusSubject, txtTrackerStatus, cnmtTracker, txtTrackerExerciseName, exerciseDetailsFragment);
+        TrackerTextObserver trackerTextObserver = new TrackerTextObserver(trackerStatusSubject, txtTrackerStatus, txtTrackerExerciseName, exerciseDetailsFragment);
         trackerStatusSubject.registerObserver(trackerTextObserver);
 
 
@@ -99,6 +102,7 @@ public class DashboardFragment extends Fragment {
 
 
 
+        trackerStatusSubject.notifyInitialState();
 
 
 

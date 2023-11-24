@@ -14,13 +14,11 @@ public class TrackerTextObserver extends TrackerObserver {
 
     private TrackerStatusSubject trackerStatusSubject;
     private TextView txtTrackerStatus;
-    private Chronometer cnmtTracker;
     private TextView txtTrackerExerciseName;
     private ExerciseDetailsFragment exerciseDetailsFragment;
-    public TrackerTextObserver(TrackerStatusSubject trackerStatusSubject, TextView txtTrackerStatus, Chronometer cnmtTracker, TextView txtTrackerExerciseName, ExerciseDetailsFragment exerciseDetailsFragment) {
+    public TrackerTextObserver(TrackerStatusSubject trackerStatusSubject, TextView txtTrackerStatus, TextView txtTrackerExerciseName, ExerciseDetailsFragment exerciseDetailsFragment) {
         this.trackerStatusSubject = trackerStatusSubject;
         this.txtTrackerStatus = txtTrackerStatus;
-        this.cnmtTracker = cnmtTracker;
         this.txtTrackerExerciseName = txtTrackerExerciseName;
         this.exerciseDetailsFragment = exerciseDetailsFragment;
     }

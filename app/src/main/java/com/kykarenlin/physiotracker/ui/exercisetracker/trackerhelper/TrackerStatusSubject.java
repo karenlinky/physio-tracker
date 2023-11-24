@@ -68,6 +68,10 @@ public class TrackerStatusSubject {
 
     public void registerObserver(TrackerObserver trackerObserver) {
         trackerObservers.add(trackerObserver);
+    }
+
+    public void notifyInitialState() {
+
         this.notifyStateChanged();
     }
 
@@ -133,6 +137,10 @@ public class TrackerStatusSubject {
         this.setData(KEY_TRACKER_TIMESTAMP, timestamp);
     }
 
+    private void updateTimestampToCurrentTime() {
+        this.updateTimestamp(SystemClock.elapsedRealtime());
+    }
+
     private void updateActiveId(int activeExerciseId) {
         this.activeExerciseId = activeExerciseId;
         this.setData(KEY_TRACKER_ACTIVE_EXERCISE_ID, activeExerciseId);
@@ -145,6 +153,8 @@ public class TrackerStatusSubject {
     public boolean getSessionPaused() {
         return this.sessionPaused;
     }
+
+    public long getTimestamp() {return this.timestamp;}
 
     public void onExerciseProgressClicked(ExerciseProgress exerciseProgress) {
         switch(getStatus()) {
@@ -191,12 +201,14 @@ public class TrackerStatusSubject {
         updateStatus(TrackerStatus.WORKOUT_IN_PROGRESS);
         updateSessionPaused(false);
         updateActiveId(selectedExerciseId);
+        updateTimestampToCurrentTime();
         notifyStateChanged();
     }
 
     public void cancelExercise() {
         updateStatus(TrackerStatus.BREAK);
         updateSessionPaused(false);
+        updateTimestampToCurrentTime();
         notifyStateChanged();
     }
 
