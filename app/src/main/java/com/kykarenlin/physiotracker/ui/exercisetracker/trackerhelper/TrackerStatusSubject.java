@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.enums.TrackerStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.exercisetracker.ExerciseProgress;
@@ -92,6 +93,51 @@ public class TrackerStatusSubject {
         return sharedPref.getBoolean(key, defaultVal);
     }
 
+    private void setData(String key, String defaultVal) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(key, defaultVal);
+        editor.apply();
+
+    }
+
+    private void setData(String key, int defaultVal) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(key, defaultVal);
+        editor.apply();
+    }
+
+    private void setData(String key, long defaultVal) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong(key, defaultVal);
+        editor.apply();
+    }
+
+    private void setData(String key, boolean defaultVal) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(key, defaultVal);
+        editor.apply();
+    }
+
+    private void updateStatus(TrackerStatus status) {
+        this.status = status;
+        this.setData(KEY_TRACKER_STATUS, status.toString());
+    }
+
+    private void updateSessionPaused(boolean sessionPaused) {
+        this.sessionPaused = sessionPaused;
+        this.setData(KEY_TRACKER_SESSION_PAUSED, sessionPaused);
+    }
+
+    private void updateTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+        this.setData(KEY_TRACKER_TIMESTAMP, timestamp);
+    }
+
+    private void updateActiveId(int activeExerciseId) {
+        this.activeExerciseId = activeExerciseId;
+        this.setData(KEY_TRACKER_ACTIVE_EXERCISE_ID, activeExerciseId);
+    }
+
     public TrackerStatus getStatus() {
         return this.status;
     }
@@ -118,6 +164,8 @@ public class TrackerStatusSubject {
         for (TrackerObserver trackerObserver : trackerObservers) {
             trackerObserver.notifyExercisesChanged(exercises);
         }
+        // TODO: handle removed exercise
+        this.notifyStateChanged();
     }
 
     private Exercise searchForExerciseById(int id) {
@@ -135,5 +183,27 @@ public class TrackerStatusSubject {
 
     public Exercise getSelectedExercise() {
         return this.searchForExerciseById(selectedExerciseId);
+    }
+
+    public void startExercise() {
+        updateStatus(TrackerStatus.WORKOUT_IN_PROGRESS);
+        updateSessionPaused(false);
+        updateActiveId(selectedExerciseId);
+        notifyStateChanged();
+    }
+
+    public void cancelExercise() {
+        updateStatus(TrackerStatus.BREAK);
+        updateSessionPaused(false);
+        notifyStateChanged();
+    }
+
+    public void finishExercise() {
+        Exercise exercise = getActiveExercise();
+        if (exercise != null) {
+            exercise.setSessionStatus(ExerciseSessionStatus.COMPLETED.toString());
+            exerciseViewModel.update(exercise);
+        }
+        this.cancelExercise();
     }
 }

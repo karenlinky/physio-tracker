@@ -69,8 +69,6 @@ public class DashboardFragment extends Fragment {
         exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises ->trackerStatusSubject.updateExercises(exercises));
         adapter.setOnItemClickListener(exerciseProgress -> trackerStatusSubject.onExerciseProgressClicked(exerciseProgress));
 
-//        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises -> exerciseProgressObserver.updateExercises(exercises));
-
 
 
         final TextView txtTrackerStatus = binding.txtTrackerStatus;
@@ -88,6 +86,12 @@ public class DashboardFragment extends Fragment {
 
         ExerciseControlObserver exerciseControlObserver = new ExerciseControlObserver(trackerStatusSubject, btnStartExercise, exerciseOngoingButtonsContainer, btnCancelExercise, btnFinishExercise);
         trackerStatusSubject.registerObserver(exerciseControlObserver);
+
+        btnStartExercise.setOnClickListener(view -> trackerStatusSubject.startExercise());
+        btnCancelExercise.setOnClickListener(view -> trackerStatusSubject.cancelExercise());
+        btnFinishExercise.setOnClickListener(view -> trackerStatusSubject.finishExercise());
+
+
 
         final TextView selectExerciseHint = binding.selectExerciseHint;
         final ImageButton btnPauseSession = binding.btnPauseSession;

@@ -1,14 +1,19 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
+import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 
 import java.util.ArrayList;
@@ -29,6 +34,11 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
     public void onBindViewHolder(@NonNull TrackerExerciseListHolder holder, int position) {
         ExerciseProgress currentExercise = exercisesWithProgress.get(position);
         holder.txtTrackerExerciseItemName.setText(currentExercise.getExercise().getName());
+        if (currentExercise.getExercise().getSessionStatus().equals(ExerciseSessionStatus.COMPLETED.toString())) {
+            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFE3FFCC"));
+        } else {
+            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
+        }
     }
 
     @Override
@@ -43,10 +53,12 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
 
     class TrackerExerciseListHolder extends RecyclerView.ViewHolder {
         private TextView txtTrackerExerciseItemName;
+        private CardView trackerItemCard;
 
         public TrackerExerciseListHolder(@NonNull View itemView) {
             super(itemView);
             txtTrackerExerciseItemName = itemView.findViewById(R.id.txtTrackerExerciseItemName);
+            trackerItemCard = itemView.findViewById(R.id.trackerItemCard);
 
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();

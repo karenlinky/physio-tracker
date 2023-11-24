@@ -34,8 +34,6 @@ public class TrackerTextObserver extends TrackerObserver {
         String strTrackerStatus = "";
         String strTrackerExerciseName = "";
 
-        Log.e("TAG", "updateViews: here");
-
         switch (status) {
             case SESSION_NOT_STARTED:
                 strTrackerStatus = "Session Not Started";
@@ -62,8 +60,6 @@ public class TrackerTextObserver extends TrackerObserver {
                 };
                 break;
             case BREAK:
-                // TODO: make sure that when on break, id is not cancelled
-                // TODO: think about what happens if exercise gets deleted
                 if (selectedExercise != null) {
                     strTrackerExerciseName = selectedExercise.getName();
                 } else {

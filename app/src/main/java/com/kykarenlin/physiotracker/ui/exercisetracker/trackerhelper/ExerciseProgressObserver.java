@@ -18,6 +18,7 @@ public class ExerciseProgressObserver extends TrackerObserver {
 
     @Override
     public void notifyExercisesChanged(List<Exercise> exercises) {
+        exercisesWithProgress.clear();
         for (Exercise exercise : exercises) {
             exercisesWithProgress.add(new ExerciseProgress(exercise));
         }
