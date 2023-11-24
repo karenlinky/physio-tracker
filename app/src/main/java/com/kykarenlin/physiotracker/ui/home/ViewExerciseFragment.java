@@ -179,7 +179,7 @@ public class ViewExerciseFragment extends BaseFragment {
             bundle.putString(ExerciseBundleKeys.DURATION_UNIT.toString(), exercise.getRepDurationUnit());
             bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), exercise.getDescription());
             bundle.putBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString(), exercise.getIsArchived());
-            bundle.putBoolean(ExerciseBundleKeys.IS_COMPLETED.toString(), exercise.getIsCompleted());
+            bundle.putString(ExerciseBundleKeys.SESSION_STATUS.toString(), exercise.getSessionStatus());
             bundle.putInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString(), exercise.getProgressTimestamp());
             Navigation.findNavController(root).navigate(R.id.action_viewExercise_to_editExercise, bundle);
         });

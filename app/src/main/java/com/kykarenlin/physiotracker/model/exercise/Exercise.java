@@ -1,8 +1,9 @@
 package com.kykarenlin.physiotracker.model.exercise;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 
 @Entity(tableName = "exercise_table")
 public class Exercise {
@@ -18,7 +19,7 @@ public class Exercise {
 
     private boolean isArchived;
 
-    private boolean isCompleted;
+    private String sessionStatus;
 
     private int progressTimestamp;
 
@@ -33,7 +34,7 @@ public class Exercise {
         this.repDurationUnit = repDurationUnit;
         this.description = description;
         this.isArchived = false;
-        this.isCompleted = false;
+        this.sessionStatus = ExerciseSessionStatus.NOT_COMPLETED.toString();
         this.progressTimestamp = 0;
     }
 
@@ -45,8 +46,8 @@ public class Exercise {
         this.isArchived = isArchived;
     }
 
-    public void setIsCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public void setSessionStatus(String sessionStatus) {
+        this.sessionStatus = sessionStatus;
     }
 
     public void setProgressTimestamp(int progressTimestamp) {
@@ -89,8 +90,8 @@ public class Exercise {
         return isArchived;
     }
 
-    public boolean getIsCompleted() {
-        return isCompleted;
+    public String getSessionStatus() {
+        return sessionStatus;
     }
 
     public int getProgressTimestamp() {

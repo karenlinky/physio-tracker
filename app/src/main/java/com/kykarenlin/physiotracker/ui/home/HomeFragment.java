@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentHomeBinding;
 import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
+import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.commonfragments.BaseFragment;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
@@ -45,7 +46,7 @@ public class HomeFragment extends BaseFragment {
             bundle.putString(ExerciseBundleKeys.DURATION_UNIT.toString(), "s");
             bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), "");
             bundle.putBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString(), false);
-            bundle.putBoolean(ExerciseBundleKeys.IS_COMPLETED.toString(), false);
+            bundle.putString(ExerciseBundleKeys.SESSION_STATUS.toString(), ExerciseSessionStatus.NOT_COMPLETED.toString());
             bundle.putInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString(), 0);
             Navigation.findNavController(root).navigate(R.id.action_home_to_editExercise, bundle);
         });

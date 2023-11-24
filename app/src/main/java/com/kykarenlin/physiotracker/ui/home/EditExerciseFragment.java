@@ -4,7 +4,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEditExerciseBinding;
 import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
+import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
@@ -73,7 +73,7 @@ public class EditExerciseFragment extends Fragment {
         String initDurationUnit = getArguments().getString(ExerciseBundleKeys.DURATION_UNIT.toString());
         String initDescription = getArguments().getString(ExerciseBundleKeys.DESCRIPTION.toString());
         boolean isArchived = getArguments().getBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString());
-        boolean isCompleted = getArguments().getBoolean(ExerciseBundleKeys.IS_COMPLETED.toString());
+        String sessionStatus = getArguments().getString(ExerciseBundleKeys.SESSION_STATUS.toString());
         int progressTimestamp = getArguments().getInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString());
 
         exerciseViewModel =
@@ -211,7 +211,7 @@ public class EditExerciseFragment extends Fragment {
                 } else {
                     newExercise.setId(exerciseId);
                     newExercise.setIsArchived(isArchived);
-                    newExercise.setIsCompleted(isCompleted);
+                    newExercise.setSessionStatus(sessionStatus);
                     newExercise.setProgressTimestamp(progressTimestamp);
                     exerciseViewModel.update(newExercise);
                     Toast.makeText(getContext(), "Exercise updated", Toast.LENGTH_SHORT).show();

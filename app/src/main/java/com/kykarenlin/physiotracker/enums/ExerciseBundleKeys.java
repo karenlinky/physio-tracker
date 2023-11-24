@@ -10,6 +10,6 @@ public enum ExerciseBundleKeys {
     DURATION_UNIT,
     DESCRIPTION,
     IS_ARCHIVED,
-    IS_COMPLETED,
+    SESSION_STATUS,
     PROGRESS_TIMESTAMP
 }
