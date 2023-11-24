@@ -75,13 +75,10 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        adapter.setOnItemClickListener(new ExerciseAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Exercise exercise) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(ExerciseBundleKeys.ID.toString(), exercise.getId());
-                Navigation.findNavController(root).navigate(R.id.action_home_to_viewExercise, bundle);
-            }
+        adapter.setOnItemClickListener(exercise -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(ExerciseBundleKeys.ID.toString(), exercise.getId());
+            Navigation.findNavController(root).navigate(R.id.action_home_to_viewExercise, bundle);
         });
 
         return root;

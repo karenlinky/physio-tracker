@@ -49,7 +49,7 @@
                     android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/txtTrackerName"
+                    android:id="@+id/txtTrackerExerciseName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Star Excursion Balance Exercise"
@@ -59,8 +59,15 @@
                     android:id="@+id/trackerDetailsPlaceholder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btnStartExercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_start_exercise"
+                    android:textAllCaps="false" />
 
                 <LinearLayout
+                    android:id="@+id/exerciseOngoingButtonsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -109,7 +116,7 @@
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/containerTrackerDetails">
                 <LinearLayout
-                    android:id="@+id/selectExerciseHint"
+                    android:id="@+id/selectExerciseHintContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -117,6 +124,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/selectExerciseHint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_select_exercise_hint" />

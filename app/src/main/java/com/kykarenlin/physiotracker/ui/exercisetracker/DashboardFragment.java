@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,9 +56,30 @@ public class DashboardFragment extends Fragment {
         final TrackerExerciseListAdapter adapter = new TrackerExerciseListAdapter();
         rclvTrackerExercises.setAdapter(adapter);
 
+
+
+        final TextView txtTrackerStatus = binding.txtTrackerStatus;
+        final Chronometer cnmtTracker = binding.cnmtTracker;
+        final TextView txtTrackerExerciseName = binding.txtTrackerExerciseName;
+
+        final Button btnStartExercise = binding.btnStartExercise;
+        final LinearLayout exerciseOngoingButtonsContainer = binding.exerciseOngoingButtonsContainer;
+        final Button btnCancelExercise = binding.btnCancelExercise;
+        final Button btnFinishExercise = binding.btnFinishExercise;
+
+        final TextView selectExerciseHint = binding.selectExerciseHint;
+
+        final ImageButton btnPauseSession = binding.btnPauseSession;
+        final ImageButton btnFinishSession = binding.btnFinishSession;
+
+
+        ExerciseProgressObserver exerciseProgressObserver = new ExerciseProgressObserver(adapter);
+
+
         exerciseViewModel =
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
-        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises -> adapter.setExercises(exercises));
+        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises -> exerciseProgressObserver.updateExercises(exercises));
+
 
         return root;
     }

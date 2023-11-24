@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExerciseListAdapter.TrackerExerciseListHolder> {
-    private List<Exercise> exercises = new ArrayList<>();
+    private List<ExerciseProgress> exercisesWithProgress = new ArrayList<>();
     @NonNull
     @Override
     public TrackerExerciseListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -26,17 +26,17 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
 
     @Override
     public void onBindViewHolder(@NonNull TrackerExerciseListHolder holder, int position) {
-        Exercise currentExercise = exercises.get(position);
-        holder.txtTrackerExerciseItemName.setText(currentExercise.getName());
+        ExerciseProgress currentExercise = exercisesWithProgress.get(position);
+        holder.txtTrackerExerciseItemName.setText(currentExercise.getExercise().getName());
     }
 
     @Override
     public int getItemCount() {
-        return exercises.size();
+        return exercisesWithProgress.size();
     }
 
-    public void setExercises(List<Exercise> exercises) {
-        this.exercises = exercises;
+    public void setExercises(List<ExerciseProgress> exercisesWithProgress) {
+        this.exercisesWithProgress = exercisesWithProgress;
         notifyDataSetChanged();
     }
 

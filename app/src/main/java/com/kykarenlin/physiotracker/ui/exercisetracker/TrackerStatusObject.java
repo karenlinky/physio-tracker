@@ -1,12 +1,12 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker;
 
-public class TrackerStatus {
+public class TrackerStatusObject {
     private String status;
 
     private boolean sessionPaused;
 
     private int timestamp;
-    public TrackerStatus () {
+    public TrackerStatusObject() {
 
     }
 }
