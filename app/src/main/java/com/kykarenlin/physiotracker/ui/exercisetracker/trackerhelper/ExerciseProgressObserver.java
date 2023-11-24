@@ -1,6 +1,10 @@
-package com.kykarenlin.physiotracker.ui.exercisetracker;
+package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
+
+import android.util.Log;
 
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
+import com.kykarenlin.physiotracker.ui.exercisetracker.ExerciseProgress;
+import com.kykarenlin.physiotracker.ui.exercisetracker.TrackerExerciseListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +16,14 @@ public class ExerciseProgressObserver extends TrackerObserver {
 
     public ExerciseProgressObserver(TrackerExerciseListAdapter adapter) {this.adapter = adapter;}
 
-    public void updateExercises(List<Exercise> exercises) {
+    @Override
+    public void notifyExercisesChanged(List<Exercise> exercises) {
         for (Exercise exercise : exercises) {
             exercisesWithProgress.add(new ExerciseProgress(exercise));
         }
+        Log.e("TAG", "HERE UPDATINg: size: " + exercisesWithProgress.size());
         adapter.setExercises(exercisesWithProgress);
     }
+
+    public void notifyInitialState() {}
 }

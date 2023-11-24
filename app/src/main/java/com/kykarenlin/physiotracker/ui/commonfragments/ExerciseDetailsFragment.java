@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEditExerciseBinding;
 import com.kykarenlin.physiotracker.databinding.FragmentExerciseDetailsBinding;
+import com.kykarenlin.physiotracker.model.exercise.Exercise;
 
 import java.util.concurrent.TimeUnit;
 
@@ -72,6 +73,20 @@ public class ExerciseDetailsFragment extends Fragment {
         }
         String strDuration = ExerciseDetailsFragment.getDurationTxt(duration, durationUnit);
         binding.txtDuration.setText(strDuration);
+    }
+
+    public void updateValues(Exercise exercise) {
+        if (exercise == null) {
+            this.numSets = "--";
+            this.numReps = 0;
+            this.duration = 0;
+            this.durationUnit = "s";
+        } else {
+            this.numSets = exercise.getNumSets();
+            this.numReps = exercise.getNumReps();
+            this.duration = exercise.getRepDuration();
+            this.durationUnit = exercise.getRepDurationUnit();
+        }
     }
 
     public void updateValues(String numSets, int numReps, int duration, String durationUnit) {

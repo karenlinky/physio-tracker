@@ -16,6 +16,7 @@ import java.util.List;
 
 public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExerciseListAdapter.TrackerExerciseListHolder> {
     private List<ExerciseProgress> exercisesWithProgress = new ArrayList<>();
+    private OnItemClickListener listener;
     @NonNull
     @Override
     public TrackerExerciseListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,6 +47,21 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
         public TrackerExerciseListHolder(@NonNull View itemView) {
             super(itemView);
             txtTrackerExerciseItemName = itemView.findViewById(R.id.txtTrackerExerciseItemName);
+
+            itemView.setOnClickListener(view -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(exercisesWithProgress.get(position));
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(ExerciseProgress exerciseProgress);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }
