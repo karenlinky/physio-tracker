@@ -21,9 +21,8 @@ public class ExerciseProgressObserver extends TrackerObserver {
         for (Exercise exercise : exercises) {
             exercisesWithProgress.add(new ExerciseProgress(exercise));
         }
-        Log.e("TAG", "HERE UPDATINg: size: " + exercisesWithProgress.size());
         adapter.setExercises(exercisesWithProgress);
     }
 
-    public void notifyInitialState() {}
+    public void notifyStateChanged() {}
 }

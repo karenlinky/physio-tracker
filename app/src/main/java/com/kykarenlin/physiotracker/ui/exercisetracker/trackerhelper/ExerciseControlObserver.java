@@ -57,7 +57,7 @@ public class ExerciseControlObserver extends TrackerObserver{
         }
     }
 
-    public void notifyInitialState() {
+    public void notifyStateChanged() {
         this.updateViews();
     }
 }

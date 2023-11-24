@@ -5,7 +5,7 @@ import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import java.util.List;
 
 public abstract class TrackerObserver {
-    public abstract void notifyInitialState();
+    public abstract void notifyStateChanged();
 
     public void notifyExercisesChanged(List<Exercise> exercises) {};
 }

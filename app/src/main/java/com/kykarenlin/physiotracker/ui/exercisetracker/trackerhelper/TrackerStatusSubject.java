@@ -7,7 +7,6 @@ import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 
 import com.kykarenlin.physiotracker.enums.TrackerStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
@@ -59,21 +58,21 @@ public class TrackerStatusSubject {
         activeExerciseId = getData(KEY_TRACKER_ACTIVE_EXERCISE_ID, DEFAULT_EXERCISE_ID);
         selectedExerciseId = activeExerciseId;
 
-        Log.e("TAG", "status: " + strStatus);
-        Log.e("TAG", "sessionPaused: " + sessionPaused);
-        Log.e("TAG", "timestamp: " + timestamp);
-        Log.e("TAG", "activeExerciseId: " + activeExerciseId);
-        Log.e("TAG", "selectedExerciseId: " + selectedExerciseId);
+        Log.i("TAG", "status: " + strStatus);
+        Log.i("TAG", "sessionPaused: " + sessionPaused);
+        Log.i("TAG", "timestamp: " + timestamp);
+        Log.i("TAG", "activeExerciseId: " + activeExerciseId);
+        Log.i("TAG", "selectedExerciseId: " + selectedExerciseId);
     }
 
     public void registerObserver(TrackerObserver trackerObserver) {
         trackerObservers.add(trackerObserver);
-        this.notifyInitialState();
+        this.notifyStateChanged();
     }
 
-    private void notifyInitialState() {
+    private void notifyStateChanged() {
         for (TrackerObserver trackerObserver : trackerObservers) {
-            trackerObserver.notifyInitialState();
+            trackerObserver.notifyStateChanged();
         }
     }
 
@@ -102,7 +101,16 @@ public class TrackerStatusSubject {
     }
 
     public void onExerciseProgressClicked(ExerciseProgress exerciseProgress) {
-
+        switch(getStatus()) {
+            case WORKOUT_IN_PROGRESS:
+            case SESSION_COMPLETED:
+                break;
+            case SESSION_NOT_STARTED:
+            case BREAK:
+                selectedExerciseId = exerciseProgress.getExercise().getId();
+                break;
+        }
+        this.notifyStateChanged();
     }
 
     public void updateExercises(List<Exercise> exercises) {
@@ -126,6 +134,6 @@ public class TrackerStatusSubject {
     }
 
     public Exercise getSelectedExercise() {
-        return this.searchForExerciseById(activeExerciseId);
+        return this.searchForExerciseById(selectedExerciseId);
     }
 }

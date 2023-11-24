@@ -87,6 +87,7 @@ public class ExerciseDetailsFragment extends Fragment {
             this.duration = exercise.getRepDuration();
             this.durationUnit = exercise.getRepDurationUnit();
         }
+        updateView();
     }
 
     public void updateValues(String numSets, int numReps, int duration, String durationUnit) {

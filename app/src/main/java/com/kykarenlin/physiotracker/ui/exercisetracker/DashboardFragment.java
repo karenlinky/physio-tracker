@@ -66,10 +66,10 @@ public class DashboardFragment extends Fragment {
 
         ExerciseProgressObserver exerciseProgressObserver = new ExerciseProgressObserver(adapter);
         trackerStatusSubject.registerObserver(exerciseProgressObserver);
+        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises ->trackerStatusSubject.updateExercises(exercises));
         adapter.setOnItemClickListener(exerciseProgress -> trackerStatusSubject.onExerciseProgressClicked(exerciseProgress));
 
 //        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises -> exerciseProgressObserver.updateExercises(exercises));
-        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), exercises ->trackerStatusSubject.updateExercises(exercises));
 
 
 

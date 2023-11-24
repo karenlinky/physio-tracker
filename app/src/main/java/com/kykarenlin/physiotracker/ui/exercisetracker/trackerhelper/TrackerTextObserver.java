@@ -1,5 +1,6 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
+import android.util.Log;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class TrackerTextObserver extends TrackerObserver {
 
         String strTrackerStatus = "";
         String strTrackerExerciseName = "";
+
+        Log.e("TAG", "updateViews: here");
 
         switch (status) {
             case SESSION_NOT_STARTED:
@@ -90,7 +93,7 @@ public class TrackerTextObserver extends TrackerObserver {
         this.txtTrackerExerciseName.setText(strTrackerExerciseName);
     }
 
-    public void notifyInitialState() {
+    public void notifyStateChanged() {
         this.updateViews();
     }
 }
