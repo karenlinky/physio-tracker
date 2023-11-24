@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +27,17 @@ import java.util.concurrent.TimeUnit;
 public class ExerciseDetailsFragment extends Fragment {
 
     public static final String DEFAULT_VALUE = "--";
+    public static final int DEFAULT_INT = -1;
 
     private static final String ARG_NUM_SETS = "numSets";
     private static final String ARG_NUM_REPS = "numReps";
     private static final String ARG_DURATION = "duration";
     private static final String ARG_DURATION_UNIT = "durationUnit";
 
-    private String numSets;
-    private int numReps;
-    private int duration;
-    private String durationUnit;
+    private String numSets = null;
+    private int numReps = DEFAULT_INT;
+    private int duration = DEFAULT_INT;
+    private String durationUnit = null;
 
 
     private FragmentExerciseDetailsBinding binding;
@@ -76,12 +78,15 @@ public class ExerciseDetailsFragment extends Fragment {
     }
 
     public void updateValues(Exercise exercise) {
+        Log.e("TAG", "updateValues: HERE");
         if (exercise == null) {
+            Log.e("TAG", "updateValues: NULL");
             this.numSets = "--";
             this.numReps = 0;
             this.duration = 0;
             this.durationUnit = "s";
         } else {
+            Log.e("TAG", "updateValues: NOT NULL");
             this.numSets = exercise.getNumSets();
             this.numReps = exercise.getNumReps();
             this.duration = exercise.getRepDuration();
@@ -102,10 +107,18 @@ public class ExerciseDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            numSets = getArguments().getString(ARG_NUM_SETS);
-            numReps = getArguments().getInt(ARG_NUM_REPS);
-            duration = getArguments().getInt(ARG_DURATION);
-            durationUnit = getArguments().getString(ARG_DURATION_UNIT);
+            if (numSets == null) {
+                numSets = getArguments().getString(ARG_NUM_SETS);
+            }
+            if (numReps == DEFAULT_INT) {
+                numReps = getArguments().getInt(ARG_NUM_REPS);
+            }
+            if (duration == DEFAULT_INT) {
+                duration = getArguments().getInt(ARG_DURATION);
+            }
+            if (durationUnit == null) {
+                durationUnit = getArguments().getString(ARG_DURATION_UNIT);
+            }
         }
     }
 

@@ -57,7 +57,7 @@ public class TrackerStatusSubject {
         sessionPaused = getData(KEY_TRACKER_SESSION_PAUSED, false);
         timestamp = getData(KEY_TRACKER_TIMESTAMP, SystemClock.elapsedRealtime());
         activeExerciseId = getData(KEY_TRACKER_ACTIVE_EXERCISE_ID, DEFAULT_EXERCISE_ID);
-        selectedExerciseId = activeExerciseId;
+        selectedExerciseId = -1;
 
         Log.i("TAG", "status: " + strStatus);
         Log.i("TAG", "sessionPaused: " + sessionPaused);
@@ -153,7 +153,9 @@ public class TrackerStatusSubject {
                 break;
             case SESSION_NOT_STARTED:
             case BREAK:
-                selectedExerciseId = exerciseProgress.getExercise().getId();
+                if (exerciseProgress.getExercise().getSessionStatus().equals(ExerciseSessionStatus.NOT_COMPLETED.toString())) {
+                    selectedExerciseId = exerciseProgress.getExercise().getId();
+                }
                 break;
         }
         this.notifyStateChanged();
@@ -204,6 +206,7 @@ public class TrackerStatusSubject {
             exercise.setSessionStatus(ExerciseSessionStatus.COMPLETED.toString());
             exerciseViewModel.update(exercise);
         }
+        selectedExerciseId = DEFAULT_EXERCISE_ID;
         this.cancelExercise();
     }
 }

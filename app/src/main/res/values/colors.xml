@@ -9,4 +9,5 @@
     <color name="menuDefaultGrey">#888888</color>
     <color name="white">#FFFFFFFF</color>
     <color name="delete_button">#8F4646</color>
+    <color name="green">#047C00</color>
 </resources>

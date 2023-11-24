@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,9 +36,13 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
         ExerciseProgress currentExercise = exercisesWithProgress.get(position);
         holder.txtTrackerExerciseItemName.setText(currentExercise.getExercise().getName());
         if (currentExercise.getExercise().getSessionStatus().equals(ExerciseSessionStatus.COMPLETED.toString())) {
-            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFE3FFCC"));
+            // exercise completed
+            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFE0E0E0"));
+            holder.trackerItemIconStatusContainer.setVisibility(View.VISIBLE);
         } else {
+            // exercise not completed
             holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
+            holder.trackerItemIconStatusContainer.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -55,10 +60,16 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
         private TextView txtTrackerExerciseItemName;
         private CardView trackerItemCard;
 
+        private FrameLayout trackerItemIconStatusContainer;
+
+        private ImageView imgTrackerItemCheckmark;
+
         public TrackerExerciseListHolder(@NonNull View itemView) {
             super(itemView);
             txtTrackerExerciseItemName = itemView.findViewById(R.id.txtTrackerExerciseItemName);
             trackerItemCard = itemView.findViewById(R.id.trackerItemCard);
+            trackerItemIconStatusContainer = itemView.findViewById(R.id.trackerItemIconStatusContainer);
+            imgTrackerItemCheckmark = itemView.findViewById(R.id.imgTrackerItemCheckmark);
 
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();

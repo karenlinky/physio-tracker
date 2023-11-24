@@ -6,11 +6,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="4dp"
     app:cardCornerRadius="4dp">
-    <TextView
-        android:paddingVertical="16dp"
-        android:paddingHorizontal="12dp"
-        android:id="@+id/txtTrackerExerciseItemName"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Star Excursion Balance "/>
+        android:layout_height="match_parent"
+        android:paddingHorizontal="12dp">
+
+        <TextView
+            android:id="@+id/txtTrackerExerciseItemName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="16dp"
+            android:text="Star Excursion Balance "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/trackerItemIconStatusContainer" />
+        <FrameLayout
+            android:id="@+id/trackerItemIconStatusContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/imgTrackerItemCheckmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_circle"
+                android:tint="@color/green"/>
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

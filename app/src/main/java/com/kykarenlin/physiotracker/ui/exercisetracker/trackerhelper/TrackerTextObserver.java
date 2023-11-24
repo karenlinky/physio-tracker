@@ -30,6 +30,7 @@ public class TrackerTextObserver extends TrackerObserver {
         boolean sessionPaused = trackerStatusSubject.getSessionPaused();
         Exercise activeExercise = trackerStatusSubject.getActiveExercise();
         Exercise selectedExercise = trackerStatusSubject.getSelectedExercise();
+        Exercise displayingExercise = null;
 
         String strTrackerStatus = "";
         String strTrackerExerciseName = "";
@@ -37,21 +38,11 @@ public class TrackerTextObserver extends TrackerObserver {
         switch (status) {
             case SESSION_NOT_STARTED:
                 strTrackerStatus = "Session Not Started";
-                if (selectedExercise != null) {
-                    strTrackerExerciseName = selectedExercise.getName();
-                } else {
-                    strTrackerExerciseName = "";
-                }
-                this.exerciseDetailsFragment.updateValues(selectedExercise);
+                displayingExercise = selectedExercise;
 
                 break;
             case WORKOUT_IN_PROGRESS:
-                if (activeExercise != null) {
-                    strTrackerExerciseName = activeExercise.getName();
-                } else {
-                    strTrackerExerciseName = "";
-                }
-                this.exerciseDetailsFragment.updateValues(activeExercise);
+                displayingExercise = activeExercise;
 
                 if (sessionPaused) {
                     strTrackerStatus = "Session Paused";
@@ -60,10 +51,10 @@ public class TrackerTextObserver extends TrackerObserver {
                 };
                 break;
             case BREAK:
-                if (selectedExercise != null) {
-                    strTrackerExerciseName = selectedExercise.getName();
+                if (selectedExercise == null) {
+                    displayingExercise = activeExercise;
                 } else {
-                    strTrackerExerciseName = "";
+                    displayingExercise = selectedExercise;
                 }
 
                 if (sessionPaused) {
@@ -71,19 +62,21 @@ public class TrackerTextObserver extends TrackerObserver {
                 } else {
                     strTrackerStatus = "Break";
                 };
-                this.exerciseDetailsFragment.updateValues(selectedExercise);
                 break;
             case SESSION_COMPLETED:
                 strTrackerStatus = "Session Completed";
 
-                if (activeExercise != null) {
-                    strTrackerExerciseName = activeExercise.getName();
-                } else {
-                    strTrackerExerciseName = "";
-                }
-                this.exerciseDetailsFragment.updateValues(activeExercise);
+
+                displayingExercise = activeExercise;
                 break;
         }
+
+        if (displayingExercise != null) {
+            strTrackerExerciseName = displayingExercise.getName();
+        } else {
+            strTrackerExerciseName = "";
+        }
+        this.exerciseDetailsFragment.updateValues(displayingExercise);
 
         this.txtTrackerStatus.setText(strTrackerStatus);
         this.txtTrackerExerciseName.setText(strTrackerExerciseName);
