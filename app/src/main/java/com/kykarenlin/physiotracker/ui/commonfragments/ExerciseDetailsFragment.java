@@ -78,15 +78,12 @@ public class ExerciseDetailsFragment extends Fragment {
     }
 
     public void updateValues(Exercise exercise) {
-        Log.e("TAG", "updateValues: HERE");
         if (exercise == null) {
-            Log.e("TAG", "updateValues: NULL");
             this.numSets = "--";
             this.numReps = 0;
             this.duration = 0;
             this.durationUnit = "s";
         } else {
-            Log.e("TAG", "updateValues: NOT NULL");
             this.numSets = exercise.getNumSets();
             this.numReps = exercise.getNumReps();
             this.duration = exercise.getRepDuration();

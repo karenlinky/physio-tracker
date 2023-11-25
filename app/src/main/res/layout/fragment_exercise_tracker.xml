@@ -85,7 +85,7 @@
                             android:id="@+id/btnCancelExercise"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/delete_button"
+                            android:backgroundTint="@color/red_btn"
                             android:text="@string/lbl_cancel_exercise"
                             android:textAllCaps="false" />
                     </FrameLayout>
@@ -176,12 +176,24 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageButton
-                    android:id="@+id/btnPauseSession"
+                    android:id="@+id/btnContinueSession"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
                     android:background="@drawable/shp_img_btn_background"
-                    android:backgroundTint="@color/delete_button"
+                    android:backgroundTint="@color/green_btn"
+                    android:contentDescription="@string/txt_pause_session"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    app:srcCompat="@drawable/ic_play"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnPauseSession"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/shp_red_img_btn_background"
                     android:contentDescription="@string/txt_pause_session"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
@@ -192,50 +204,25 @@
                     android:id="@+id/btnFinishSession"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shp_img_btn_background"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:contentDescription="@string/txt_pause_session"
+                    android:background="@drawable/shp_primary_img_btn_background"
+                    android:contentDescription="@string/txt_finish_session"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
                     app:srcCompat="@drawable/ic_flag"
                     app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnResetSession"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shp_img_btn_background"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:contentDescription="@string/txt_reset_session"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    app:srcCompat="@drawable/ic_replay"
+                    app:tint="@color/white" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linearLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
-<!--        <FrameLayout-->
-<!--            android:id="@+id/pauseSessionContainer"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:paddingRight="4dp">-->
-<!--            <Button-->
-<!--                android:id="@+id/btnPauseSession"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textAllCaps="false"-->
-<!--                android:text="@string/lbl_pause_session"-->
-<!--                android:backgroundTint="@color/delete_button"/>-->
-<!--        </FrameLayout>-->
-<!--        <FrameLayout-->
-<!--            android:id="@+id/finishSessionContainer"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:paddingLeft="4dp">-->
-<!--            <Button-->
-<!--                android:id="@+id/btnFinishSession"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/lbl_finish_session"-->
-<!--                android:textAllCaps="false"/>-->
-<!--        </FrameLayout>-->
-<!--    </LinearLayout>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

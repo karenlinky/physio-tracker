@@ -3,6 +3,7 @@ package com.kykarenlin.physiotracker.ui.exercisetracker;
 import static com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment.DEFAULT_VALUE;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentExerciseTrackerBinding;
+import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
+import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
+import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.SessionControlObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerStopwatchObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseControlObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseProgressObserver;
@@ -97,8 +102,19 @@ public class DashboardFragment extends Fragment {
 
 
         final TextView selectExerciseHint = binding.selectExerciseHint;
+
+        final ImageButton btnContinueSession = binding.btnContinueSession;
         final ImageButton btnPauseSession = binding.btnPauseSession;
         final ImageButton btnFinishSession = binding.btnFinishSession;
+        final ImageButton btnResetSession = binding.btnResetSession;
+
+        SessionControlObserver sessionControlObserver = new SessionControlObserver(trackerStatusSubject, btnContinueSession, btnPauseSession, btnFinishSession, btnResetSession);
+        trackerStatusSubject.registerObserver(sessionControlObserver);
+
+        btnContinueSession.setOnClickListener(view -> {trackerStatusSubject.continueSession();});
+        btnPauseSession.setOnClickListener(view -> {trackerStatusSubject.pauseSession();});
+        btnFinishSession.setOnClickListener(view -> {trackerStatusSubject.finishSession();});
+        btnResetSession.setOnClickListener(view -> {trackerStatusSubject.resetSession();});
 
 
 

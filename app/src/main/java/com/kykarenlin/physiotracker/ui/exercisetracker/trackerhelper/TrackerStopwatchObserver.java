@@ -1,6 +1,7 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.Chronometer;
 
 import com.kykarenlin.physiotracker.enums.TrackerStatus;
@@ -19,15 +20,25 @@ public class TrackerStopwatchObserver extends TrackerObserver{
         boolean sessionPaused = trackerStatusSubject.getSessionPaused();
         long timeStamp = trackerStatusSubject.getTimestamp();
 
+
         switch (status) {
             case SESSION_NOT_STARTED:
+                cnmtTracker.setBase(SystemClock.elapsedRealtime()); // reset timer
+                cnmtTracker.stop();
+                break;
             case SESSION_COMPLETED:
+                cnmtTracker.setBase(SystemClock.elapsedRealtime() - timeStamp);
                 cnmtTracker.stop();
                 break;
             case WORKOUT_IN_PROGRESS:
             case BREAK:
-                cnmtTracker.setBase(timeStamp);
-                cnmtTracker.start();
+                if (sessionPaused) {
+                    cnmtTracker.setBase(SystemClock.elapsedRealtime() - timeStamp);
+                    cnmtTracker.stop();
+                } else {
+                    cnmtTracker.setBase(timeStamp);
+                    cnmtTracker.start();
+                }
                 break;
         }
     }

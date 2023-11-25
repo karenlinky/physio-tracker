@@ -8,6 +8,7 @@
     <string name="txt_add_new_exercise">Add new exercise</string>
     <string name="txt_finish_session">Finish session</string>
     <string name="txt_pause_session">Pause session</string>
+    <string name="txt_reset_session">Reset session</string>
     <string name="header_exercises">My Exercises</string>
     <string name="lbl_watch_video">Watch Video</string>
     <!-- TODO: Remove or change this placeholder text -->

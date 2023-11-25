@@ -221,4 +221,34 @@ public class TrackerStatusSubject {
         selectedExerciseId = DEFAULT_EXERCISE_ID;
         this.cancelExercise();
     }
+
+    public void continueSession() {
+        updateSessionPaused(false);
+        // time difference between now and the duration the timer ran (set in pauseSession)
+        // so timer will display the duration the timer has been running
+        updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
+        notifyStateChanged();
+    }
+
+    public void pauseSession() {
+        updateSessionPaused(true);
+        updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());   // time difference between now and start time
+        notifyStateChanged();
+    }
+
+    public void finishSession() {
+        updateStatus(TrackerStatus.SESSION_COMPLETED);
+        if (!this.getSessionPaused()) {
+            updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
+        }
+        updateSessionPaused(false);
+        notifyStateChanged();
+    }
+
+    public void resetSession() {
+        updateSessionPaused(false);
+        updateStatus(TrackerStatus.SESSION_NOT_STARTED);
+        updateTimestampToCurrentTime();
+        notifyStateChanged();
+    }
 }
