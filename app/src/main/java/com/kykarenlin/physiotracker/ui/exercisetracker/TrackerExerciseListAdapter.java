@@ -39,6 +39,9 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
             // exercise completed
             holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFE0E0E0"));
             holder.trackerItemIconStatusContainer.setVisibility(View.VISIBLE);
+        } else if (currentExercise.getSelected()) {
+            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFFFFFE0"));
+            holder.trackerItemIconStatusContainer.setVisibility(View.INVISIBLE);
         } else {
             // exercise not completed
             holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
