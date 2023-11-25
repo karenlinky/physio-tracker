@@ -88,8 +88,9 @@ public class DashboardFragment extends Fragment {
         final ImageView sessionStatusIndicator = binding.sessionStatusIndicator;
         final TextView txtTrackerStatus = binding.txtTrackerStatus;
         final TextView txtTrackerExerciseName = binding.txtTrackerExerciseName;
+        final TextView selectExerciseHint = binding.selectExerciseHint;
 
-        TrackerTextObserver trackerTextObserver = new TrackerTextObserver(trackerStatusSubject,sessionStatusIndicator, txtTrackerStatus, txtTrackerExerciseName, exerciseDetailsFragment);
+        TrackerTextObserver trackerTextObserver = new TrackerTextObserver(trackerStatusSubject,sessionStatusIndicator, txtTrackerStatus, txtTrackerExerciseName, exerciseDetailsFragment, selectExerciseHint);
         trackerStatusSubject.registerObserver(trackerTextObserver);
 
 
@@ -104,10 +105,6 @@ public class DashboardFragment extends Fragment {
         btnStartExercise.setOnClickListener(view -> trackerStatusSubject.startExercise());
         btnCancelExercise.setOnClickListener(view -> trackerStatusSubject.cancelExercise());
         btnFinishExercise.setOnClickListener(view -> trackerStatusSubject.finishExercise());
-
-
-
-        final TextView selectExerciseHint = binding.selectExerciseHint;
 
         final ImageButton btnContinueSession = binding.btnContinueSession;
         final ImageButton btnPauseSession = binding.btnPauseSession;

@@ -1,7 +1,5 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
-import android.util.Log;
-
 import com.kykarenlin.physiotracker.enums.TrackerStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.exercisetracker.ExerciseProgress;
@@ -32,7 +30,7 @@ public class ExerciseProgressObserver extends TrackerObserver {
     @Override
     public void notifyExercisesChanged(List<Exercise> exercises) {
         TrackerStatus newTrackerStatus = this.trackerStatusSubject.getStatus();
-        boolean sessionCompleted = newTrackerStatus == TrackerStatus.SESSION_COMPLETED;
+        boolean buttonDisabled = newTrackerStatus == TrackerStatus.SESSION_COMPLETED || newTrackerStatus == TrackerStatus.WORKOUT_IN_PROGRESS;
         Exercise selectedExercise = this.trackerStatusSubject.getSelectedExercise();
         int selectedId = -1;
         if (selectedExercise != null) {
@@ -41,7 +39,7 @@ public class ExerciseProgressObserver extends TrackerObserver {
         exercisesWithProgress.clear();
         exerciseMap.clear();
         for (Exercise exercise : exercises) {
-            ExerciseProgress exerciseProgress = new ExerciseProgress(exercise, selectedId == exercise.getId(), sessionCompleted);
+            ExerciseProgress exerciseProgress = new ExerciseProgress(exercise, selectedId == exercise.getId(), buttonDisabled);
             exercisesWithProgress.add(exerciseProgress);
             exerciseMap.put(exercise.getId(), exerciseProgress);
         }
@@ -78,10 +76,10 @@ public class ExerciseProgressObserver extends TrackerObserver {
         }
 
         if (newTrackerStatus != this.trackerStatus) {
-            if (this.trackerStatus == TrackerStatus.SESSION_COMPLETED || newTrackerStatus == TrackerStatus.SESSION_COMPLETED) {
+            if (this.trackerStatus == TrackerStatus.SESSION_COMPLETED || newTrackerStatus == TrackerStatus.SESSION_COMPLETED || this.trackerStatus == TrackerStatus.WORKOUT_IN_PROGRESS || newTrackerStatus == TrackerStatus.WORKOUT_IN_PROGRESS) {
                 // user mark session as completed or session not started
                 for (ExerciseProgress exercise : exercisesWithProgress) {
-                    exercise.setSessionCompleted(newTrackerStatus == TrackerStatus.SESSION_COMPLETED);
+                    exercise.setButtonDisabled(newTrackerStatus == TrackerStatus.SESSION_COMPLETED || newTrackerStatus == TrackerStatus.WORKOUT_IN_PROGRESS);
                     updateNeeded = true;
                 }
                 this.trackerStatus = newTrackerStatus;

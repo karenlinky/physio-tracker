@@ -178,6 +178,10 @@ public class TrackerStatusSubject {
         this.notifyStateChanged();
     }
 
+    public int getNumExercise() {
+        return this.exercises.size();
+    }
+
     public void updateExercises(List<Exercise> exercises) {
         this.exercises = exercises;
         for (TrackerObserver trackerObserver : trackerObservers) {

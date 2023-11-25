@@ -1,7 +1,6 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
-import com.kykarenlin.physiotracker.model.exercise.Exercise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +35,11 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
         holder.txtTrackerExerciseItemName.setText(currentExercise.getExercise().getName());
         if (currentExercise.getExercise().getSessionStatus().equals(ExerciseSessionStatus.COMPLETED.toString())) {
             // exercise completed
-            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFE0E0E0"));
+            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFEDEDED"));
             holder.trackerItemIconStatusContainer.setVisibility(View.VISIBLE);
-        } else if (currentExercise.getSessionCompleted()) {
-            // session completed
-            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFE0E0E0"));
+        } else if (currentExercise.getButtonDisabled()) {
+            // session completed or session in progress
+            holder.trackerItemCard.setBackgroundColor(Color.parseColor("#FFEDEDED"));
             holder.trackerItemIconStatusContainer.setVisibility(View.INVISIBLE);
         } else if (currentExercise.getSelected()) {
             // exercise gets selected

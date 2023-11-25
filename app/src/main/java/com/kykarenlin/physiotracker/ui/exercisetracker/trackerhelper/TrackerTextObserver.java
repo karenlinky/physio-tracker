@@ -21,12 +21,15 @@ public class TrackerTextObserver extends TrackerObserver {
     private TextView txtTrackerStatus;
     private TextView txtTrackerExerciseName;
     private ExerciseDetailsFragment exerciseDetailsFragment;
-    public TrackerTextObserver(TrackerStatusSubject trackerStatusSubject, ImageView sessionStatusIndicator, TextView txtTrackerStatus, TextView txtTrackerExerciseName, ExerciseDetailsFragment exerciseDetailsFragment) {
+
+    private TextView selectExerciseHint;
+    public TrackerTextObserver(TrackerStatusSubject trackerStatusSubject, ImageView sessionStatusIndicator, TextView txtTrackerStatus, TextView txtTrackerExerciseName, ExerciseDetailsFragment exerciseDetailsFragment, TextView selectExerciseHint) {
         this.sessionStatusIndicator = sessionStatusIndicator;
         this.trackerStatusSubject = trackerStatusSubject;
         this.txtTrackerStatus = txtTrackerStatus;
         this.txtTrackerExerciseName = txtTrackerExerciseName;
         this.exerciseDetailsFragment = exerciseDetailsFragment;
+        this.selectExerciseHint = selectExerciseHint;
     }
 
     private void updateViews() {
@@ -41,14 +44,17 @@ public class TrackerTextObserver extends TrackerObserver {
 
         String strTrackerStatus = "";
         String strTrackerExerciseName = "";
+        String strExerciseHint = "";
 
         switch (status) {
             case SESSION_NOT_STARTED:
+                strExerciseHint = "Select your first exercise from below and click \"Start\".";
                 strTrackerStatus = "Session Not Started";
                 displayingExercise = selectedExercise;
                 sessionStatusIndicator.setColorFilter(resources.getColor(R.color.statusNotStarted, theme));
                 break;
             case WORKOUT_IN_PROGRESS:
+                strExerciseHint = "Complete your current exercise to move on to the next one.";
                 displayingExercise = activeExercise;
 
                 if (sessionPaused) {
@@ -60,6 +66,7 @@ public class TrackerTextObserver extends TrackerObserver {
                 };
                 break;
             case BREAK:
+                strExerciseHint = "Select your next exercise from below and click \"Start\".";
                 if (selectedExercise == null) {
                     displayingExercise = activeExercise;
                 } else {
@@ -75,6 +82,7 @@ public class TrackerTextObserver extends TrackerObserver {
                 };
                 break;
             case SESSION_COMPLETED:
+                strExerciseHint = "Click the reset button below to start another session.";
                 sessionStatusIndicator.setColorFilter(resources.getColor(R.color.statusSessionCompleted, theme));
                 strTrackerStatus = "Session Completed";
 
@@ -92,6 +100,11 @@ public class TrackerTextObserver extends TrackerObserver {
 
         this.txtTrackerStatus.setText(strTrackerStatus);
         this.txtTrackerExerciseName.setText(strTrackerExerciseName);
+
+        if (trackerStatusSubject.getNumExercise() == 0) {
+            strExerciseHint = "Get started by adding exercises at the home page.";
+        }
+        this.selectExerciseHint.setText(strExerciseHint);
     }
 
     public void notifyStateChanged() {
