@@ -52,6 +52,14 @@ public class ExerciseRepository {
         });
     }
 
+    public void setAllExercisesAsNotCompleted() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            exerciseDao.setAllExercisesAsNotCompleted();
+        });
+    }
+
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
     }

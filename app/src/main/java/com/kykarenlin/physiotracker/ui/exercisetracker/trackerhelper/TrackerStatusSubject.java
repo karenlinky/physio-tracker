@@ -242,6 +242,7 @@ public class TrackerStatusSubject {
             updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
         }
         updateSessionPaused(false);
+        selectedExerciseId = -1;
         notifyStateChanged();
     }
 
@@ -249,6 +250,9 @@ public class TrackerStatusSubject {
         updateSessionPaused(false);
         updateStatus(TrackerStatus.SESSION_NOT_STARTED);
         updateTimestampToCurrentTime();
+        selectedExerciseId = -1;
+        updateActiveId(-1);
+        exerciseViewModel.setAllExercisesAsNotCompleted();
         notifyStateChanged();
     }
 }

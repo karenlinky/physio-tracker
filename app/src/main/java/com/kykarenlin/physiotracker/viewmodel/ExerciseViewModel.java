@@ -38,6 +38,10 @@ public class ExerciseViewModel extends AndroidViewModel {
         repository.deleteAllExercises();
     }
 
+    public void setAllExercisesAsNotCompleted() {
+        repository.setAllExercisesAsNotCompleted();
+    }
+
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
     }

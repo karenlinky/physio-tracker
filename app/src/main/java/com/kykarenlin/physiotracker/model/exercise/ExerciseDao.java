@@ -24,6 +24,9 @@ public interface ExerciseDao {
     @Query("DELETE FROM exercise_table")
     void deleteAllExercise();
 
+    @Query("UPDATE exercise_table SET sessionStatus = 'NOT_COMPLETED'")
+    void setAllExercisesAsNotCompleted();
+
     @Query("SELECT * FROM exercise_table")
     LiveData<List<Exercise>> getAllExercises();
 
