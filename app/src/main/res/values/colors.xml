@@ -13,4 +13,9 @@
     <color name="grey_btn">#888888</color>
     <color name="green_checkmark">#047C00</color>
     <color name="green_btn">#047C00</color>
+    <color name="statusNotStarted">#919191</color>
+    <color name="statusInProgress">#08FF00</color>
+    <color name="statusBreak">#FF9900</color>
+    <color name="statusSessionPaused">#FF0000</color>
+    <color name="statusSessionCompleted">#00F7FF</color>
 </resources>

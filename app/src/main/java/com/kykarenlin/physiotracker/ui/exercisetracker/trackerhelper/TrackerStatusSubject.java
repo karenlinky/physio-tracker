@@ -26,6 +26,8 @@ public class TrackerStatusSubject {
 
     private static final int DEFAULT_EXERCISE_ID = -1;
 
+    private Context context;
+
     private SharedPreferences sharedPref;
     private TrackerStatus status;
 
@@ -46,9 +48,10 @@ public class TrackerStatusSubject {
     LifecycleOwner lifecycleOwner;
 
     private List<Exercise> exercises = new ArrayList<>();
-    public TrackerStatusSubject(FragmentActivity fragmentActivity, LifecycleOwner lifecycleOwner, ExerciseViewModel exerciseViewModel) {
+    public TrackerStatusSubject(Context context, FragmentActivity fragmentActivity, LifecycleOwner lifecycleOwner, ExerciseViewModel exerciseViewModel) {
         this.exerciseViewModel = exerciseViewModel;
         this.lifecycleOwner = lifecycleOwner;
+        this.context = context;
 
         sharedPref = fragmentActivity.getPreferences(Context.MODE_PRIVATE);
 
@@ -64,6 +67,10 @@ public class TrackerStatusSubject {
         Log.i("TAG", "timestamp: " + timestamp);
         Log.i("TAG", "activeExerciseId: " + activeExerciseId);
         Log.i("TAG", "selectedExerciseId: " + selectedExerciseId);
+    }
+
+    public Context getContext() {
+        return this.context;
     }
 
     public void registerObserver(TrackerObserver trackerObserver) {

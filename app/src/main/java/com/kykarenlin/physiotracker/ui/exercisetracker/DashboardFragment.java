@@ -2,6 +2,7 @@ package com.kykarenlin.physiotracker.ui.exercisetracker;
 
 import static com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment.DEFAULT_VALUE;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -56,8 +58,10 @@ public class DashboardFragment extends Fragment {
                 .replace(R.id.trackerDetailsPlaceholder, exerciseDetailsFragment)
                 .commit();
 
+        Context context = getContext();
+
         final RecyclerView rclvTrackerExercises = binding.rclvTrackerExercises;
-        rclvTrackerExercises.setLayoutManager(new LinearLayoutManager(getContext()));
+        rclvTrackerExercises.setLayoutManager(new LinearLayoutManager(context));
         rclvTrackerExercises.setHasFixedSize(true);
 
         final TrackerExerciseListAdapter adapter = new TrackerExerciseListAdapter();
@@ -66,7 +70,8 @@ public class DashboardFragment extends Fragment {
         exerciseViewModel =
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
 
-        final TrackerStatusSubject trackerStatusSubject = new TrackerStatusSubject(fragmentActivity, getViewLifecycleOwner(), exerciseViewModel);
+
+        final TrackerStatusSubject trackerStatusSubject = new TrackerStatusSubject(context, fragmentActivity, getViewLifecycleOwner(), exerciseViewModel);
 
 
 
@@ -80,10 +85,11 @@ public class DashboardFragment extends Fragment {
         TrackerStopwatchObserver trackerStopwatchObserver = new TrackerStopwatchObserver(trackerStatusSubject, cnmtTracker);
         trackerStatusSubject.registerObserver(trackerStopwatchObserver);
 
+        final ImageView sessionStatusIndicator = binding.sessionStatusIndicator;
         final TextView txtTrackerStatus = binding.txtTrackerStatus;
         final TextView txtTrackerExerciseName = binding.txtTrackerExerciseName;
 
-        TrackerTextObserver trackerTextObserver = new TrackerTextObserver(trackerStatusSubject, txtTrackerStatus, txtTrackerExerciseName, exerciseDetailsFragment);
+        TrackerTextObserver trackerTextObserver = new TrackerTextObserver(trackerStatusSubject,sessionStatusIndicator, txtTrackerStatus, txtTrackerExerciseName, exerciseDetailsFragment);
         trackerStatusSubject.registerObserver(trackerTextObserver);
 
 

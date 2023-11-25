@@ -7,9 +7,12 @@ public class ExerciseProgress {
 
     private boolean selected;
 
-    public ExerciseProgress(Exercise exercise, boolean selected) {
+    private boolean sessionCompleted;
+
+    public ExerciseProgress(Exercise exercise, boolean selected, boolean sessionCompleted) {
         this.exercise = exercise;
         this.selected = selected;
+        this.sessionCompleted = sessionCompleted;
     }
 
     public void setSelected(boolean selected) {
@@ -18,6 +21,14 @@ public class ExerciseProgress {
 
     public boolean getSelected() {
         return this.selected;
+    }
+
+    public void setSessionCompleted(boolean sessionCompleted) {
+        this.sessionCompleted = sessionCompleted;
+    }
+
+    public boolean getSessionCompleted() {
+        return this.sessionCompleted;
     }
 
     public Exercise getExercise() {

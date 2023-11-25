@@ -2,6 +2,7 @@ package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
 import android.util.Log;
 
+import com.kykarenlin.physiotracker.enums.TrackerStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.exercisetracker.ExerciseProgress;
 import com.kykarenlin.physiotracker.ui.exercisetracker.TrackerExerciseListAdapter;
@@ -21,6 +22,8 @@ public class ExerciseProgressObserver extends TrackerObserver {
 
     private TrackerStatusSubject trackerStatusSubject;
 
+    private TrackerStatus trackerStatus;
+
     public ExerciseProgressObserver(TrackerStatusSubject trackerStatusSubject, TrackerExerciseListAdapter adapter) {
         this.trackerStatusSubject = trackerStatusSubject;
         this.adapter = adapter;
@@ -28,6 +31,8 @@ public class ExerciseProgressObserver extends TrackerObserver {
 
     @Override
     public void notifyExercisesChanged(List<Exercise> exercises) {
+        TrackerStatus newTrackerStatus = this.trackerStatusSubject.getStatus();
+        boolean sessionCompleted = newTrackerStatus == TrackerStatus.SESSION_COMPLETED;
         Exercise selectedExercise = this.trackerStatusSubject.getSelectedExercise();
         int selectedId = -1;
         if (selectedExercise != null) {
@@ -36,7 +41,7 @@ public class ExerciseProgressObserver extends TrackerObserver {
         exercisesWithProgress.clear();
         exerciseMap.clear();
         for (Exercise exercise : exercises) {
-            ExerciseProgress exerciseProgress = new ExerciseProgress(exercise, selectedId == exercise.getId());
+            ExerciseProgress exerciseProgress = new ExerciseProgress(exercise, selectedId == exercise.getId(), sessionCompleted);
             exercisesWithProgress.add(exerciseProgress);
             exerciseMap.put(exercise.getId(), exerciseProgress);
         }
@@ -44,26 +49,47 @@ public class ExerciseProgressObserver extends TrackerObserver {
     }
 
     public void notifyStateChanged() {
+        TrackerStatus newTrackerStatus = this.trackerStatusSubject.getStatus();
         Exercise selectedExercise = this.trackerStatusSubject.getSelectedExercise();
         int selectedId = -1;
         if (selectedExercise != null) {
             selectedId = selectedExercise.getId();
         }
 
-        if (selectedId == this.selectedId) {
+        if (selectedId == this.selectedId && newTrackerStatus == this.trackerStatus) {
             return;
         }
 
-        if (exerciseMap.containsKey(this.selectedId)) {
-            exerciseMap.get(this.selectedId).setSelected(false);
+        boolean updateNeeded = false;
+
+        if (selectedId != this.selectedId) {
+            // user selected a different item
+            if (exerciseMap.containsKey(this.selectedId)) {
+                exerciseMap.get(this.selectedId).setSelected(false);
+            }
+
+
+            this.selectedId = selectedId;
+            if (exerciseMap.containsKey(this.selectedId)) {
+                exerciseMap.get(this.selectedId).setSelected(true);
+            }
+
+            updateNeeded = true;
         }
 
-
-        this.selectedId = selectedId;
-        if (exerciseMap.containsKey(this.selectedId)) {
-            exerciseMap.get(this.selectedId).setSelected(true);
+        if (newTrackerStatus != this.trackerStatus) {
+            if (this.trackerStatus == TrackerStatus.SESSION_COMPLETED || newTrackerStatus == TrackerStatus.SESSION_COMPLETED) {
+                // user mark session as completed or session not started
+                for (ExerciseProgress exercise : exercisesWithProgress) {
+                    exercise.setSessionCompleted(newTrackerStatus == TrackerStatus.SESSION_COMPLETED);
+                    updateNeeded = true;
+                }
+                this.trackerStatus = newTrackerStatus;
+            }
         }
 
-        adapter.setExercises(exercisesWithProgress);
+        if (updateNeeded) {
+            adapter.setExercises(exercisesWithProgress);
+        }
     }
 }
