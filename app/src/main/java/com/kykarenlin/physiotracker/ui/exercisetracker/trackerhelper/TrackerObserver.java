@@ -8,4 +8,14 @@ public abstract class TrackerObserver {
     public abstract void notifyStateChanged();
 
     public void notifyExercisesChanged(List<Exercise> exercises) {};
+
+    public void notifyStartExercise() {}
+
+    public void notifyStartBreak() {}
+
+    public void notifyContinueSession() {}
+
+    public void notifySessionPaused() {}
+
+    public void notifySessionFinished() {}
 }

@@ -242,6 +242,10 @@ public class TrackerStatusSubject {
         updateActiveId(selectedExerciseId);
         updateTimestampToCurrentTime();
         notifyStateChanged();
+
+        for (TrackerObserver trackerObserver : trackerObservers) {
+            trackerObserver.notifyStartExercise();
+        }
     }
 
     public void cancelExercise() {

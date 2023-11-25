@@ -172,12 +172,23 @@ public class EditExerciseFragment extends Fragment {
                     return;
                 }
 
-                int intNumReps = Integer.parseInt(numReps);
+                int intNumReps = 0;
+                try {
+                    intNumReps = Integer.parseInt(numReps);
+                } catch (Exception e) {
+                    displayError("Invalid Value", "Number of Reps only accept numerical values (0-9).");
+                    return;
+                }
                 boolean emptyDuration = duration.equals("");
 
                 int intDuration = 0;
                 if (!emptyDuration) {
-                    intDuration = Integer.parseInt(duration);
+                    try {
+                        intDuration = Integer.parseInt(duration);
+                    } catch (Exception e) {
+                        displayError("Invalid Value", "Duration only accept numerical values (0-9).");
+                        return;
+                    }
                 }
                 String errMsg = "";
 
