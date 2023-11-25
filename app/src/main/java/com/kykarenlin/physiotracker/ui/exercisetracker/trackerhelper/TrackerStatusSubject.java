@@ -184,10 +184,38 @@ public class TrackerStatusSubject {
 
     public void updateExercises(List<Exercise> exercises) {
         this.exercises = exercises;
+        // TODO: handle removed exercise
+        int numExercise = this.exercises.size();
+        if (numExercise == 0) {
+            resetSession();
+        } else {
+            int numCompleted = 0;
+            boolean activeExerciseFound = false; // make sure that activeExercise is not removed
+            for (Exercise exercise : exercises) {
+                if (exercise.getSessionStatus().equals(ExerciseSessionStatus.COMPLETED.toString())) {
+                    numCompleted += 1;
+                }
+                if (activeExerciseId == exercise.getId()) {
+                    activeExerciseFound = true;
+                }
+            }
+
+            if (numCompleted == numExercise) {
+                // all exercises are completed
+                this.finishSession();
+            } else if (!activeExerciseFound && this.status == TrackerStatus.WORKOUT_IN_PROGRESS) {
+                // exercise in progress is removed
+                boolean sessionPaused = this.sessionPaused;
+                this.cancelExercise();
+                if (sessionPaused) {
+                    pauseSession();
+                }
+            }
+        }
+
         for (TrackerObserver trackerObserver : trackerObservers) {
             trackerObserver.notifyExercisesChanged(exercises);
         }
-        // TODO: handle removed exercise
         this.notifyStateChanged();
     }
 
