@@ -14,10 +14,14 @@ Users can also edit the exercise by using the edit exercise page.<br />
 
 
 ### Progress Tracker
-Users can use this tracker to track the progress of their exercises. When the user is taking a time longer than a certain period, (Customizable in settings they will receive a notification.<br />
+Users can use this tracker to track the progress of their exercises. When the user is taking a time longer than a certain period, they will receive a notification. (Delay and Message is customizable in settings)<br />
 <img src="https://github.com/karenlinky/physio-tracker/assets/61481010/e7f3b512-f66f-4c2f-bec5-ce4f28a5636a" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/c253f9d8-3dfd-4d83-9736-1fea91641df3" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/adbe9d98-161f-4f82-9e5d-9f1fa0a56103" height="600" />
 
-Users can also go on breaks between each exercise, and they will also receive a notification if a break is too long. (Customizable in settings)<br />
+
+
+Users can also go on breaks between each exercise, and they will also receive a notification if a break is too long. (Delay and Message is customizable in settings)<br />
 <img src="https://github.com/karenlinky/physio-tracker/assets/61481010/f12331a5-79ed-4b22-b58f-ce037a74d0b8" height="600" />
 
 During the session, users can also pause, end and reset the session at any time.<br />
@@ -26,6 +30,9 @@ During the session, users can also pause, end and reset the session at any time.
 <img src="https://github.com/karenlinky/physio-tracker/assets/61481010/3123ef5c-4466-4e9e-80e2-9c630332bf40" height="600" />
 
 
+### Settings
+Users can customize their notification settings (including the delay and message) of their notifications.<br />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/95ed77f6-5430-4b33-a92f-ca98810173f0" height="600" />
 
 
 
