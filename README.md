@@ -1,5 +1,19 @@
-# physio-tracker
+# Physio Tracker
 As someone in the midst of physiotherapy, I've got a routine of over 10 exercises scheduled 5 times a week. But I realized I've fallen into a bit of a habit - taking longer breaks between each exercise or set than I should. To help with this, I've developed an app that keeps track of how long I spend on each exercise and on breaks. It kindly reminds me with notifications when it's time to get back into my exercises.
+
+
+## Skills involved
+- Android Development
+- Java
+- Room (Local Storage)
+- ExecutorService (to handle interactions with the database)
+- LiveData (to get notified when there is a change in data)
+- AlarmManager, BroadcastReceiver, NotificationClasses (to schedule notifications)
+- Singleton Design Pattern (Handling database and sharedPreferences used for notification settings)
+- Observer Pattern (Handling the status of the tracker)
+  - TrackerStatusSubject contains the status of the tracker (i.e. what state of the session is the user at - not started, working out, on a break, completed; if the session is paused; the timestamp when the exercise/break is started)
+  - All the buttons, text, exercise list are managed by an Observer class
+  - Every time there is a status change in the tracker, the Observers get notified, and the UI elements will change accordingly
 
 ## Usage
 ### Exercises
