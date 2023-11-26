@@ -47,13 +47,15 @@ public class StopwatchNotificationObserver extends TrackerObserver {
     @Override
     public void notifyStateChanged() {}
 
-
-
-    private void notificationPermissionCheck() {
+    public static void notificationPermissionCheck(Context context, FragmentActivity fragmentActivity) {
         PermissionCheck permissionCheck = PermissionCheck.getInstance(context, fragmentActivity);
         permissionCheck.getPermissions(
                 notificationPermissions, NOTIFICATION_PERMISSION_CODE,
                 notificationExplanation);
+    }
+
+    private void notificationPermissionCheck() {
+        notificationPermissionCheck(context, fragmentActivity);
     }
 
     private void scheduleNotif(long launchTime, String notifTitle, String msg, int notifId) {
@@ -72,7 +74,7 @@ public class StopwatchNotificationObserver extends TrackerObserver {
             return; // no notification needs to be scheduled
         }
 
-        this.notificationPermissionCheck();
+//        this.notificationPermissionCheck(); // removed to avoid asking for permission everytime; asking only when the first exercise start
 
         int counter = 0;
         for (TrackerNotifItem notifItem : notifList) {

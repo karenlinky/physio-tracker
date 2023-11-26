@@ -35,6 +35,8 @@
     <string name="empty_exercise_list_msg">You don\'t have any exercises recorded. Get started by adding exercises using the button at the top.</string>
     <string name="lbl_load_default_data">Load Test Data</string>
     <string name="lbl_clear_data">Clear Data</string>
+    <string name="lbl_load_without_reset_settings">Load Test Data without Resetting Settings</string>
+    <string name="lbl_clear_without_reset_settings">Clear Data without Resetting Settings</string>
     <string-array name="units">
         <item>s</item>
         <item>min</item>

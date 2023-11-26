@@ -44,27 +44,47 @@ public class DeveloperFragment extends Fragment {
 
         final Button btnDeveloperLoadTestData = binding.btnDeveloperLoadTestData;
         final Button btnDeveloperClearData = binding.btnDeveloperClearData;
+        final Button btnDeveloperLoadTestDataWithoutClearingSettings = binding.btnDeveloperLoadTestDataWithoutClearingSettings;
+        final Button btnDeveloperClearDataWithoutClearingSettings = binding.btnDeveloperClearDataWithoutClearingSettings;
 
+
+        btnDeveloperLoadTestData.setOnClickListener(view -> {
+            loadTestData();
+            Toast.makeText(getContext(), "Data successfully loaded", Toast.LENGTH_SHORT).show();
+        });
         btnDeveloperClearData.setOnClickListener(view -> {
             clearData();
             Toast.makeText(getContext(), "Data successfully cleared", Toast.LENGTH_SHORT).show();
         });
-        btnDeveloperLoadTestData.setOnClickListener(view -> {
-            loadTestData();
+        btnDeveloperLoadTestDataWithoutClearingSettings.setOnClickListener(view -> {
+            loadTestDataWithoutClearingPreference();
             Toast.makeText(getContext(), "Data successfully loaded", Toast.LENGTH_SHORT).show();
+        });
+        btnDeveloperClearDataWithoutClearingSettings.setOnClickListener(view -> {
+            clearDataWithoutClearingPreference();
+            Toast.makeText(getContext(), "Data successfully cleared", Toast.LENGTH_SHORT).show();
         });
 
         return root;
     }
 
     private void clearData() {
-        exerciseViewModel.deleteAllExercises();
         this.sharedPref.clearData();
-        StopwatchNotificationObserver.cancelScheduledNotifications(getContext());
+        this.clearDataWithoutClearingPreference();
     }
 
     private void loadTestData() {
         this.clearData();
+        exerciseViewModel.loadTestData();
+    }
+
+    private void clearDataWithoutClearingPreference() {
+        exerciseViewModel.deleteAllExercises();
+        StopwatchNotificationObserver.cancelScheduledNotifications(getContext());
+    }
+
+    private void loadTestDataWithoutClearingPreference() {
+        this.clearDataWithoutClearingPreference();
         exerciseViewModel.loadTestData();
     }
 

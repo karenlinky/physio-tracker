@@ -244,6 +244,10 @@ public class TrackerStatusSubject {
     }
 
     public void startExercise() {
+        if (getStatus() == TrackerStatus.SESSION_NOT_STARTED) {
+            // first exercise of the session
+            StopwatchNotificationObserver.notificationPermissionCheck(context, fragmentActivity);
+        }
         updateStatus(TrackerStatus.WORKOUT_IN_PROGRESS);
         updateSessionPaused(false);
         updateActiveId(selectedExerciseId);
