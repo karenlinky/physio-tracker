@@ -299,10 +299,14 @@ public class TrackerStatusSubject {
     }
 
     public void finishSession() {
-        updateStatus(TrackerStatus.SESSION_COMPLETED);
-        if (!this.getSessionPaused()) {
-            updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
+        if (this.getStatus() == TrackerStatus.SESSION_COMPLETED) {
+            return;
         }
+        updateStatus(TrackerStatus.SESSION_COMPLETED);
+//        if (!this.getSessionPaused()) {
+//            updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
+//        }
+        updateTimestampToCurrentTime();
         updateSessionPaused(false);
         selectedExerciseId = -1;
         notifyStateChanged();

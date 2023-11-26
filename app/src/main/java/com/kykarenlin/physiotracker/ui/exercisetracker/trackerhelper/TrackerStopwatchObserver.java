@@ -27,7 +27,8 @@ public class TrackerStopwatchObserver extends TrackerObserver{
                 cnmtTracker.stop();
                 break;
             case SESSION_COMPLETED:
-                cnmtTracker.setBase(SystemClock.elapsedRealtime() - timeStamp);
+                cnmtTracker.setBase(SystemClock.elapsedRealtime());
+//                cnmtTracker.setBase(SystemClock.elapsedRealtime() - timeStamp);
                 cnmtTracker.stop();
                 break;
             case WORKOUT_IN_PROGRESS:
