@@ -260,6 +260,10 @@ public class TrackerStatusSubject {
         updateSessionPaused(false);
         updateTimestampToCurrentTime();
         notifyStateChanged();
+
+        for (TrackerObserver trackerObserver : trackerObservers) {
+            trackerObserver.notifyStartBreak();
+        }
     }
 
     public void finishExercise() {
@@ -278,12 +282,20 @@ public class TrackerStatusSubject {
         // so timer will display the duration the timer has been running
         updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
         notifyStateChanged();
+
+        for (TrackerObserver trackerObserver : trackerObservers) {
+            trackerObserver.notifyContinueSession();
+        }
     }
 
     public void pauseSession() {
         updateSessionPaused(true);
         updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());   // time difference between now and start time
         notifyStateChanged();
+
+        for (TrackerObserver trackerObserver : trackerObservers) {
+            trackerObserver.notifyPauseSession();
+        }
     }
 
     public void finishSession() {
@@ -294,6 +306,10 @@ public class TrackerStatusSubject {
         updateSessionPaused(false);
         selectedExerciseId = -1;
         notifyStateChanged();
+
+        for (TrackerObserver trackerObserver : trackerObservers) {
+            trackerObserver.notifyFinishSession();
+        }
     }
 
     public void resetSession() {
@@ -304,5 +320,9 @@ public class TrackerStatusSubject {
         updateActiveId(-1);
         exerciseViewModel.setAllExercisesAsNotCompleted();
         notifyStateChanged();
+
+        for (TrackerObserver trackerObserver : trackerObservers) {
+            trackerObserver.notifyResetSession();
+        }
     }
 }

@@ -15,7 +15,9 @@ public abstract class TrackerObserver {
 
     public void notifyContinueSession() {}
 
-    public void notifySessionPaused() {}
+    public void notifyPauseSession() {}
 
-    public void notifySessionFinished() {}
+    public void notifyFinishSession() {}
+
+    public void notifyResetSession() {}
 }

@@ -1,19 +1,15 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
 import static com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.StopwatchNotificationObserver.STOPWATCH_CHANNEL_ID;
+import static com.kykarenlin.physiotracker.utils.NotificationIds.NOTIFICATION_STOPWATCH_ID;
 
-import android.Manifest;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.media.AudioAttributes;
 import android.media.RingtoneManager;
-import android.provider.Settings;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -30,7 +26,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent openAppIntent = new Intent(context, MainActivity.class);
         openAppIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent pendingOpenAppIntent = PendingIntent.getActivity(context, 10, openAppIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingOpenAppIntent = PendingIntent.getActivity(context, 10, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, STOPWATCH_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_run_circle)
@@ -43,6 +39,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setContentIntent(pendingOpenAppIntent);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(NOTIFICATION_STOPWATCH_ID, builder.build());
     }
 }

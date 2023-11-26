@@ -54,15 +54,15 @@ public class TrackerNotifPreferences {
         int delay = 0;
         String msg = "";
         delay = this.sharedPref.getData(KEY_EXERCISE_NOTIF_DELAY_1, 1);
-        msg = this.sharedPref.getData(KEY_EXERCISE_NOTIF_MSG_1, "It's been a while. You should be done by now.");
+        msg = this.sharedPref.getData(KEY_EXERCISE_NOTIF_MSG_1, "🤔 It's been awhile. I think you should be done by now.");
         trackerNotifItemList.addItem(delay, msg);
 
         delay = this.sharedPref.getData(KEY_EXERCISE_NOTIF_DELAY_2, 2);
-        msg = this.sharedPref.getData(KEY_EXERCISE_NOTIF_MSG_2, "I hope you are not slacking.");
+        msg = this.sharedPref.getData(KEY_EXERCISE_NOTIF_MSG_2, "🤔 I hope you are not slacking.");
         trackerNotifItemList.addItem(delay, msg);
 
         delay = this.sharedPref.getData(KEY_EXERCISE_NOTIF_DELAY_3, 3);
-        msg = this.sharedPref.getData(KEY_EXERCISE_NOTIF_MSG_3, "I am a bit disappointed -__-");
+        msg = this.sharedPref.getData(KEY_EXERCISE_NOTIF_MSG_3, "😒 I am a bit disappointed.");
         trackerNotifItemList.addItem(delay, msg);
 
         return trackerNotifItemList;
@@ -79,15 +79,15 @@ public class TrackerNotifPreferences {
         int delay = 0;
         String msg = "";
         delay = this.sharedPref.getData(KEY_BREAK_NOTIF_DELAY_1, 1);
-        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_1, "Time's up! Break is over.");
+        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_1, "⏲️ Time's up! Break is over.");
         trackerNotifItemList.addItem(delay, msg);
 
         delay = this.sharedPref.getData(KEY_BREAK_NOTIF_DELAY_2, 2);
-        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_2, "Stop scrolling your phone and get back to your exercise!");
+        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_2, "💪 Get back to your exercise!");
         trackerNotifItemList.addItem(delay, msg);
 
         delay = this.sharedPref.getData(KEY_BREAK_NOTIF_DELAY_3, 3);
-        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_3, "You are a failure. I am speechless.");
+        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_3, "😶 You are a failure. I am speechless.");
         trackerNotifItemList.addItem(delay, msg);
 
         return trackerNotifItemList;
