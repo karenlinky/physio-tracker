@@ -2,29 +2,29 @@ package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
 public class TrackerNotifItem {
 
-    private int minute;
+    private int delay;
     private String message;
 
-    public TrackerNotifItem(int minute, String message) {
-        this.minute = minute;
+    public TrackerNotifItem(int delay, String message) {
+        this.delay = delay;
         this.message = message.trim();
     }
 
-    public TrackerNotifItem(String minute, String message) {
-        if (minute.equals("")) {
-            this.minute = 0;
+    public TrackerNotifItem(String delay, String message) {
+        if (delay.equals("")) {
+            this.delay = 0;
         } else {
             try {
-                this.minute = Integer.parseInt(minute);
+                this.delay = Integer.parseInt(delay);
             } catch (Exception e) {
-                this.minute = 0;
+                this.delay = 0;
             }
         }
         this.message = message.trim();
     }
 
-    public int getMinute() {
-        return minute;
+    public int getDelay() {
+        return delay;
     }
 
     public String getMessage() {
@@ -32,6 +32,6 @@ public class TrackerNotifItem {
     }
 
     public boolean validate() {
-        return (this.minute > 0 && !this.message.equals(""));
+        return (this.delay > 0 && !this.message.equals(""));
     }
 }

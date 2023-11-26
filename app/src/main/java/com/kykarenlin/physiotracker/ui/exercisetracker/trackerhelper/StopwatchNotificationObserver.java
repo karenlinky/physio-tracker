@@ -1,21 +1,17 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
-import static com.kykarenlin.physiotracker.MainActivity.EXACT_ALARM_PERMISSION_CODE;
 import static com.kykarenlin.physiotracker.MainActivity.NOTIFICATION_PERMISSION_CODE;
 import static com.kykarenlin.physiotracker.utils.NotificationIds.NOTIFICATION_STOPWATCH_ID;
+import static com.kykarenlin.physiotracker.utils.NotificationIds.notificationExplanation;
+import static com.kykarenlin.physiotracker.utils.NotificationIds.notificationPermissions;
 
 import android.Manifest;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.SystemClock;
-import android.util.Log;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -56,9 +52,8 @@ public class StopwatchNotificationObserver extends TrackerObserver {
     private void notificationPermissionCheck() {
         PermissionCheck permissionCheck = PermissionCheck.getInstance(context, fragmentActivity);
         permissionCheck.getPermissions(
-                new String[]{Manifest.permission.POST_NOTIFICATIONS, Manifest.permission.SCHEDULE_EXACT_ALARM, Manifest.permission.VIBRATE}
-                , NOTIFICATION_PERMISSION_CODE,
-                "Permission required to schedule tracker notification.");
+                notificationPermissions, NOTIFICATION_PERMISSION_CODE,
+                notificationExplanation);
     }
 
     private void scheduleNotif(long launchTime, String notifTitle, String msg, int notifId) {
@@ -84,7 +79,7 @@ public class StopwatchNotificationObserver extends TrackerObserver {
             counter += 1;
             Calendar cal = Calendar.getInstance();
             long currentTime = cal.getTimeInMillis();
-            cal.add(Calendar.MINUTE, notifItem.getMinute());
+            cal.add(Calendar.MINUTE, notifItem.getDelay());
             long scheduledTime = cal.getTimeInMillis() - offset;
             if (scheduledTime < currentTime) {    // scheduled time is in the past
                 continue;

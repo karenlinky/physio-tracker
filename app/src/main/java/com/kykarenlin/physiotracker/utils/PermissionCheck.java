@@ -51,21 +51,21 @@ public class PermissionCheck {
                 }
             }
             if (shouldShowRationale) {
-            new AlertDialog.Builder(context)
-                .setTitle("Permission Required")
-                .setMessage(message)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ActivityCompat.requestPermissions(fragmentActivity, permissionsNotGranted, requestCode);
-                    }
-                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context)
+                    .setTitle("Permission Required")
+                    .setMessage(message)
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
+                            ActivityCompat.requestPermissions(fragmentActivity, permissionsNotGranted, requestCode);
                         }
-                    })
-                    .create().show();
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .create().show();
             } else {
                 ActivityCompat.requestPermissions(this.fragmentActivity, permissionsNotGranted, requestCode);
             }

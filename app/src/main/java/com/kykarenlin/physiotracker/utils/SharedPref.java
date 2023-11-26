@@ -1,6 +1,7 @@
 package com.kykarenlin.physiotracker.utils;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class SharedPref {
 

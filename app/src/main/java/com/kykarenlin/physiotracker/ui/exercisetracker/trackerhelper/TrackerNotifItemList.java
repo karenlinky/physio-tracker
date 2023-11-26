@@ -11,8 +11,15 @@ public class TrackerNotifItemList {
         this.notificationOn = notificationOn;
     }
 
-    public void addItem(int minute, String message) {
-        TrackerNotifItem trackerNotifItem = new TrackerNotifItem(minute, message);
+    public void addItem(int delay, String message) {
+        TrackerNotifItem trackerNotifItem = new TrackerNotifItem(delay, message);
+        if (trackerNotifItem.validate()) {
+            list.add(trackerNotifItem);
+        }
+    }
+
+    public void addItem(String delay, String message) {
+        TrackerNotifItem trackerNotifItem = new TrackerNotifItem(delay, message);
         if (trackerNotifItem.validate()) {
             list.add(trackerNotifItem);
         }
