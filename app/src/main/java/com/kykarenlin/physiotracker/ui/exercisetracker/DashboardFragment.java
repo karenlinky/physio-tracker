@@ -2,6 +2,7 @@ package com.kykarenlin.physiotracker.ui.exercisetracker;
 
 import static com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment.DEFAULT_VALUE;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -118,7 +119,18 @@ public class DashboardFragment extends Fragment {
 
         btnContinueSession.setOnClickListener(view -> {trackerStatusSubject.continueSession();});
         btnPauseSession.setOnClickListener(view -> {trackerStatusSubject.pauseSession();});
-        btnFinishSession.setOnClickListener(view -> {trackerStatusSubject.finishSession();});
+        btnFinishSession.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(fragmentActivity);
+            builder.setTitle("Confirm Ending Session").setMessage(
+                    "You still have uncompleted exercises. Are you sure you want to end this session?"
+            );
+            builder.setPositiveButton(R.string.lbl_confirm, (dialogInterface, i) -> {
+                trackerStatusSubject.finishSession();
+            });
+
+            builder.setNegativeButton(R.string.lbl_cancel, (dialogInterface, i) -> {});
+            builder.show();
+        });
         btnResetSession.setOnClickListener(view -> {trackerStatusSubject.resetSession();});
 
 
