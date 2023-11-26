@@ -34,7 +34,7 @@ public abstract class ExerciseDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
-            this.populateDB(instance);
+//            this.populateDB(instance);
         }
 
         private void populateDB(ExerciseDatabase db) {

@@ -23,4 +23,9 @@
         android:name="com.kykarenlin.physiotracker.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/navigation_developer"
+        android:name="com.kykarenlin.physiotracker.ui.developer.DeveloperFragment"
+        android:label="Developer"
+        tools:layout="@layout/fragment_developer" />
 </navigation>

@@ -10,6 +10,12 @@ public class SharedPref {
         this.sharedPref = sharedPref;
     }
 
+    public void clearData() {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.apply();
+    }
+
     public String getData(String key, String defaultVal) {
         return sharedPref.getString(key, defaultVal);
     }

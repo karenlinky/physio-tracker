@@ -86,11 +86,7 @@ public class SettingsFragment extends Fragment {
         edtBreakMsgFields = new ArrayList<>(Arrays.asList(edtBreakMsg1, edtBreakMsg2, edtBreakMsg3));
 
         trackerNotifPreferences = TrackerNotifPreferences.getInstance(getContext(), getActivity());
-        TrackerNotifItemList workoutNotifList = trackerNotifPreferences.getExerciseNotifications();
-        TrackerNotifItemList breakNotifList = trackerNotifPreferences.getBreakNotifications();
-
-        setNotificationFieldsStatus(workoutNotifList.getNotificationOn());
-        this.populateFields(workoutNotifList, breakNotifList);
+        this.updateFields();
 
         switchStopwatchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -115,6 +111,19 @@ public class SettingsFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void updateFields() {
+        TrackerNotifItemList workoutNotifList = trackerNotifPreferences.getExerciseNotifications();
+        TrackerNotifItemList breakNotifList = trackerNotifPreferences.getBreakNotifications();
+
+        setNotificationFieldsStatus(workoutNotifList.getNotificationOn());
+        this.populateFields(workoutNotifList, breakNotifList);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.updateFields();
     }
 
     private void saveSettings() {

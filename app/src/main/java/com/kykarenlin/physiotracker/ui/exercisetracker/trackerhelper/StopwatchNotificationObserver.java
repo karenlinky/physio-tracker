@@ -92,7 +92,8 @@ public class StopwatchNotificationObserver extends TrackerObserver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.cancel(NOTIFICATION_STOPWATCH_ID);
     }
-    private void cancelScheduledNotifications(int notifId) {
+
+    public static void cancelScheduledNotifications(Context context, int notifId) {
         Intent notificationIntent = new Intent(context, NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -106,6 +107,29 @@ public class StopwatchNotificationObserver extends TrackerObserver {
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
+    }
+
+    public static void cancelScheduledNotifications(Context context) {
+        cancelScheduledNotifications(context, 1);
+        cancelScheduledNotifications(context, 2);
+        cancelScheduledNotifications(context, 3);
+    }
+
+    private void cancelScheduledNotifications(int notifId) {
+        cancelScheduledNotifications(context, notifId);
+//        Intent notificationIntent = new Intent(context, NotificationReceiver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+//                context,
+//                notifId,
+//                notificationIntent,
+//                PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE // Use FLAG_NO_CREATE to get existing PendingIntent or null if it doesn't exist
+//        );
+//
+//        if (pendingIntent != null) {
+//            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//            alarmManager.cancel(pendingIntent);
+//            pendingIntent.cancel();
+//        }
     }
 
     private void cancelScheduledNotifications() {
