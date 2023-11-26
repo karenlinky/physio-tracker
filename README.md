@@ -14,6 +14,8 @@ As someone in the midst of physiotherapy, I've got a routine of over 10 exercise
   - TrackerStatusSubject contains the status of the tracker (i.e. what state of the session is the user at - not started, working out, on a break, completed; if the session is paused; the timestamp when the exercise/break is started)
   - All the buttons, text, exercise list are managed by an Observer class
   - Every time there is a status change in the tracker, the Observers get notified, and the UI elements will change accordingly
+- Fragments (reusable fragments to display the exercise details (number of sets, number of reps, and duration of each exercise))
+- RecyclerView (to display a list of exercises)
 
 ## Usage
 ### Exercises
