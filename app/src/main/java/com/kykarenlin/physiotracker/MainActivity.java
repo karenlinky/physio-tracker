@@ -1,11 +1,16 @@
 package com.kykarenlin.physiotracker;
 
+import static com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.StopwatchNotificationObserver.STOPWATCH_CHANNEL_ID;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioAttributes;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController navController;
     private AppBarConfiguration appBarConfiguration;
+
+    public static final int NOTIFICATION_PERMISSION_CODE = 1;
+    public static final int EXACT_ALARM_PERMISSION_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +55,26 @@ public class MainActivity extends AppCompatActivity {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF000000"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
+        this.createTrackerStopwatchNotificationChannel();
     }
 
-    private void createNotificationChannel() {
+    private void createTrackerStopwatchNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String name = "PhysioTrackerStopwatchChannel";
-            String description = "Channel for stopwatch";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("stopwatch_channel", name, importance);
+            String description = "Channel for tracker stopwatch";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(STOPWATCH_CHANNEL_ID, name, importance);
             channel.setDescription(description);
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                .build();
+            channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), audioAttributes);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                channel.setAllowBubbles(true);
+            }
+            channel.setVibrationPattern(new long[]{200, 200, 500});
+            channel.enableVibration(true);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
@@ -67,4 +86,8 @@ public class MainActivity extends AppCompatActivity {
         return navController.navigateUp();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }

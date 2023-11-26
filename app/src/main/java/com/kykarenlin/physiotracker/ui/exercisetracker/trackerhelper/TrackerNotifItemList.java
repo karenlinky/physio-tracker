@@ -14,6 +14,10 @@ public class TrackerNotifItemList {
         }
     }
 
+    public ArrayList<TrackerNotifItem> getList() {
+        return this.list;
+    }
+
     public int getNumItems() {
         return list.size();
     }

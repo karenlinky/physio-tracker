@@ -28,6 +28,8 @@ public class TrackerStatusSubject {
 
     private Context context;
 
+    private FragmentActivity fragmentActivity;
+
     private SharedPreferences sharedPref;
     private TrackerStatus status;
 
@@ -52,6 +54,7 @@ public class TrackerStatusSubject {
         this.exerciseViewModel = exerciseViewModel;
         this.lifecycleOwner = lifecycleOwner;
         this.context = context;
+        this.fragmentActivity = fragmentActivity;
 
         sharedPref = fragmentActivity.getPreferences(Context.MODE_PRIVATE);
 
@@ -71,6 +74,10 @@ public class TrackerStatusSubject {
 
     public Context getContext() {
         return this.context;
+    }
+
+    public FragmentActivity getFragmentActivity() {
+        return this.fragmentActivity;
     }
 
     public void registerObserver(TrackerObserver trackerObserver) {

@@ -29,6 +29,7 @@ import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.SessionControlObserver;
+import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.StopwatchNotificationObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerStopwatchObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseControlObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseProgressObserver;
@@ -84,6 +85,9 @@ public class DashboardFragment extends Fragment {
         final Chronometer cnmtTracker = binding.cnmtTracker;
         TrackerStopwatchObserver trackerStopwatchObserver = new TrackerStopwatchObserver(trackerStatusSubject, cnmtTracker);
         trackerStatusSubject.registerObserver(trackerStopwatchObserver);
+
+        StopwatchNotificationObserver stopwatchNotificationObserver = new StopwatchNotificationObserver(trackerStatusSubject);
+        trackerStatusSubject.registerObserver(stopwatchNotificationObserver);
 
         final ImageView sessionStatusIndicator = binding.sessionStatusIndicator;
         final TextView txtTrackerStatus = binding.txtTrackerStatus;
