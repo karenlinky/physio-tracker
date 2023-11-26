@@ -8,7 +8,7 @@ As someone in the midst of physiotherapy, I've got a routine of over 10 exercise
 - Room (Local Storage)
 - ExecutorService (to handle interactions with the database)
 - LiveData (to get notified when there is a change in data)
-- AlarmManager, BroadcastReceiver, NotificationClasses (to schedule notifications)
+- AlarmManager, BroadcastReceiver, Notification classes (to schedule notifications)
 - Singleton Design Pattern (Handling database and sharedPreferences used for notification settings)
 - Observer Pattern (Handling the status of the tracker)
   - TrackerStatusSubject contains the status of the tracker (i.e. what state of the session is the user at - not started, working out, on a break, completed; if the session is paused; the timestamp when the exercise/break is started)
