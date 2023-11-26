@@ -18,4 +18,9 @@
         android:name="com.kykarenlin.physiotracker.ui.eventlogs.EventLogsFragment"
         android:label="@string/title_event_logs"
         tools:layout="@layout/fragment_event_logs" />
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.kykarenlin.physiotracker.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
