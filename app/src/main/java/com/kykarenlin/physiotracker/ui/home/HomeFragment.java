@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -60,6 +62,8 @@ public class HomeFragment extends BaseFragment {
         final ExerciseAdapter adapter = new ExerciseAdapter();
         rclvExercises.setAdapter(adapter);
 
+        final RelativeLayout emptyExerciseListContainer = binding.emptyExerciseListContainer;
+        final ScrollView exerciseListContainer = binding.exerciseListContainer;
 
 //        final TextView textView = binding.textHome;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -70,6 +74,13 @@ public class HomeFragment extends BaseFragment {
             public void onChanged(List<Exercise> exercises) {
                 // update view
                 adapter.setExercises(exercises);
+                if (exercises.size() == 0) {
+                    emptyExerciseListContainer.setVisibility(View.VISIBLE);
+                    exerciseListContainer.setVisibility(View.GONE);
+                } else {
+                    emptyExerciseListContainer.setVisibility(View.GONE);
+                    exerciseListContainer.setVisibility(View.VISIBLE);
+                }
 //                if (exercises.size() == 0) return;
 //                Toast.makeText(getActivity(), "Archived: " + exercises.get(0).getIsArchived() + " Completed: " + exercises.get(0).getIsCompleted() + " Timestamp: " + exercises.get(0).progressTimestamp(), Toast.LENGTH_SHORT).show();
             }
