@@ -29,7 +29,7 @@
     <string name="lbl_stopwatch_notification">Stopwatch Notification</string>
     <string name="lbl_workout_stopwatch_notification">Workout Stopwatch Notification</string>
     <string name="lbl_break_stopwatch_notification">Break Stopwatch Notification</string>
-    <string name="lbl_timer_notification_hint">Please enter the delay time (in minute) and the corresponding message for each notification. Leave the fields empty if you do not wish to receive additional notifications.</string>
+    <string name="lbl_timer_notification_hint">Please enter <b>both</b> the delay time (in minute) and the corresponding message for each notification. Leave the fields empty if you do not wish to receive additional notifications.</string>
     <string name="edt_notif_delay_hint">Delay (min)</string>
     <string name="edt_notif_msg_hint">Notification Message</string>
     <string name="empty_exercise_list_msg">You don\'t have any exercises recorded. Get started by adding exercises using the button at the top.</string>

@@ -12,12 +12,12 @@ public class TrackerNotifItem {
 
     public TrackerNotifItem(String delay, String message) {
         if (delay.equals("")) {
-            this.delay = 0;
+            this.delay = -1;
         } else {
             try {
                 this.delay = Integer.parseInt(delay);
             } catch (Exception e) {
-                this.delay = 0;
+                this.delay = -1;
             }
         }
         this.message = message.trim();
@@ -32,6 +32,6 @@ public class TrackerNotifItem {
     }
 
     public boolean validate() {
-        return (this.delay > 0 && !this.message.equals(""));
+        return (this.delay >= 0 && !this.message.equals(""));
     }
 }

@@ -1,6 +1,9 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
+import static java.util.stream.Collectors.toCollection;
+
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TrackerNotifItemList {
     private ArrayList<TrackerNotifItem> list = new ArrayList<>();
@@ -13,27 +16,23 @@ public class TrackerNotifItemList {
 
     public void addItem(int delay, String message) {
         TrackerNotifItem trackerNotifItem = new TrackerNotifItem(delay, message);
-        if (trackerNotifItem.validate()) {
-            list.add(trackerNotifItem);
-        }
+        list.add(trackerNotifItem);
     }
 
     public void addItem(String delay, String message) {
         TrackerNotifItem trackerNotifItem = new TrackerNotifItem(delay, message);
-        if (trackerNotifItem.validate()) {
-            list.add(trackerNotifItem);
-        }
+        list.add(trackerNotifItem);
     }
 
     public ArrayList<TrackerNotifItem> getList() {
         return this.list;
     }
 
-    public boolean getNotificationOn() {
-        return this.notificationOn;
+    public ArrayList<TrackerNotifItem> getValidList() {
+        return this.list.stream().filter(notifItem -> notifItem.validate()).collect(toCollection(ArrayList::new));
     }
 
-    public int getNumItems() {
-        return list.size();
+    public boolean getNotificationOn() {
+        return this.notificationOn;
     }
 }

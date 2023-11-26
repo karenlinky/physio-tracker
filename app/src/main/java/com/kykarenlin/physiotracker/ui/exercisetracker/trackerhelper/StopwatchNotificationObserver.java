@@ -67,13 +67,13 @@ public class StopwatchNotificationObserver extends TrackerObserver {
     }
 
     private void scheduleNotif(TrackerNotifItemList trackerNotifItemList, String notifTitle, long offset) {
-        if (!trackerNotifItemList.getNotificationOn() || trackerNotifItemList.getNumItems() == 0) {
+        ArrayList<TrackerNotifItem> notifList = trackerNotifItemList.getValidList();
+        if (!trackerNotifItemList.getNotificationOn() || notifList.size() == 0) {
             return; // no notification needs to be scheduled
         }
 
         this.notificationPermissionCheck();
 
-        ArrayList<TrackerNotifItem> notifList = trackerNotifItemList.getList();
         int counter = 0;
         for (TrackerNotifItem notifItem : notifList) {
             counter += 1;

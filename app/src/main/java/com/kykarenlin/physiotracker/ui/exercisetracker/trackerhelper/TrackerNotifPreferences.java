@@ -88,7 +88,7 @@ public class TrackerNotifPreferences {
         trackerNotifItemList.addItem(delay, msg);
 
         delay = this.sharedPref.getData(KEY_BREAK_NOTIF_DELAY_2, 5);
-        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_2, "💪 Get back to your exercise!");
+        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_2, "🫵 Get back to your exercise!");
         trackerNotifItemList.addItem(delay, msg);
 
         delay = this.sharedPref.getData(KEY_BREAK_NOTIF_DELAY_3, 8);
@@ -154,6 +154,7 @@ public class TrackerNotifPreferences {
                 strBreakMsg2,
                 strBreakMsg3
         );
+        this.sharedPref.setData(KEY_STOPWATCH_NOTIF_ON, notifOn);
         this.saveToSharedPreferences(workoutTrackerNotifItemList, NotificationType.WORKOUT);
         this.saveToSharedPreferences(breakTrackerNotifItemList, NotificationType.BREAK);
     }

@@ -98,17 +98,17 @@ public class SettingsFragment extends Fragment {
                         notificationExplanation);
                 }
                 setNotificationFieldsStatus(b);
+                saveSettings();
             }
         });
 
-        final Button btnSaveSettings = binding.btnSaveSettings;
-        btnSaveSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveSettings();
-                Toast.makeText(getContext(), "Settings successfully saved.", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        final Button btnSaveSettings = binding.btnSaveSettings;
+//        btnSaveSettings.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                saveSettings();
+//            }
+//        });
 
         return root;
     }
@@ -142,6 +142,7 @@ public class SettingsFragment extends Fragment {
             edtBreakMsg2.getText().toString(),
             edtBreakMsg3.getText().toString()
         );
+//        Toast.makeText(getContext(), "Settings successfully saved.", Toast.LENGTH_SHORT).show();
     }
 
     private void populateFields(ArrayList<TrackerNotifItem> notifs, NotificationType notificationType) {
@@ -149,11 +150,15 @@ public class SettingsFragment extends Fragment {
             TrackerNotifItem notif = notifs.get(i);
             int delay = notif.getDelay();
             String msg = notif.getMessage();
+            String strDelay = "";
+            if (delay >= 0) {
+                strDelay = String.valueOf(delay);
+            }
             if (notificationType == NotificationType.WORKOUT) {
-                edtWorkoutDelayFields.get(i).setText(String.valueOf(delay));
+                edtWorkoutDelayFields.get(i).setText(strDelay);
                 edtWorkoutMsgFields.get(i).setText(String.valueOf(msg));
             } else {
-                edtBreakDelayFields.get(i).setText(String.valueOf(delay));
+                edtBreakDelayFields.get(i).setText(strDelay);
                 edtBreakMsgFields.get(i).setText(String.valueOf(msg));
             }
         }
@@ -196,5 +201,11 @@ public class SettingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.saveSettings();
     }
 }
