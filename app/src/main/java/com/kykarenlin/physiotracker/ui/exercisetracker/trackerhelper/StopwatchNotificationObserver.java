@@ -72,7 +72,7 @@ public class StopwatchNotificationObserver extends TrackerObserver {
     }
 
     private void scheduleNotif(TrackerNotifItemList trackerNotifItemList, String notifTitle, long offset) {
-        if (trackerNotifItemList.getNumItems() == 0) {
+        if (!trackerNotifItemList.getNotificationOn() || trackerNotifItemList.getNumItems() == 0) {
             return; // no notification needs to be scheduled
         }
 

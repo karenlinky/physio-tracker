@@ -13,7 +13,8 @@ public class TrackerNotifPreferences {
 
     private SharedPref sharedPref;
 
-    private static final String KEY_EXERCISE_NOTIF_ON = "exercise_notif_on";
+    private static final String KEY_STOPWATCH_NOTIF_ON = "stopwatch_notif_on";
+
     private static final String KEY_EXERCISE_NOTIF_DELAY_1 = "exercise_notif_delay_1";
     private static final String KEY_EXERCISE_NOTIF_MSG_1 = "exercise_notif_msg_1";
     private static final String KEY_EXERCISE_NOTIF_DELAY_2 = "exercise_notif_delay_2";
@@ -21,7 +22,7 @@ public class TrackerNotifPreferences {
     private static final String KEY_EXERCISE_NOTIF_DELAY_3 = "exercise_notif_delay_3";
     private static final String KEY_EXERCISE_NOTIF_MSG_3 = "exercise_notif_msg_3";
 
-    private static final String KEY_BREAK_NOTIF_ON = "break_notif_on";
+
     private static final String KEY_BREAK_NOTIF_DELAY_1 = "break_notif_delay_1";
     private static final String KEY_BREAK_NOTIF_MSG_1 = "break_notif_msg_1";
     private static final String KEY_BREAK_NOTIF_DELAY_2 = "break_notif_delay_2";
@@ -45,11 +46,8 @@ public class TrackerNotifPreferences {
 
     public TrackerNotifItemList getExerciseNotifications() {
         //TODO: replace delay
-        boolean notificationTurnedOn = this.sharedPref.getData(KEY_EXERCISE_NOTIF_ON, true);
-        TrackerNotifItemList trackerNotifItemList = new TrackerNotifItemList();
-        if (!notificationTurnedOn) {
-            return trackerNotifItemList;
-        }
+        boolean notificationTurnedOn = this.sharedPref.getData(KEY_STOPWATCH_NOTIF_ON, true);
+        TrackerNotifItemList trackerNotifItemList = new TrackerNotifItemList(notificationTurnedOn);
 
         int delay = 0;
         String msg = "";
@@ -70,11 +68,8 @@ public class TrackerNotifPreferences {
 
     public TrackerNotifItemList getBreakNotifications() {
         //TODO: replace delay
-        boolean notificationTurnedOn = this.sharedPref.getData(KEY_BREAK_NOTIF_ON, true);
-        TrackerNotifItemList trackerNotifItemList = new TrackerNotifItemList();
-        if (!notificationTurnedOn) {
-            return trackerNotifItemList;
-        }
+        boolean notificationTurnedOn = this.sharedPref.getData(KEY_STOPWATCH_NOTIF_ON, true);
+        TrackerNotifItemList trackerNotifItemList = new TrackerNotifItemList(notificationTurnedOn);
 
         int delay = 0;
         String msg = "";

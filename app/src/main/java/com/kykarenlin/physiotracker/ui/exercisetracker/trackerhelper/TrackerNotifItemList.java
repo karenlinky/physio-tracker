@@ -5,7 +5,11 @@ import java.util.ArrayList;
 public class TrackerNotifItemList {
     private ArrayList<TrackerNotifItem> list = new ArrayList<>();
 
-    public TrackerNotifItemList() {}
+    private boolean notificationOn;
+
+    public TrackerNotifItemList(boolean notificationOn) {
+        this.notificationOn = notificationOn;
+    }
 
     public void addItem(int minute, String message) {
         TrackerNotifItem trackerNotifItem = new TrackerNotifItem(minute, message);
@@ -16,6 +20,10 @@ public class TrackerNotifItemList {
 
     public ArrayList<TrackerNotifItem> getList() {
         return this.list;
+    }
+
+    public boolean getNotificationOn() {
+        return this.notificationOn;
     }
 
     public int getNumItems() {
