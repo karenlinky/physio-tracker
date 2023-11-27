@@ -15,6 +15,7 @@ import com.kykarenlin.physiotracker.ui.exercisetracker.ExerciseProgress;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TrackerStatusSubject {
@@ -61,7 +62,8 @@ public class TrackerStatusSubject {
         String strStatus = getData(KEY_TRACKER_STATUS, TrackerStatus.SESSION_NOT_STARTED.toString());
         status = TrackerStatus.valueOf(strStatus);
         sessionPaused = getData(KEY_TRACKER_SESSION_PAUSED, false);
-        timestamp = getData(KEY_TRACKER_TIMESTAMP, SystemClock.elapsedRealtime());
+//        timestamp = getData(KEY_TRACKER_TIMESTAMP, SystemClock.elapsedRealtime());
+        timestamp = getData(KEY_TRACKER_TIMESTAMP, Calendar.getInstance().getTimeInMillis());
         activeExerciseId = getData(KEY_TRACKER_ACTIVE_EXERCISE_ID, DEFAULT_EXERCISE_ID);
         selectedExerciseId = -1;
 
@@ -147,12 +149,16 @@ public class TrackerStatusSubject {
     }
 
     private void updateTimestamp(long timestamp) {
+        Log.e("TAG", "updateTimestamp: timestamp UPDATED");
+        Log.e("TAG", "SystemCLock: " + SystemClock.elapsedRealtime());
+        Log.e("TAG", "Calendar: " + Calendar.getInstance().getTimeInMillis());
         this.timestamp = timestamp;
         this.setData(KEY_TRACKER_TIMESTAMP, timestamp);
     }
 
     private void updateTimestampToCurrentTime() {
-        this.updateTimestamp(SystemClock.elapsedRealtime());
+        this.updateTimestamp(Calendar.getInstance().getTimeInMillis());
+//        this.updateTimestamp(SystemClock.elapsedRealtime());
     }
 
     private void updateActiveId(int activeExerciseId) {
@@ -284,7 +290,8 @@ public class TrackerStatusSubject {
         updateSessionPaused(false);
         // time difference between now and the duration the timer ran (set in pauseSession)
         // so timer will display the duration the timer has been running
-        updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
+//        updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
+        updateTimestamp(Calendar.getInstance().getTimeInMillis() - this.getTimestamp());
         notifyStateChanged();
 
         for (TrackerObserver trackerObserver : trackerObservers) {
@@ -294,7 +301,8 @@ public class TrackerStatusSubject {
 
     public void pauseSession() {
         updateSessionPaused(true);
-        updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());   // time difference between now and start time
+//        updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());   // time difference between now and start time
+        updateTimestamp(Calendar.getInstance().getTimeInMillis() - this.getTimestamp());   // time difference between now and start time
         notifyStateChanged();
 
         for (TrackerObserver trackerObserver : trackerObservers) {
@@ -309,6 +317,7 @@ public class TrackerStatusSubject {
         updateStatus(TrackerStatus.SESSION_COMPLETED);
 //        if (!this.getSessionPaused()) {
 //            updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());
+//            updateTimestamp(Calendar.getInstance().getTimeInMillis() - this.getTimestamp());
 //        }
         updateTimestampToCurrentTime();
         updateSessionPaused(false);

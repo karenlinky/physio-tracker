@@ -6,6 +6,8 @@ import android.widget.Chronometer;
 
 import com.kykarenlin.physiotracker.enums.TrackerStatus;
 
+import java.util.Calendar;
+
 public class TrackerStopwatchObserver extends TrackerObserver{
     private TrackerStatusSubject trackerStatusSubject;
     private Chronometer cnmtTracker;
@@ -37,7 +39,7 @@ public class TrackerStopwatchObserver extends TrackerObserver{
                     cnmtTracker.setBase(SystemClock.elapsedRealtime() - timeStamp);
                     cnmtTracker.stop();
                 } else {
-                    cnmtTracker.setBase(timeStamp);
+                    cnmtTracker.setBase(SystemClock.elapsedRealtime() - (Calendar.getInstance().getTimeInMillis() - timeStamp));
                     cnmtTracker.start();
                 }
                 break;
