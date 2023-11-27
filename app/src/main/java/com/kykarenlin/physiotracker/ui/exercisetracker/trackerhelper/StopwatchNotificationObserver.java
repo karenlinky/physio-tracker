@@ -156,7 +156,7 @@ public class StopwatchNotificationObserver extends TrackerObserver {
 
     @Override
     public void notifyContinueSession() {
-        long offset = SystemClock.elapsedRealtime() - this.trackerStatusSubject.getTimestamp(); // duration the stopwatch has been running
+        long offset = Calendar.getInstance().getTimeInMillis() - this.trackerStatusSubject.getTimestamp(); // duration the stopwatch has been running
         if (this.trackerStatusSubject.getStatus() == TrackerStatus.WORKOUT_IN_PROGRESS) {
             this.scheduleNotif(this.trackerNotifPreferences.getExerciseNotifications(), NOTIF_WORKOUT_TITLE, offset);
         } else {
