@@ -47,7 +47,7 @@ During the session, users can also pause, end and reset the session at any time.
 
 
 ### Settings
-Users can customize their notification settings (including the delay and message) of their notifications.<br />
+Users can customize their notification settings (including the delay and message).<br />
 <img src="https://github.com/karenlinky/physio-tracker/assets/61481010/95ed77f6-5430-4b33-a92f-ca98810173f0" height="600" />
 
 
