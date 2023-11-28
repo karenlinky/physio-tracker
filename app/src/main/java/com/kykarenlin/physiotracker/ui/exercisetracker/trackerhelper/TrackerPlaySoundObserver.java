@@ -3,7 +3,9 @@ package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
@@ -29,7 +31,7 @@ public class TrackerPlaySoundObserver extends TrackerObserver {
 
     private Exercise lastPlayedExercise;
 
-    private final int DELAY_IN_SECOND = 2;
+    private final int DELAY_IN_SECOND = 3;
     private final int INTERVAL_IN_SECOND = 3;
     private TrackerPlaySoundObserver(TrackerStatusSubject trackerStatusSubject, Button btnPlaySound) {
         this.trackerStatusSubject = trackerStatusSubject;
@@ -122,6 +124,8 @@ public class TrackerPlaySoundObserver extends TrackerObserver {
         if (duration == 0 || numRep == 0) {
             return;
         }
+        
+        Toast.makeText(trackerStatusSubject.getContext(), "Starting in 3 seconds...", Toast.LENGTH_SHORT).show();
 
 
         updateIsPlaying();
