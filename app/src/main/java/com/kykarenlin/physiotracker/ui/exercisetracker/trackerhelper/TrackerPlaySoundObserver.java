@@ -132,12 +132,13 @@ public class TrackerPlaySoundObserver extends TrackerObserver {
         this.trackerStatusSubject.startPlayingSound();
 
         final int[] repCount = {0};
+        int finalDuration = durationUnit.equals("s") ? duration : duration * 60;
         executor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 if (repCount[0] < numRep) {
                     repExecutor = Executors.newSingleThreadScheduledExecutor();
-                    playOneRepSound(duration);
+                    playOneRepSound(finalDuration);
                     repCount[0]++;
                 } else {
                     if (executor != null && !executor.isShutdown()) {
@@ -146,7 +147,7 @@ public class TrackerPlaySoundObserver extends TrackerObserver {
                     updateIsNotPlaying();
                 }
             }
-        }, DELAY_IN_SECOND, duration + INTERVAL_IN_SECOND, TimeUnit.SECONDS);
+        }, DELAY_IN_SECOND, finalDuration + INTERVAL_IN_SECOND, TimeUnit.SECONDS);
 
     }
 
