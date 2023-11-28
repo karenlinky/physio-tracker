@@ -25,6 +25,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.kykarenlin.physiotracker.databinding.ActivityMainBinding;
+import com.kykarenlin.physiotracker.ui.settings.NightModeSettings;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
         this.createTrackerStopwatchNotificationChannel();
 
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        NightModeSettings nightModeSettings = NightModeSettings.getInstance(getApplicationContext(), this);
+        boolean nightModeEnabled = nightModeSettings.getNightModeEnabled();
+        if (nightModeEnabled) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     private void createTrackerStopwatchNotificationChannel() {

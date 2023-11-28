@@ -4,22 +4,20 @@ import static com.kykarenlin.physiotracker.MainActivity.NOTIFICATION_PERMISSION_
 import static com.kykarenlin.physiotracker.utils.NotificationIds.notificationExplanation;
 import static com.kykarenlin.physiotracker.utils.NotificationIds.notificationPermissions;
 
-import android.Manifest;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.databinding.FragmentSettingsBinding;
 import com.kykarenlin.physiotracker.enums.NotificationType;
@@ -35,6 +33,10 @@ public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
     private Switch switchStopwatchNotification;
+
+    private NightModeSettings nightModeSettings;
+
+    private Switch switchNightMode;
 
     private boolean switchStopwatchNotificationChecked;
 
@@ -85,7 +87,14 @@ public class SettingsFragment extends Fragment {
         edtBreakMsg3 = binding.edtBreakMsg3;
         edtBreakMsgFields = new ArrayList<>(Arrays.asList(edtBreakMsg1, edtBreakMsg2, edtBreakMsg3));
 
-        trackerNotifPreferences = TrackerNotifPreferences.getInstance(getContext(), getActivity());
+        Context context = getContext();
+        FragmentActivity fragmentActivity = getActivity();
+
+        trackerNotifPreferences = TrackerNotifPreferences.getInstance(context, fragmentActivity);
+
+        nightModeSettings = NightModeSettings.getInstance(context, fragmentActivity);
+        switchNightMode = binding.switchNightMode;
+
         this.updateFields();
 
         switchStopwatchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -102,18 +111,25 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-//        final Button btnSaveSettings = binding.btnSaveSettings;
-//        btnSaveSettings.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                saveSettings();
-//            }
-//        });
+
+
+        switchNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                nightModeSettings.setNightModeEnabled(b);
+            }
+        });
+
 
         return root;
     }
 
     private void updateFields() {
+        // night mode
+        boolean nightModeEnabled = nightModeSettings.getNightModeEnabled();
+        switchNightMode.setChecked(nightModeEnabled);
+
+        // notifications
         TrackerNotifItemList workoutNotifList = trackerNotifPreferences.getExerciseNotifications();
         TrackerNotifItemList breakNotifList = trackerNotifPreferences.getBreakNotifications();
 
@@ -127,6 +143,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void saveSettings() {
+        // does not save night mode settings (Saved on change)
         trackerNotifPreferences.saveStopwachNotificationSettings(
             switchStopwatchNotificationChecked,
             edtWorkoutDelay1.getText().toString(),
