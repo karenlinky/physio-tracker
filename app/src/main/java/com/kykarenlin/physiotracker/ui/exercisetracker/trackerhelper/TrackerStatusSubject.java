@@ -252,6 +252,9 @@ public class TrackerStatusSubject {
     }
 
     private Exercise searchForExerciseById(int id) {
+        if (id == -1) {
+            return null;
+        }
         for (Exercise exercise : exercises) {
             if (exercise.getId() == id) {
                 return exercise;
