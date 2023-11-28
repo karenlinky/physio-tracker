@@ -10,12 +10,13 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
         <item name="colorMainBackground">@color/mainBackgroundColorDark</item>
         <item name="colorImgBtnTint">@color/imgBtnTintDark</item>
         <item name="colorEdtBackground">@color/edtBackgroundDark</item>
         <item name="colorTrackerListContainer">@color/trackerExerciseListContainerDark</item>
         <item name="colorRedBtn">@color/red_btn_dark</item>
+        <item name="colorNavIconSelected">?attr/colorPrimary</item>
     </style>
 </resources>

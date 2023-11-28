@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorNavIconSelected" format="reference" />
     <attr name="colorMainBackground" format="reference" />
     <attr name="colorRedBtn" format="reference" />
     <attr name="colorImgBtnTint" format="reference" />

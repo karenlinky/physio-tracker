@@ -19,5 +19,6 @@
         <item name="colorEdtBackground">@color/white</item>
         <item name="colorTrackerListContainer">@color/trackerExerciseListContainer</item>
         <item name="colorRedBtn">@color/red_btn</item>
+        <item name="colorNavIconSelected">@color/white</item>
     </style>
 </resources>
