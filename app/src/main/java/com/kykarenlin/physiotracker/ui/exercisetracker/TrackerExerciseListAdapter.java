@@ -44,11 +44,15 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
         int enabledColor = ContextCompat.getColor(context, R.color.trackerListEnabled);
         int selectedColor = ContextCompat.getColor(context, R.color.trackerListSelected);
         int disabledColor = ContextCompat.getColor(context, R.color.trackerListDisabled);
+        int enabledTextColor = ContextCompat.getColor(context, R.color.trackerListTextEnabled);
+        int disabledTextColor = ContextCompat.getColor(context, R.color.trackerListTextDisabled);
 
         if (isNightMode) {
             enabledColor =  ContextCompat.getColor(context, R.color.trackerListEnabledDark);
             selectedColor =  ContextCompat.getColor(context, R.color.trackerListSelectedDark);
             disabledColor =  ContextCompat.getColor(context, R.color.trackerListDisabledDark);
+            enabledTextColor = ContextCompat.getColor(context, R.color.trackerListTextEnabledDark);
+            disabledTextColor = ContextCompat.getColor(context, R.color.trackerListTextDisabledDark);
         }
 
         ExerciseProgress currentExercise = exercisesWithProgress.get(position);
@@ -57,18 +61,22 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
             // exercise completed
             holder.trackerItemCard.setBackgroundColor(disabledColor);
             holder.trackerItemIconStatusContainer.setVisibility(View.VISIBLE);
+            holder.txtTrackerExerciseItemName.setTextColor(disabledTextColor);
         } else if (currentExercise.getButtonDisabled()) {
             // session completed or session in progress
             holder.trackerItemCard.setBackgroundColor(disabledColor);
             holder.trackerItemIconStatusContainer.setVisibility(View.INVISIBLE);
+            holder.txtTrackerExerciseItemName.setTextColor(disabledTextColor);
         } else if (currentExercise.getSelected()) {
             // exercise gets selected
             holder.trackerItemCard.setBackgroundColor(selectedColor);
             holder.trackerItemIconStatusContainer.setVisibility(View.INVISIBLE);
+            holder.txtTrackerExerciseItemName.setTextColor(enabledTextColor);
         } else {
             // exercise not completed
             holder.trackerItemCard.setBackgroundColor(enabledColor);
             holder.trackerItemIconStatusContainer.setVisibility(View.INVISIBLE);
+            holder.txtTrackerExerciseItemName.setTextColor(enabledTextColor);
         }
     }
 

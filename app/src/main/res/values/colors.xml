@@ -9,6 +9,7 @@
     <color name="menuDefaultGrey">#888888</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red_btn">#8F4646</color>
+    <color name="red_btn_dark">#DF2B2B</color>
     <color name="primary_color">#FF000000</color>
     <color name="grey_btn">#888888</color>
     <color name="green_checkmark">#047C00</color>
@@ -31,6 +32,10 @@
     <color name="trackerListEnabledDark">#4E4E4E</color>
     <color name="trackerListSelected">#D5E8FF</color>
     <color name="trackerListSelectedDark">#577497</color>
-    <color name="trackerListDisabled">#FFEDEDED</color>
+    <color name="trackerListDisabled">#E3E3E3</color>
     <color name="trackerListDisabledDark">#272727</color>
+    <color name="trackerListTextEnabled">#474747</color>
+    <color name="trackerListTextEnabledDark">#D1D1D1</color>
+    <color name="trackerListTextDisabled">#ACACAC</color>
+    <color name="trackerListTextDisabledDark">#494949</color>
 </resources>

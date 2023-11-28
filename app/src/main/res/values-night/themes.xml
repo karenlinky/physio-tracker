@@ -16,5 +16,6 @@
         <item name="colorImgBtnTint">@color/imgBtnTintDark</item>
         <item name="colorEdtBackground">@color/edtBackgroundDark</item>
         <item name="colorTrackerListContainer">@color/trackerExerciseListContainerDark</item>
+        <item name="colorRedBtn">@color/red_btn_dark</item>
     </style>
 </resources>

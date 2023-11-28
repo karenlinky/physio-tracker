@@ -120,7 +120,7 @@
                             android:id="@+id/btnCancelExercise"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@color/red_btn"
+                            android:backgroundTint="?attr/colorRedBtn"
                             android:text="@string/lbl_cancel_exercise"
                             android:textAllCaps="false" />
                     </FrameLayout>
