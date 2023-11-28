@@ -11,5 +11,6 @@ public enum ExerciseBundleKeys {
     DESCRIPTION,
     IS_ARCHIVED,
     SESSION_STATUS,
+    INTERVAL_BETWEEN_REP,
     PROGRESS_TIMESTAMP
 }

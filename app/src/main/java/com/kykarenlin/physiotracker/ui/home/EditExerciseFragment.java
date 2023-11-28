@@ -74,6 +74,7 @@ public class EditExerciseFragment extends Fragment {
         String initDescription = getArguments().getString(ExerciseBundleKeys.DESCRIPTION.toString());
         boolean isArchived = getArguments().getBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString());
         String sessionStatus = getArguments().getString(ExerciseBundleKeys.SESSION_STATUS.toString());
+        int intervalBetweenEachRep = getArguments().getInt(ExerciseBundleKeys.INTERVAL_BETWEEN_REP.toString());
         int progressTimestamp = getArguments().getInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString());
 
         exerciseViewModel =
@@ -223,6 +224,7 @@ public class EditExerciseFragment extends Fragment {
                     newExercise.setId(exerciseId);
                     newExercise.setIsArchived(isArchived);
                     newExercise.setSessionStatus(sessionStatus);
+                    newExercise.setIntervalBetweenRep(intervalBetweenEachRep);
                     newExercise.setProgressTimestamp(progressTimestamp);
                     exerciseViewModel.update(newExercise);
                     Toast.makeText(getContext(), "Exercise updated", Toast.LENGTH_SHORT).show();

@@ -21,6 +21,8 @@ public class Exercise {
 
     private String sessionStatus;
 
+    private int intervalBetweenRep;
+
     private int progressTimestamp;
 
 
@@ -35,6 +37,7 @@ public class Exercise {
         this.description = description;
         this.isArchived = false;
         this.sessionStatus = ExerciseSessionStatus.NOT_COMPLETED.toString();
+        this.intervalBetweenRep = 3;
         this.progressTimestamp = 0;
     }
 
@@ -48,6 +51,10 @@ public class Exercise {
 
     public void setSessionStatus(String sessionStatus) {
         this.sessionStatus = sessionStatus;
+    }
+
+    public void setIntervalBetweenRep(int intervalBetweenRep) {
+        this.intervalBetweenRep = intervalBetweenRep;
     }
 
     public void setProgressTimestamp(int progressTimestamp) {
@@ -86,12 +93,16 @@ public class Exercise {
         return description;
     }
 
-    public boolean getIsArchived() {
+    public boolean isArchived() {
         return isArchived;
     }
 
     public String getSessionStatus() {
         return sessionStatus;
+    }
+
+    public int getIntervalBetweenRep() {
+        return intervalBetweenRep;
     }
 
     public int getProgressTimestamp() {

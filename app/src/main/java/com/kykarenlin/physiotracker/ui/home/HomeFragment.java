@@ -49,6 +49,7 @@ public class HomeFragment extends BaseFragment {
             bundle.putString(ExerciseBundleKeys.DESCRIPTION.toString(), "");
             bundle.putBoolean(ExerciseBundleKeys.IS_ARCHIVED.toString(), false);
             bundle.putString(ExerciseBundleKeys.SESSION_STATUS.toString(), ExerciseSessionStatus.NOT_COMPLETED.toString());
+            bundle.putInt(ExerciseBundleKeys.INTERVAL_BETWEEN_REP.toString(), 3);
             bundle.putInt(ExerciseBundleKeys.PROGRESS_TIMESTAMP.toString(), 0);
             Navigation.findNavController(root).navigate(R.id.action_home_to_editExercise, bundle);
         });
