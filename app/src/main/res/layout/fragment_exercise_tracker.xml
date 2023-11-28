@@ -221,7 +221,7 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
                     app:srcCompat="@drawable/ic_play"
-                    app:tint="@color/white" />
+                    app:tint="?attr/colorImgBtnTint" />
 
                 <ImageButton
                     android:id="@+id/btnPauseSession"
@@ -233,7 +233,7 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
                     app:srcCompat="@drawable/ic_pause"
-                    app:tint="@color/white" />
+                    app:tint="?attr/colorImgBtnTint" />
 
                 <ImageButton
                     android:id="@+id/btnFinishSession"
@@ -244,7 +244,7 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
                     app:srcCompat="@drawable/ic_flag"
-                    app:tint="@color/white" />
+                    app:tint="?attr/colorImgBtnTint" />
 
                 <ImageButton
                     android:id="@+id/btnResetSession"
@@ -256,7 +256,7 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="3dp"
                     app:srcCompat="@drawable/ic_replay"
-                    app:tint="@color/white" />
+                    app:tint="?attr/colorImgBtnTint"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

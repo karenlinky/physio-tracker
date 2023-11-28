@@ -27,4 +27,10 @@
     <color name="edtBackgroundDark">#000000</color>
     <color name="trackerExerciseListContainer">#D6D6D6</color>
     <color name="trackerExerciseListContainerDark">#151515</color>
+    <color name="trackerListEnabled">#FFFFFFFF</color>
+    <color name="trackerListEnabledDark">#4E4E4E</color>
+    <color name="trackerListSelected">#D5E8FF</color>
+    <color name="trackerListSelectedDark">#577497</color>
+    <color name="trackerListDisabled">#FFEDEDED</color>
+    <color name="trackerListDisabledDark">#272727</color>
 </resources>
