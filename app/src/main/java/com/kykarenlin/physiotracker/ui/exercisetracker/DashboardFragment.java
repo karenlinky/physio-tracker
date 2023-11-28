@@ -31,6 +31,7 @@ import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.SessionControlObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.StopwatchNotificationObserver;
+import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerPlaySoundObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerStopwatchObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseControlObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.ExerciseProgressObserver;
@@ -43,6 +44,8 @@ public class DashboardFragment extends Fragment {
     private FragmentExerciseTrackerBinding binding;
 
     private ExerciseViewModel exerciseViewModel;
+
+    private TrackerStatusSubject trackerStatusSubject;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,8 +74,9 @@ public class DashboardFragment extends Fragment {
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
 
 
-        final TrackerStatusSubject trackerStatusSubject = new TrackerStatusSubject(context, fragmentActivity, getViewLifecycleOwner(), exerciseViewModel);
 
+
+        trackerStatusSubject = new TrackerStatusSubject(context, fragmentActivity, getViewLifecycleOwner(), exerciseViewModel);
 
 
         ExerciseProgressObserver exerciseProgressObserver = new ExerciseProgressObserver(trackerStatusSubject, adapter);
@@ -108,6 +112,14 @@ public class DashboardFragment extends Fragment {
         btnStartExercise.setOnClickListener(view -> trackerStatusSubject.startExercise());
         btnCancelExercise.setOnClickListener(view -> trackerStatusSubject.cancelExercise());
         btnFinishExercise.setOnClickListener(view -> trackerStatusSubject.finishExercise());
+
+
+        final Button btnPlaySound = binding.btnPlaySound;
+
+        final TrackerPlaySoundObserver trackerPlaySoundObserver = TrackerPlaySoundObserver.getInstance(trackerStatusSubject, btnPlaySound);
+        trackerStatusSubject.registerPlaySoundObserver(trackerPlaySoundObserver);
+        btnPlaySound.setOnClickListener(view -> trackerStatusSubject.onPlaySoundClick());
+
 
         final ImageButton btnContinueSession = binding.btnContinueSession;
         final ImageButton btnPauseSession = binding.btnPauseSession;
@@ -145,6 +157,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        trackerStatusSubject.notifyOnDestroy();
         binding = null;
     }
 }

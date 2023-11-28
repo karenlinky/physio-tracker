@@ -27,6 +27,8 @@ public class TrackerStatusSubject {
 
     private static final int DEFAULT_EXERCISE_ID = -1;
 
+    private final String LOG_KEY = "TrackerInitialStatus";
+
     private Context context;
 
     private FragmentActivity fragmentActivity;
@@ -40,6 +42,8 @@ public class TrackerStatusSubject {
 
     private int activeExerciseId;
     private int selectedExerciseId;
+
+    private TrackerPlaySoundObserver trackerPlaySoundObserver;
 
 //    private Exercise exercise;  // active exercise
 //    private Exercise exerciseSelected;  // usually same as exercise, except on break (exercise is last exercise worked on, selected is the potential next exercise)
@@ -56,6 +60,7 @@ public class TrackerStatusSubject {
         this.lifecycleOwner = lifecycleOwner;
         this.context = context;
         this.fragmentActivity = fragmentActivity;
+        this.trackerPlaySoundObserver = null;
 
         sharedPref = fragmentActivity.getPreferences(Context.MODE_PRIVATE);
 
@@ -67,11 +72,11 @@ public class TrackerStatusSubject {
         activeExerciseId = getData(KEY_TRACKER_ACTIVE_EXERCISE_ID, DEFAULT_EXERCISE_ID);
         selectedExerciseId = -1;
 
-        Log.i("TAG", "status: " + strStatus);
-        Log.i("TAG", "sessionPaused: " + sessionPaused);
-        Log.i("TAG", "timestamp: " + timestamp);
-        Log.i("TAG", "activeExerciseId: " + activeExerciseId);
-        Log.i("TAG", "selectedExerciseId: " + selectedExerciseId);
+        Log.i("TrackerInitialStatus", "status: " + strStatus);
+        Log.i(LOG_KEY, "sessionPaused: " + sessionPaused);
+        Log.i(LOG_KEY, "timestamp: " + timestamp);
+        Log.i(LOG_KEY, "activeExerciseId: " + activeExerciseId);
+        Log.i(LOG_KEY, "selectedExerciseId: " + selectedExerciseId);
     }
 
     public Context getContext() {
@@ -83,7 +88,18 @@ public class TrackerStatusSubject {
     }
 
     public void registerObserver(TrackerObserver trackerObserver) {
+        if (trackerObserver instanceof TrackerPlaySoundObserver) {
+            if (this.trackerPlaySoundObserver == null) {
+                this.registerPlaySoundObserver((TrackerPlaySoundObserver) trackerObserver);
+            }
+            return;
+        }
         trackerObservers.add(trackerObserver);
+    }
+
+    public void registerPlaySoundObserver(TrackerPlaySoundObserver trackerPlaySoundObserver) {
+        this.trackerPlaySoundObserver = trackerPlaySoundObserver;
+        trackerObservers.add(trackerPlaySoundObserver);
     }
 
     public void notifyInitialState() {
@@ -94,6 +110,12 @@ public class TrackerStatusSubject {
     private void notifyStateChanged() {
         for (TrackerObserver trackerObserver : trackerObservers) {
             trackerObserver.notifyStateChanged();
+        }
+    }
+
+    public void notifyOnDestroy() {
+        for (TrackerObserver trackerObserver : trackerObservers) {
+            trackerObserver.notifyOnDestroy();
         }
     }
 
@@ -149,9 +171,6 @@ public class TrackerStatusSubject {
     }
 
     private void updateTimestamp(long timestamp) {
-        Log.e("TAG", "updateTimestamp: timestamp UPDATED");
-        Log.e("TAG", "SystemCLock: " + SystemClock.elapsedRealtime());
-        Log.e("TAG", "Calendar: " + Calendar.getInstance().getTimeInMillis());
         this.timestamp = timestamp;
         this.setData(KEY_TRACKER_TIMESTAMP, timestamp);
     }
@@ -262,6 +281,18 @@ public class TrackerStatusSubject {
 
         for (TrackerObserver trackerObserver : trackerObservers) {
             trackerObserver.notifyStartExercise();
+        }
+    }
+
+    public void onPlaySoundClick() {
+        if (this.trackerPlaySoundObserver != null) {
+            this.trackerPlaySoundObserver.onPlaySoundClick();
+        }
+    }
+
+    public void startPlayingSound() {
+        if (this.sessionPaused && this.getStatus() == TrackerStatus.WORKOUT_IN_PROGRESS) {
+            this.continueSession();
         }
     }
 

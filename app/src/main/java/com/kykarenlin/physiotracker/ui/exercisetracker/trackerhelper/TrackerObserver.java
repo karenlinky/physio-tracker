@@ -20,4 +20,6 @@ public abstract class TrackerObserver {
     public void notifyFinishSession() {}
 
     public void notifyResetSession() {}
+
+    public void notifyOnDestroy() {}
 }

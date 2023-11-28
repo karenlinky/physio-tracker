@@ -37,6 +37,7 @@
     <string name="lbl_clear_data">Clear Data</string>
     <string name="lbl_load_without_reset_settings">Load Test Data without Resetting Settings</string>
     <string name="lbl_clear_without_reset_settings">Clear Data without Resetting Settings</string>
+    <string name="lbl_play_sound">Play 🔊</string>
     <string-array name="units">
         <item>s</item>
         <item>min</item>
