@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.createTrackerStopwatchNotificationChannel();
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     private void createTrackerStopwatchNotificationChannel() {

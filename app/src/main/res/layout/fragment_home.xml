@@ -30,15 +30,14 @@
             android:id="@+id/btnAddExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shp_img_btn_background"
-            android:backgroundTint="?attr/colorPrimary"
+            android:background="@drawable/shp_primary_img_btn_background"
             android:contentDescription="@string/txt_add_new_exercise"
             android:paddingHorizontal="8dp"
             android:paddingVertical="3dp"
+            app:tint="?attr/colorImgBtnTint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add"
-            app:tint="@color/white" />
+            app:srcCompat="@drawable/ic_add" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout

@@ -19,4 +19,8 @@
     <color name="statusBreak">#FF9900</color>
     <color name="statusSessionPaused">#FF0000</color>
     <color name="statusSessionCompleted">#00F7FF</color>
+    <color name="mainBackgroundColor">#F5F5F5</color>
+    <color name="mainBackgroundColorDark">#1E1E1E</color>
+    <color name="imgBtnTint">#FFFFFF</color>
+    <color name="imgBtnTintDark">#000000</color>
 </resources>

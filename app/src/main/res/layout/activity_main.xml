@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         android:paddingHorizontal="10dp"
-        android:background="#F5F5F5">
+        android:background="?attr/colorMainBackground">
 
         <fragment
             android:id="@+id/nav_host_fragment_activity_main"
