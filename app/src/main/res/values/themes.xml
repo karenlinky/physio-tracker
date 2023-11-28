@@ -16,5 +16,7 @@
         <!-- Customize your theme here. -->
         <item name="colorMainBackground">@color/mainBackgroundColor</item>
         <item name="colorImgBtnTint">@color/imgBtnTint</item>
+        <item name="colorEdtBackground">@color/white</item>
+        <item name="colorTrackerListContainer">@color/trackerExerciseListContainer</item>
     </style>
 </resources>

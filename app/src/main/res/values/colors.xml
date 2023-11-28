@@ -20,7 +20,11 @@
     <color name="statusSessionPaused">#FF0000</color>
     <color name="statusSessionCompleted">#00F7FF</color>
     <color name="mainBackgroundColor">#F5F5F5</color>
-    <color name="mainBackgroundColorDark">#1E1E1E</color>
+    <color name="mainBackgroundColorDark">#292929</color>
     <color name="imgBtnTint">#FFFFFF</color>
     <color name="imgBtnTintDark">#000000</color>
+    <color name="edtBackground">#FFFFFF</color>
+    <color name="edtBackgroundDark">#000000</color>
+    <color name="trackerExerciseListContainer">#D6D6D6</color>
+    <color name="trackerExerciseListContainerDark">#151515</color>
 </resources>

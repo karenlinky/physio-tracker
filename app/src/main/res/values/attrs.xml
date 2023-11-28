@@ -2,4 +2,6 @@
 <resources>
     <attr name="colorMainBackground" format="reference" />
     <attr name="colorImgBtnTint" format="reference" />
+    <attr name="colorEdtBackground" format="reference" />
+    <attr name="colorTrackerListContainer" format="reference" />
 </resources>
