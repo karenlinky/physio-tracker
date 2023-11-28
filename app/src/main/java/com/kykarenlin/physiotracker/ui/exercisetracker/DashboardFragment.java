@@ -116,7 +116,7 @@ public class DashboardFragment extends Fragment {
 
         final Button btnPlaySound = binding.btnPlaySound;
 
-        final TrackerPlaySoundObserver trackerPlaySoundObserver = TrackerPlaySoundObserver.getInstance(trackerStatusSubject, btnPlaySound);
+        final TrackerPlaySoundObserver trackerPlaySoundObserver = new TrackerPlaySoundObserver (trackerStatusSubject, btnPlaySound) ;
         trackerStatusSubject.registerPlaySoundObserver(trackerPlaySoundObserver);
         btnPlaySound.setOnClickListener(view -> trackerStatusSubject.onPlaySoundClick());
 

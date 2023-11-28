@@ -33,7 +33,7 @@ public class TrackerPlaySoundObserver extends TrackerObserver {
 
     private final int DELAY_IN_SECOND = 3;
     private final int INTERVAL_IN_SECOND = 3;
-    private TrackerPlaySoundObserver(TrackerStatusSubject trackerStatusSubject, Button btnPlaySound) {
+    public TrackerPlaySoundObserver(TrackerStatusSubject trackerStatusSubject, Button btnPlaySound) {
         this.trackerStatusSubject = trackerStatusSubject;
         this.btnPlaySound = btnPlaySound;
         this.lastPlayedExercise = null;
@@ -55,13 +55,6 @@ public class TrackerPlaySoundObserver extends TrackerObserver {
         }
 
         soundId = soundPool.load(trackerStatusSubject.getContext(), R.raw.beep_low, 1);
-    }
-
-    public static synchronized TrackerPlaySoundObserver getInstance(TrackerStatusSubject trackerStatusSubject, Button btnPlaySound) {
-        if (instance == null) {
-            instance = new TrackerPlaySoundObserver(trackerStatusSubject, btnPlaySound);
-        }
-        return instance;
     }
 
     private void updateIsPlaying() {
