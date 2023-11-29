@@ -239,6 +239,30 @@ public class EventRepository {
                     )
             );
         });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Wing Chun",
+                            getTimeInMillis(2023, 10, 18),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.IMPROVED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Wing Chun",
+                            getTimeInMillis(2023, 10, 25),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.IMPROVED.toString()
+                    )
+            );
+        });
     }
 
     public LiveData<List<Event>> getAllEvents() {

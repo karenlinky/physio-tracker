@@ -21,6 +21,8 @@ public class Event {
 
     private boolean isPainOrDiscomfort;
 
+    private boolean isImportant;
+
     private String improvementStatus;
 
     private boolean isArchived;
@@ -42,6 +44,7 @@ public class Event {
         this.isActivity = isActivity;
         this.isPainOrDiscomfort = isPainOrDiscomfort;
         this.improvementStatus = improvementStatus;
+        this.isImportant = false;
         this.isArchived = false;
         this.lastModifiedTime = Calendar.getInstance().getTimeInMillis();
     }
@@ -60,6 +63,10 @@ public class Event {
 
     public void setArchived(boolean archived) {
         isArchived = archived;
+    }
+
+    public void setImportant(boolean important) {
+        isImportant = important;
     }
 
     public int getId() {
@@ -96,5 +103,9 @@ public class Event {
 
     public String getImprovementStatus() {
         return improvementStatus;
+    }
+
+    public boolean isImportant() {
+        return isImportant;
     }
 }

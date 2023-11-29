@@ -44,8 +44,8 @@ public class EditEventFragment extends Fragment {
     private EventViewModel eventViewModel;
     private FragmentActivity fragmentActivity;
 
-    private final String NO_START_DATE = "Start date not selected.";
-    private final String NO_END_DATE = "End date not selected.";
+    private final String NO_START_DATE = "Not selected";
+    private final String NO_END_DATE = "Not selected";
 
     private EditText edtEventDetails;
     private TextView txtSelectedStartDate;
@@ -107,14 +107,22 @@ public class EditEventFragment extends Fragment {
         btnSelectStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDatePicker(Long.parseLong(invisibleStartDate.getText().toString()), txtSelectedStartDate, invisibleStartDate, NO_START_DATE);
+                String strDate = invisibleStartDate != null ? invisibleStartDate.getText().toString() : "";
+                if (strDate.equals("")) {
+                    return;
+                }
+                openDatePicker(Long.parseLong(strDate), txtSelectedStartDate, invisibleStartDate, NO_START_DATE);
             }
         });
 
         btnSelectEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDatePicker(Long.parseLong(invisibleEndDate.getText().toString()), txtSelectedEndDate, invisibleEndDate, NO_END_DATE);
+                String strDate = invisibleEndDate != null ? invisibleEndDate.getText().toString() : "";
+                if (strDate.equals("")) {
+                    return;
+                }
+                openDatePicker(Long.parseLong(strDate), txtSelectedEndDate, invisibleEndDate, NO_END_DATE);
             }
         });
 
