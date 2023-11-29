@@ -1,7 +1,6 @@
 package com.kykarenlin.physiotracker.model.event;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -10,9 +9,6 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
-import com.kykarenlin.physiotracker.model.exercise.Exercise;
-import com.kykarenlin.physiotracker.model.exercise.ExerciseDao;
-import com.kykarenlin.physiotracker.model.exercise.ExerciseDatabase;
 
 import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
@@ -94,7 +90,7 @@ public abstract class EventDatabase extends RoomDatabase {
                                 0,
                                 false,
                                 true,
-                                EventImprovementStatus.GOTTEN_WORSED.toString()
+                                EventImprovementStatus.WORSENED.toString()
                         )
                 );
                 Calendar cal4 = Calendar.getInstance();

@@ -59,7 +59,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         if (event.getImprovementStatus().equals(EventImprovementStatus.IMPROVED.toString())) {
             holder.icUp.setVisibility(View.VISIBLE);
             holder.icDown.setVisibility(View.GONE);
-        } else if (event.getImprovementStatus().equals(EventImprovementStatus.GOTTEN_WORSED.toString())) {
+        } else if (event.getImprovementStatus().equals(EventImprovementStatus.WORSENED.toString())) {
             holder.icUp.setVisibility(View.GONE);
             holder.icDown.setVisibility(View.VISIBLE);
         } else {

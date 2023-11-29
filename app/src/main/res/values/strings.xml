@@ -39,6 +39,8 @@
     <string name="lbl_load_without_reset_settings">Load Test Data without Resetting Settings</string>
     <string name="lbl_clear_without_reset_settings">Clear Data without Resetting Settings</string>
     <string name="lbl_play_sound">Play 🔊</string>
+    <string name="lbl_event_active">Sport or Gym</string>
+    <string name="lbl_event_pain">Pain or Discomfort</string>
     <string-array name="units">
         <item>s</item>
         <item>min</item>

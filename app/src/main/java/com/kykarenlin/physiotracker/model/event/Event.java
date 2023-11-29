@@ -31,13 +31,16 @@ public class Event {
         this.eventDetails = eventDetails;
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
+        if (eventEndTime < eventStartTime && eventEndTime != 0) {
+            this.eventEndTime = eventStartTime;
+        }
         if (eventStartTime == 0) {
             this.eventEndTime = 0;
         } else if (eventEndTime == 0) {
             this.eventEndTime = eventStartTime;
         }
         this.isActivity = isActivity;
-        this.isPainOrDiscomfort = isActivity;
+        this.isPainOrDiscomfort = isPainOrDiscomfort;
         this.improvementStatus = improvementStatus;
         this.isArchived = false;
         this.lastModifiedTime = Calendar.getInstance().getTimeInMillis();

@@ -13,11 +13,13 @@
         android:label="@string/title_exercise_tracker"
         tools:layout="@layout/fragment_exercise_tracker" />
 
-    <fragment
-        android:id="@+id/navigation_event_logs"
-        android:name="com.kykarenlin.physiotracker.ui.eventlogs.EventLogsFragment"
-        android:label="@string/title_event_logs"
-        tools:layout="@layout/fragment_event_logs" />
+    <include app:graph="@navigation/navigation_event_logs"/>
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_event_logs"-->
+<!--        android:name="com.kykarenlin.physiotracker.ui.eventlogs.EventLogsFragment"-->
+<!--        android:label="@string/title_event_logs"-->
+<!--        tools:layout="@layout/fragment_event_logs" />-->
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.kykarenlin.physiotracker.ui.settings.SettingsFragment"

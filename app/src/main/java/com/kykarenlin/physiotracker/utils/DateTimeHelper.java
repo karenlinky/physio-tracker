@@ -8,17 +8,30 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateTimeHelper {
-    private final static String STR_DATE_FORMAT = "yyyy MM dd";
+    public final static String INVALID_DATE_RESULT = "";
+    private final static String STR_DATE_FORMAT = "yyyy MMM dd";
 
     private final static Format DATE_FORMAT = new SimpleDateFormat(STR_DATE_FORMAT);
+
+    private final static String STR_DATE_TIME_FORMAT = STR_DATE_FORMAT + " " + "HH:mm";
+
+    private final static Format DATE_TIME_FORMAT = new SimpleDateFormat(STR_DATE_TIME_FORMAT);
 
     private final static String[] DAY_OF_WEEK = new String[] {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     public static String toStringDate(long dateTime) {
         if ((dateTime) == 0) {
-            return "";
+            return INVALID_DATE_RESULT;
         }
         Date date = new Date(dateTime);
         return DATE_FORMAT.format(date);
+    }
+
+    public static String toStringDateWithTime(long dateTime) {
+        if ((dateTime) == 0) {
+            return INVALID_DATE_RESULT;
+        }
+        Date date = new Date(dateTime);
+        return DATE_TIME_FORMAT.format(date);
     }
 
     private static int getIntDayOfWeek(long dateTime) {
@@ -29,7 +42,7 @@ public class DateTimeHelper {
 
     public static String getDayOfWeek(long dateTime) {
         if ((dateTime) == 0) {
-            return "";
+            return INVALID_DATE_RESULT;
         }
         int intDay = getIntDayOfWeek(dateTime);
         return DAY_OF_WEEK[intDay - 1];
@@ -37,7 +50,7 @@ public class DateTimeHelper {
 
     public static String toStringDateWithDay(long dateTime) {
         if ((dateTime) == 0) {
-            return "";
+            return INVALID_DATE_RESULT;
         }
         String day = getDayOfWeek(dateTime);
         String date = toStringDate(dateTime);
@@ -84,5 +97,11 @@ public class DateTimeHelper {
             return cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR);
         }
         return false;
+    }
+
+    public static long getTimeInMillis(int year, int month, int day, int hours, int seconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day, hours, seconds);
+        return calendar.getTimeInMillis();
     }
 }

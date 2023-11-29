@@ -5,21 +5,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEventLogsBinding;
+import com.kykarenlin.physiotracker.enums.EventBundleKeys;
+import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
 import com.kykarenlin.physiotracker.model.event.Event;
 import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
-import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class EventLogsFragment extends Fragment {
@@ -34,11 +37,38 @@ public class EventLogsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        eventViewModel =
-                new ViewModelProvider(this).get(EventViewModel.class);
 
         binding = FragmentEventLogsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        eventViewModel =
+                new ViewModelProvider(this).get(EventViewModel.class);
+
+
+        final ImageButton btnAddEvent = binding.btnAddEvent;
+
+        btnAddEvent.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            Bundle bundle = new Bundle();
+            bundle.putInt(EventBundleKeys.ID.toString(), -1);
+            bundle.putString(EventBundleKeys.DETAILS.toString(), "");
+            bundle.putLong(EventBundleKeys.START_TIME.toString(), cal.getTimeInMillis());
+            bundle.putLong(EventBundleKeys.END_TIME.toString(), cal.getTimeInMillis());
+            bundle.putBoolean(EventBundleKeys.IS_ACTIVITY.toString(), false);
+            bundle.putBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString(), false);
+            bundle.putString(EventBundleKeys.IMPROVEMENT_STATUS.toString(), EventImprovementStatus.UNCHANGED.toString());
+            bundle.putBoolean(EventBundleKeys.IS_ARCHIVED.toString(), false);
+            Navigation.findNavController(root).navigate(R.id.action_event_to_editEvent, bundle);
+        });
+
+
+
+
+
+
+
+
+
 
         RecyclerView rclvEvents = binding.rclvEvents;
         rclvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
