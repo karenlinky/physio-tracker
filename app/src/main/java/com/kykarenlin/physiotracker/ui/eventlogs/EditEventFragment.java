@@ -193,7 +193,7 @@ public class EditEventFragment extends Fragment {
                         long timeInMillis = DateTimeHelper.getTimeInMillis(year, month, day, hours, minutes);
                         updateTime(timeInMillis, visibleDate, invisibleDate, emptyMsg);
                     }
-                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.SECOND), true);
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
 
                 timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener(){
 
