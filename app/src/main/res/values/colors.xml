@@ -38,4 +38,6 @@
     <color name="trackerListTextEnabledDark">#D1D1D1</color>
     <color name="trackerListTextDisabled">#ACACAC</color>
     <color name="trackerListTextDisabledDark">#494949</color>
+    <color name="eventIconsBackground">#F7FCFF</color>
+    <color name="eventIconsBackgroundDark">#1C1C1C</color>
 </resources>

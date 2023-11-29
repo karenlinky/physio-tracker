@@ -6,4 +6,5 @@
     <attr name="colorImgBtnTint" format="reference" />
     <attr name="colorEdtBackground" format="reference" />
     <attr name="colorTrackerListContainer" format="reference" />
+    <attr name="colorEventIconsBackground" format="reference" />
 </resources>

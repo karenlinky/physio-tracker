@@ -33,6 +33,7 @@
     <string name="edt_notif_delay_hint">Delay (min)</string>
     <string name="edt_notif_msg_hint">Notification Message</string>
     <string name="empty_exercise_list_msg">You don\'t have any exercises recorded. Get started by adding exercises using the button at the top.</string>
+    <string name="empty_event_list_msg">You don\'t have any events recorded. Get started by adding events using the button at the top.</string>
     <string name="lbl_load_default_data">Load Test Data</string>
     <string name="lbl_clear_data">Clear Data</string>
     <string name="lbl_load_without_reset_settings">Load Test Data without Resetting Settings</string>

@@ -18,5 +18,6 @@
         <item name="colorTrackerListContainer">@color/trackerExerciseListContainerDark</item>
         <item name="colorRedBtn">@color/red_btn_dark</item>
         <item name="colorNavIconSelected">?attr/colorPrimary</item>
+        <item name="colorEventIconsBackground">@color/eventIconsBackgroundDark</item>
     </style>
 </resources>
