@@ -20,11 +20,11 @@ public class EventWrapped {
         return event;
     }
 
-    public boolean isShowDate() {
+    public boolean shouldShowDate() {
         return showDate;
     }
 
-    public boolean isShowEndOfWeekIndicator() {
+    public boolean shouldShowEndOfWeekIndicator() {
         return showEndOfWeekIndicator;
     }
 

@@ -26,16 +26,16 @@ public interface EventDao {
     @Query("SELECT * FROM event_table")
     LiveData<List<Event>> getAllEvents();
 
-    @Query("SELECT * FROM event_table WHERE (eventStartTime != 0 AND NOT isArchived) ORDER BY eventStartTime DESC")
+    @Query("SELECT * FROM event_table WHERE (eventStartTime != 0 AND NOT isArchived) ORDER BY eventStartTime")
     LiveData<List<Event>> getEventsWithStartDate();
 
-    @Query("SELECT * FROM event_table WHERE (eventStartTime == 0 AND NOT isArchived) ORDER BY lastModifiedTime DESC")
+    @Query("SELECT * FROM event_table WHERE (eventStartTime == 0 AND NOT isArchived) ORDER BY lastModifiedTime")
     LiveData<List<Event>> getEventsWithoutStartDate();
 
-    @Query("SELECT * FROM event_table WHERE (eventStartTime != 0 AND isArchived) ORDER BY eventStartTime DESC")
+    @Query("SELECT * FROM event_table WHERE (eventStartTime != 0 AND isArchived) ORDER BY eventStartTime")
     LiveData<List<Event>> getArchivedEventsWithStartDate();
 
-    @Query("SELECT * FROM event_table WHERE (eventStartTime == 0 AND isArchived) ORDER BY lastModifiedTime DESC")
+    @Query("SELECT * FROM event_table WHERE (eventStartTime == 0 AND isArchived) ORDER BY lastModifiedTime")
     LiveData<List<Event>> getArchivedEventsWithoutStartDate();
 
     @Query("SELECT * FROM event_table WHERE id=:id")

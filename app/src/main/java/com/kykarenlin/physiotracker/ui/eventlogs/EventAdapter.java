@@ -38,6 +38,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         holder.txtEventDetails.setText(event.getEventDetails());
         holder.txtDatePeriod.setText(strStartDate);
 
+        if (currentWrapped.shouldShowDate()) {
+            holder.txtEventDate.setVisibility(View.VISIBLE);
+        } else {
+            holder.txtEventDate.setVisibility(View.GONE);
+        }
+
+        if (currentWrapped.shouldShowEndOfWeekIndicator()) {
+            holder.viewWeekSeparator.setVisibility(View.VISIBLE);
+        } else {
+            holder.viewWeekSeparator.setVisibility(View.GONE);
+        }
+
         if (event.isActivity()) {
             holder.icActive.setVisibility(View.VISIBLE);
         } else {
@@ -50,6 +62,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         } else if (event.getImprovementStatus().equals(EventImprovementStatus.GOTTEN_WORSED.toString())) {
             holder.icUp.setVisibility(View.GONE);
             holder.icDown.setVisibility(View.VISIBLE);
+        } else {
+            holder.icUp.setVisibility(View.GONE);
+            holder.icDown.setVisibility(View.GONE);
         }
     }
 
@@ -71,6 +86,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         private CardView icUp;
         private CardView icDown;
 
+        private View viewWeekSeparator;
+
         public EventHolder(View itemView) {
             super(itemView);
             txtEventDate = itemView.findViewById(R.id.txtEventDate);
@@ -79,7 +96,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
             icActive = itemView.findViewById(R.id.icActive);
             icUp = itemView.findViewById(R.id.icUp);
             icDown = itemView.findViewById(R.id.icDown);
-
+            viewWeekSeparator = itemView.findViewById(R.id.viewWeekSeparator);
         }
     }
 }
