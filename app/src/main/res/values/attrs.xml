@@ -7,4 +7,6 @@
     <attr name="colorEdtBackground" format="reference" />
     <attr name="colorTrackerListContainer" format="reference" />
     <attr name="colorEventIconsBackground" format="reference" />
+    <attr name="colorIcon" format="reference" />
+    <attr name="colorEventWeekSeparator" format="reference" />
 </resources>

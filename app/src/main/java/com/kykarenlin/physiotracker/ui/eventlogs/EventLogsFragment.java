@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -95,6 +97,22 @@ public class EventLogsFragment extends Fragment {
         });
 
         EventListManager eventListManager = new EventListManager(eventListAdapter);
+
+        RelativeLayout emptyEventListContainer = binding.emptyEventListContainer;
+        ScrollView eventListContainer = binding.eventListContainer;
+        eventViewModel.getAllEvents().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+            @Override
+            public void onChanged(List<Event> events) {
+                // TODO: move to manager, doesn't work when archive feature is in
+                if (events.size() == 0) {
+                    emptyEventListContainer.setVisibility(View.VISIBLE);
+                    eventListContainer.setVisibility(View.GONE);
+                } else {
+                    emptyEventListContainer.setVisibility(View.GONE);
+                    eventListContainer.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         eventViewModel.getEventsWithStartDate().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override

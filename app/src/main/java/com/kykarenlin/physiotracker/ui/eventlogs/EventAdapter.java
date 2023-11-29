@@ -43,7 +43,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         String strEndDate = DateTimeHelper.toStringDateWithDay(event.getEventEndTime());
         holder.txtEventDate.setText(strStartDate);
         holder.txtEventDetails.setText(event.getEventDetails());
-        holder.txtDatePeriod.setText("");
+//        holder.txtDatePeriod.setText("");
+        holder.txtDatePeriod.setVisibility(View.GONE);
 //        holder.txtDatePeriod.setText(strStartDate);
 
 //        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;

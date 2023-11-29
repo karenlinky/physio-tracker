@@ -42,4 +42,6 @@
     <color name="eventIconsBackgroundDark">#1C1C1C</color>
     <color name="eventWithPain">#FFF2F2</color>
     <color name="eventWithPainDark">#534848</color>
+    <color name="eventWeekSeparator">#DADADA</color>
+    <color name="eventWeekSeparatorDark">#616161</color>
 </resources>

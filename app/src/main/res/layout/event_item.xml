@@ -69,7 +69,8 @@
                         android:padding="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_soccer" />
+                        android:src="@drawable/ic_soccer"
+                        app:tint="?attr/colorIcon" />
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/icUp"
@@ -109,5 +110,5 @@
         android:layout_marginHorizontal="16dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#DADADA" />
+        android:backgroundTint="?attr/colorEventWeekSeparator" />
 </LinearLayout>

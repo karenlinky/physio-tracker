@@ -4,8 +4,10 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -57,6 +59,185 @@ public class EventRepository {
 
         executor.execute(() -> {
             eventDao.deleteAllEvents();
+        });
+    }
+
+    private long getTimeInMillis(int year, int month, int date) {
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, date);
+        return c.getTimeInMillis();
+    }
+
+    public void loadTestData() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Leg workout",
+                            getTimeInMillis(2023, 9, 26),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Bike machine",
+                            getTimeInMillis(2023, 9, 28),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Abs workout",
+                            getTimeInMillis(2023, 9, 29),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Arm workout",
+                            getTimeInMillis(2023, 9, 30),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Bike machine",
+                            getTimeInMillis(2023, 9, 31),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Back workout",
+                            getTimeInMillis(2023, 10, 1),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Leg workout",
+                            getTimeInMillis(2023, 10, 4),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Calf raise - left ankle (inner) pain",
+                            getTimeInMillis(2023, 10, 4),
+                            0,
+                            false,
+                            true,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Knee discomfort while jumping forward",
+                            getTimeInMillis(2023, 10, 12),
+                            0,
+                            false,
+                            true,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Leg workout",
+                            getTimeInMillis(2023, 10, 22),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Arm workout",
+                            getTimeInMillis(2023, 10, 23),
+                            0,
+                            true,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Glute exercise - the other side also feels tired",
+                            0,
+                            0,
+                            false,
+                            false,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Pain in right thumb",
+                            0,
+                            0,
+                            false,
+                            true,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
+        });
+        executor.execute(() -> {
+            eventDao.insert(
+                    new Event(
+                            "Goblet squat (back gets tired)/ back pain",
+                            0,
+                            0,
+                            false,
+                            true,
+                            EventImprovementStatus.UNCHANGED.toString()
+                    )
+            );
         });
     }
 

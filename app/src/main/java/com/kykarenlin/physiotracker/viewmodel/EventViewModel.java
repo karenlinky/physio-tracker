@@ -51,9 +51,9 @@ public class EventViewModel extends AndroidViewModel {
         repository.deleteAllEvents();
     }
 
-//    public void loadTestData() {
-//        repository.loadTestData();
-//    }
+    public void loadTestData() {
+        repository.loadTestData();
+    }
 
     public LiveData<List<Event>> getAllEvents() {
         return allEvents;

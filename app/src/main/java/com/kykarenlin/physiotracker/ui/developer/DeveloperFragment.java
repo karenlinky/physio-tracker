@@ -20,6 +20,7 @@ import com.kykarenlin.physiotracker.databinding.FragmentDeveloperBinding;
 import com.kykarenlin.physiotracker.databinding.FragmentSettingsBinding;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.StopwatchNotificationObserver;
 import com.kykarenlin.physiotracker.utils.SharedPref;
+import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
 public class DeveloperFragment extends Fragment {
@@ -29,6 +30,8 @@ public class DeveloperFragment extends Fragment {
     private SharedPref sharedPref;
 
     private ExerciseViewModel exerciseViewModel;
+
+    private EventViewModel eventViewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class DeveloperFragment extends Fragment {
 
         exerciseViewModel =
                 new ViewModelProvider(this).get(ExerciseViewModel.class);
+
+        eventViewModel =
+                new ViewModelProvider(this).get(EventViewModel.class);
 
         this.sharedPref = new SharedPref(getActivity().getPreferences(Context.MODE_PRIVATE));
 
@@ -76,16 +82,19 @@ public class DeveloperFragment extends Fragment {
     private void loadTestData() {
         this.clearData();
         exerciseViewModel.loadTestData();
+        eventViewModel.loadTestData();
     }
 
     private void clearDataWithoutClearingPreference() {
         exerciseViewModel.deleteAllExercises();
+        eventViewModel.deleteAllEvents();
         StopwatchNotificationObserver.cancelScheduledNotifications(getContext());
     }
 
     private void loadTestDataWithoutClearingPreference() {
         this.clearDataWithoutClearingPreference();
         exerciseViewModel.loadTestData();
+        eventViewModel.loadTestData();
     }
 
     @Override
