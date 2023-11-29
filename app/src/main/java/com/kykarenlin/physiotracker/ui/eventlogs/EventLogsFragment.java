@@ -77,6 +77,23 @@ public class EventLogsFragment extends Fragment {
         EventAdapter eventListAdapter = new EventAdapter();
         rclvEvents.setAdapter(eventListAdapter);
 
+        eventListAdapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(EventWrapped eventWrapped) {
+                Event event = eventWrapped.getEvent();
+                Bundle bundle = new Bundle();
+                bundle.putInt(EventBundleKeys.ID.toString(), event.getId());
+                bundle.putString(EventBundleKeys.DETAILS.toString(), event.getEventDetails());
+                bundle.putLong(EventBundleKeys.START_TIME.toString(), event.getEventStartTime());
+                bundle.putLong(EventBundleKeys.END_TIME.toString(), event.getEventEndTime());
+                bundle.putBoolean(EventBundleKeys.IS_ACTIVITY.toString(), event.isActivity());
+                bundle.putBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString(), event.isPainOrDiscomfort());
+                bundle.putString(EventBundleKeys.IMPROVEMENT_STATUS.toString(), event.getImprovementStatus());
+                bundle.putBoolean(EventBundleKeys.IS_ARCHIVED.toString(), event.isArchived());
+                Navigation.findNavController(root).navigate(R.id.action_event_to_editEvent, bundle);
+            }
+        });
+
         EventListManager eventListManager = new EventListManager(eventListAdapter);
 
         eventViewModel.getEventsWithStartDate().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {

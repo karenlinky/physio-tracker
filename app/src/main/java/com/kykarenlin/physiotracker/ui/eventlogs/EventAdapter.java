@@ -20,6 +20,8 @@ import java.util.List;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder> {
 
     private List<EventWrapped> eventsWrapped = new ArrayList<>();
+
+    private OnItemClickListener listener;
     @NonNull
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -98,6 +100,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
             icUp = itemView.findViewById(R.id.icUp);
             icDown = itemView.findViewById(R.id.icDown);
             viewWeekSeparator = itemView.findViewById(R.id.viewWeekSeparator);
+
+            itemView.setOnClickListener(view -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(eventsWrapped.get(position));
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(EventWrapped event);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }
