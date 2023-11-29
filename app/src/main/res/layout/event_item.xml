@@ -18,16 +18,35 @@
         app:cardCornerRadius="10dp"
         android:layout_marginVertical="4dp">
         <LinearLayout
-            android:layout_margin="16dp"
+            android:id="@+id/cardEvent"
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/txtEventDetails"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="Knee discomfort while jumping forward" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txtEventDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/painIndicator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="Knee discomfort while jumping forward" />
+
+                <ImageView
+                    android:id="@+id/painIndicator"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_circle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FF6161" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:id="@+id/txtDatePeriod"
                 android:layout_width="match_parent"

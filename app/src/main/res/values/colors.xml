@@ -40,4 +40,6 @@
     <color name="trackerListTextDisabledDark">#494949</color>
     <color name="eventIconsBackground">#F7FCFF</color>
     <color name="eventIconsBackgroundDark">#1C1C1C</color>
+    <color name="eventWithPain">#FFF2F2</color>
+    <color name="eventWithPainDark">#534848</color>
 </resources>

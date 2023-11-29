@@ -1,8 +1,10 @@
 package com.kykarenlin.physiotracker.ui.eventlogs;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,9 +24,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
     private List<EventWrapped> eventsWrapped = new ArrayList<>();
 
     private OnItemClickListener listener;
+
+    private Context context;
     @NonNull
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        this.context = parent.getContext();
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_item, parent, false);
         return new EventHolder(itemView);
@@ -40,6 +45,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         holder.txtEventDetails.setText(event.getEventDetails());
         holder.txtDatePeriod.setText("");
 //        holder.txtDatePeriod.setText(strStartDate);
+
+//        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//        boolean isNightMode = nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+//
+//        int painColor = ContextCompat.getColor(context, R.color.eventWithPain);
+//        int withoutPainColor = ContextCompat.getColor(context, R.color.trackerListEnabled);
+//
+//        if (isNightMode) {
+//            painColor = ContextCompat.getColor(context, R.color.eventWithPainDark);
+//            withoutPainColor = ContextCompat.getColor(context, R.color.trackerListEnabledDark);
+//        }
+
+        if (event.isPainOrDiscomfort()) {
+            holder.painIndicator.setVisibility(View.VISIBLE);
+        } else {
+            holder.painIndicator.setVisibility(View.GONE);
+        }
 
         if (currentWrapped.shouldShowDate()) {
             holder.txtEventDate.setVisibility(View.VISIBLE);
@@ -82,6 +104,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
     }
 
     class EventHolder extends RecyclerView.ViewHolder {
+        private ImageView painIndicator;
         private TextView txtEventDate;
         private TextView txtEventDetails;
         private TextView txtDatePeriod;
@@ -93,6 +116,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
 
         public EventHolder(View itemView) {
             super(itemView);
+            painIndicator= itemView.findViewById(R.id.painIndicator);
             txtEventDate = itemView.findViewById(R.id.txtEventDate);
             txtEventDetails = itemView.findViewById(R.id.txtEventDetails);
             txtDatePeriod = itemView.findViewById(R.id.txtDatePeriod);
