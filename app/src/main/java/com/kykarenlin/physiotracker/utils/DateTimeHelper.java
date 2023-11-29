@@ -54,7 +54,7 @@ public class DateTimeHelper {
         }
         String day = getDayOfWeek(dateTime);
         String date = toStringDate(dateTime);
-        return day + " " + date;
+        return day + ", " + date;
     }
 
     public static boolean isWithinSameDay(long dateTime1, long dateTime2) {

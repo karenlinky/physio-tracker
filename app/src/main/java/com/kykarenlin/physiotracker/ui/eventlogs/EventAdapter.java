@@ -36,7 +36,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         String strEndDate = DateTimeHelper.toStringDateWithDay(event.getEventEndTime());
         holder.txtEventDate.setText(strStartDate);
         holder.txtEventDetails.setText(event.getEventDetails());
-        holder.txtDatePeriod.setText(strStartDate);
+        holder.txtDatePeriod.setText("");
+//        holder.txtDatePeriod.setText(strStartDate);
 
         if (currentWrapped.shouldShowDate()) {
             holder.txtEventDate.setVisibility(View.VISIBLE);
