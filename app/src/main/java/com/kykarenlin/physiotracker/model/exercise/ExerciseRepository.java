@@ -11,12 +11,16 @@ import java.util.concurrent.Executors;
 public class ExerciseRepository {
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> allExercises;
+    private LiveData<List<Exercise>> allActiveExercises;
+    private LiveData<List<Exercise>> allArchivedExercises;
 
     public ExerciseRepository(Application application) {
         ExerciseDatabase database = ExerciseDatabase.getInstance(application);
 
         exerciseDao = database.exerciseDao();
         allExercises = exerciseDao.getAllExercises();
+        allActiveExercises = exerciseDao.getAllActiveExercises();
+        allArchivedExercises = exerciseDao.getAllArchivedExercises();
     }
 
     public void insert(Exercise exercise) {
@@ -50,6 +54,11 @@ public class ExerciseRepository {
         executor.execute(() -> {
             exerciseDao.deleteAllExercise();
         });
+    }
+
+    private Exercise insertArchived(Exercise exercise) {
+        exercise.setIsArchived(true);
+        return exercise;
     }
 
     public void loadTestData() {
@@ -188,17 +197,17 @@ public class ExerciseRepository {
                             "https://www.youtube.com/watch?v=4cyedSvX_OA"
                     )
             );
-            exerciseDao.insert(
-                    new Exercise(
-                            "Turn while jumping",
-                            "",
-                            "1 per side",
-                            1,
-                            1,
-                            "min",
-                            ""
-                    )
-            );
+
+            exerciseDao.insert(insertArchived(new Exercise(
+                    "Turn while jumping",
+                    "",
+                    "1 per side",
+                    1,
+                    1,
+                    "min",
+                    ""
+            )));
+
             exerciseDao.insert(
                     new Exercise(
                             "Single leg balance on soft surface",
@@ -210,17 +219,17 @@ public class ExerciseRepository {
                             "throw the ball towards the wall in 4 different directions (up, left, down, right) complete 50 successful passes to yourself. The priority is to maintain the chin tucked position the entire exercise."
                     )
             );
-            exerciseDao.insert(
-                    new Exercise(
-                            "Split squat",
-                            "",
-                            "3 per leg",
-                            10,
-                            0,
-                            "s",
-                            ""
-                    )
-            );
+
+            exerciseDao.insert(insertArchived(new Exercise(
+                    "Split squat",
+                    "",
+                    "3 per leg",
+                    10,
+                    0,
+                    "s",
+                    ""
+            )));
+
             exerciseDao.insert(
                     new Exercise(
                             "Dead bug",
@@ -271,6 +280,14 @@ public class ExerciseRepository {
 
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
+    }
+
+    public LiveData<List<Exercise>> getAllActiveExercises() {
+        return allActiveExercises;
+    }
+
+    public LiveData<List<Exercise>> getAllArchivedExercises() {
+        return allArchivedExercises;
     }
 
     public LiveData<Exercise> getExerciseById(int id) {

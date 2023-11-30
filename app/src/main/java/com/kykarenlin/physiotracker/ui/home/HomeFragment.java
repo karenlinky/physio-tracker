@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -15,14 +16,18 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentHomeBinding;
 import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
+import com.kykarenlin.physiotracker.enums.ListTabs;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.commonfragments.BaseFragment;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment {
@@ -64,28 +69,71 @@ public class HomeFragment extends BaseFragment {
         rclvExercises.setAdapter(adapter);
 
         final RelativeLayout emptyExerciseListContainer = binding.emptyExerciseListContainer;
+        final TextView emptyExerciseListMsg = binding.emptyExerciseListMsg;
         final ScrollView exerciseListContainer = binding.exerciseListContainer;
 
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        exerciseViewModel =
-                new ViewModelProvider(this).get(ExerciseViewModel.class);
-        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+        final TabLayout tabsExerciseList = binding.tabsExerciseList;
+
+        ExerciseListManager exerciseListManager = new ExerciseListManager(adapter, emptyExerciseListContainer, emptyExerciseListMsg, exerciseListContainer);
+
+        HashMap<ListTabs, Integer> tabsIndices = new HashMap<>();
+        tabsIndices.put(ListTabs.ACTIVE, 0);
+        tabsIndices.put(ListTabs.ARCHIVED, 1);
+
+        TabLayout.Tab selectedListTab = tabsExerciseList.getTabAt(tabsIndices.get(ListTabs.ACTIVE));
+        if (!ExerciseListManager.isShowingActive()) {
+            selectedListTab = tabsExerciseList.getTabAt(tabsIndices.get(ListTabs.ARCHIVED));
+        }
+        if (selectedListTab != null) {
+            selectedListTab.select();
+        }
+        tabsExerciseList.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onChanged(List<Exercise> exercises) {
-                // update view
-                adapter.setExercises(exercises);
-                if (exercises.size() == 0) {
-                    emptyExerciseListContainer.setVisibility(View.VISIBLE);
-                    exerciseListContainer.setVisibility(View.GONE);
-                } else {
-                    emptyExerciseListContainer.setVisibility(View.GONE);
-                    exerciseListContainer.setVisibility(View.VISIBLE);
+            public void onTabSelected(TabLayout.Tab tab) {
+                int selectedTabIndex = tab.getPosition();
+                if (selectedTabIndex == tabsIndices.get(ListTabs.ACTIVE)) {
+                    exerciseListManager.setShowingActive(true);
+                } else if (selectedTabIndex == tabsIndices.get(ListTabs.ARCHIVED)) {
+                    exerciseListManager.setShowingActive(false);
                 }
-//                if (exercises.size() == 0) return;
-//                Toast.makeText(getActivity(), "Archived: " + exercises.get(0).getIsArchived() + " Completed: " + exercises.get(0).getIsCompleted() + " Timestamp: " + exercises.get(0).progressTimestamp(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                return;
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                return;
             }
         });
+
+        exerciseViewModel =
+                new ViewModelProvider(this).get(ExerciseViewModel.class);
+//        exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+//            @Override
+//            public void onChanged(List<Exercise> exercises) {
+//                // update view
+//                adapter.setExercises(exercises);
+//                if (exercises.size() == 0) {
+//                    emptyExerciseListContainer.setVisibility(View.VISIBLE);
+//                    exerciseListContainer.setVisibility(View.GONE);
+//                } else {
+//                    emptyExerciseListContainer.setVisibility(View.GONE);
+//                    exerciseListContainer.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+
+        exerciseViewModel.getAllActiveExercises().observe(getViewLifecycleOwner(), exercises -> {
+            exerciseListManager.setActiveExercises(exercises);
+        });
+
+        exerciseViewModel.getAllArchivedExercises().observe(getViewLifecycleOwner(), exercises -> {
+            exerciseListManager.setArchivedExercises(exercises);
+        });
+
 
         adapter.setOnItemClickListener(exercise -> {
             Bundle bundle = new Bundle();

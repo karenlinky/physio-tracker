@@ -30,6 +30,12 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise_table")
     LiveData<List<Exercise>> getAllExercises();
 
+    @Query("SELECT * FROM exercise_table WHERE NOT isArchived")
+    LiveData<List<Exercise>> getAllActiveExercises();
+
+    @Query("SELECT * FROM exercise_table WHERE isArchived")
+    LiveData<List<Exercise>> getAllArchivedExercises();
+
     @Query("SELECT * FROM exercise_table WHERE id=:id")
     LiveData<Exercise> getExerciseById(int id);
 }
