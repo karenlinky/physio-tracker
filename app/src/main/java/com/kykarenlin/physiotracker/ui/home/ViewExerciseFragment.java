@@ -16,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentViewExerciseBinding;
@@ -83,8 +85,19 @@ public class ViewExerciseFragment extends BaseFragment {
         final Button btnVideoLinkClicked = binding.btnVideoLinkClicked;
         final TextView txtViewExerciseDescr = binding.txtViewExerciseDescr;
 
-        final Button btnDeleteExercise = binding.btnDeleteExercise;
+        final ImageButton btnDeleteExercise = binding.btnDeleteExercise;
         final Button btnEditExercise = binding.btnEditExercise;
+
+        final Button btnArchive = binding.btnArchive;
+        final Button btnUnarchive = binding.btnUnarchive;
+
+        btnArchive.setOnClickListener(view -> {
+            this.updateArchiveState(true, btnArchive, btnUnarchive);
+        });
+
+        btnUnarchive.setOnClickListener(view -> {
+            this.updateArchiveState(false, btnArchive, btnUnarchive);
+        });
 
         exerciseViewModel.getExerciseById(exerciseId).observe(getViewLifecycleOwner(), new Observer<Exercise>() {
             @Override
@@ -151,6 +164,10 @@ public class ViewExerciseFragment extends BaseFragment {
                 } else {
                     txtDescriptionLabel.setText("");
                 }
+
+
+
+                manageArchiveBtns(exercise.isArchived(), btnArchive, btnUnarchive);
             }
         });
         btnDeleteExercise.setOnClickListener(view -> {
@@ -185,8 +202,24 @@ public class ViewExerciseFragment extends BaseFragment {
             Navigation.findNavController(root).navigate(R.id.action_viewExercise_to_editExercise, bundle);
         });
 
-
         return root;
+    }
+
+    private void updateArchiveState(boolean archived, Button btnArchive, Button btnUnarchive) {
+        exercise.setIsArchived(archived);
+        exerciseViewModel.update(exercise);
+        String toastMessage = archived ? "Exercise archived" : "Exercise unarchived";
+        Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    private void manageArchiveBtns(boolean archived, Button btnArchive, Button btnUnarchive) {
+        if (archived) {
+            btnArchive.setVisibility(View.GONE);
+            btnUnarchive.setVisibility(View.VISIBLE);
+        } else {
+            btnArchive.setVisibility(View.VISIBLE);
+            btnUnarchive.setVisibility(View.GONE);
+        }
     }
 
     @Override

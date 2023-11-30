@@ -74,7 +74,7 @@ public class ExerciseRepository {
                             "Dorsiflexion Self Mobilization",
                             "https://www.youtube.com/watch?v=rvkyQc60-HA",
                             "1 per leg",
-                            10,
+                            15,
                             0,
                             "s",
                             "If you have your front foot elevated on a step it will be easier to practice this exercise. " +
@@ -105,7 +105,7 @@ public class ExerciseRepository {
                             "https://www.youtube.com/watch?v=X7Va-ujGCp0",
                             "1/leg",
                             15,
-                            10,
+                            3,
                             "s",
                             "The further you slide your foot back, the more stretch you should feel in the calf. " +
                                     "Make sure you lower your heel back to the ground with control with each repetition. " +
@@ -156,13 +156,14 @@ public class ExerciseRepository {
             );
             exerciseDao.insert(
                     new Exercise(
-                            "Quad Squats and Glute squats",
+                            "SLOW Goblet Squat with 12.5lb Dumbell",
                             "",
-                            "3 (2 quad, 1 glute)",
+                            "3",
                             10,
                             0,
                             "s",
-                            ""
+                            "Make sure you are keeping the weight as close to your body as possible." +
+                                    " The slower you perform the squat, the more muscles you challenge."
                     )
             );
             exerciseDao.insert(
@@ -233,13 +234,28 @@ public class ExerciseRepository {
             );
             exerciseDao.insert(
                     new Exercise(
-                            "Glute exercise",
+                            "Stork - Isometric Hold",
                             "",
-                            "1 per leg",
+                            "3 / leg",
                             10,
                             10,
                             "s",
-                            ""
+                            "Hinge at the hips to bias the glute more than the quad (i.e., fold at the hips to stick your bum back)" +
+                                    " Perform 10 repetitions of 10 seconds each side, 3 sets as possible."
+                    )
+            );
+            exerciseDao.insert(
+                    new Exercise(
+                            "Hopping",
+                            "",
+                            "1 of each / leg",
+                            1,
+                            1,
+                            "min",
+                            "Single leg hop on the spot -- 1 minute per leg\n" +
+                                    "Double leg hop forward and back -- 1 minute\n" +
+                                    "Double leg hop side to side  -- 1 minute\n" +
+                                    "For all jumping/hopping, focus on landing quietly to further engage calves, hamstrings, glutes to reduce stress on the ankle with landing."
                     )
             );
         });
