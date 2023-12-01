@@ -267,6 +267,17 @@ public class ExerciseRepository {
                                     "For all jumping/hopping, focus on landing quietly to further engage calves, hamstrings, glutes to reduce stress on the ankle with landing."
                     )
             );
+            exerciseDao.insert(
+                    new Exercise(
+                            "Squeezing towel",
+                            "",
+                            "1 / hand",
+                            10,
+                            10,
+                            "s",
+                            ""
+                    )
+            );
         });
     }
 
