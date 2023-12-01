@@ -139,12 +139,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
+                android:backgroundTint="@drawable/color_btn_secondary_selector"
                 android:text="@string/lbl_archive"/>
             <Button
                 android:id="@+id/btnUnarchive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
+                android:backgroundTint="@drawable/color_btn_secondary_selector"
                 android:text="@string/lbl_unarchive"/>
         </FrameLayout>
     </LinearLayout>

@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.PhysioTracker" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimary">#54719C</item>
 <!--        <item name="colorPrimary">#1D0036</item>-->
         <item name="colorPrimaryVariant">@color/menuDefaultGrey</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#54719C</item>
+        <item name="colorSecondary">#001C45</item>
         <item name="colorSecondaryVariant">#00CDFF</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
