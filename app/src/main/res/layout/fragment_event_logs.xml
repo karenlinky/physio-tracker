@@ -44,7 +44,7 @@
                 app:srcCompat="@drawable/ic_add" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabsEventsList"
+            android:id="@+id/tabsEventList"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"

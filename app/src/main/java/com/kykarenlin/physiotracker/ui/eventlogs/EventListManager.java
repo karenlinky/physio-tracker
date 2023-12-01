@@ -1,9 +1,14 @@
 package com.kykarenlin.physiotracker.ui.eventlogs;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.model.event.Event;
 import com.kykarenlin.physiotracker.utils.DateTimeHelper;
 
@@ -16,24 +21,55 @@ public class EventListManager {
     private List<EventWrapped> allArchivedEventsWithStartDate = new ArrayList<>();
     private List<EventWrapped> allArchivedEventsWithoutStartDate = new ArrayList<>();
     private EventAdapter eventListAdapter;
-
-    private boolean showArchived;
-    public EventListManager(EventAdapter eventListAdapter) {
+    private RelativeLayout emptyEventListContainer;
+    private ScrollView eventListContainer;
+    private TextView emptyEventListMsg;
+    private static boolean showingActive = true;
+    public EventListManager(EventAdapter eventListAdapter, RelativeLayout emptyEventListContainer, TextView emptyEventListMsg, ScrollView eventListContainer) {
         this.eventListAdapter = eventListAdapter;
-        this.showArchived = false;
+        this.emptyEventListContainer = emptyEventListContainer;
+        this.eventListContainer = eventListContainer;
+        this.emptyEventListMsg = emptyEventListMsg;
     }
 
-    private void updateListDueToListChange(boolean fromArchived) {
-        if (showArchived && fromArchived || !showArchived && !fromArchived) {
-            List<EventWrapped> listToDisplay = new ArrayList<>();
-            if (showArchived) {
-                listToDisplay.addAll(allArchivedEventsWithoutStartDate);
-                listToDisplay.addAll(allArchivedEventsWithStartDate);
+    private void updateList() {
+        List<EventWrapped> listToDisplay = new ArrayList<>();
+        if (showingActive) {
+            listToDisplay.addAll(allEventsWithoutStartDate);
+            listToDisplay.addAll(allEventsWithStartDate);
+        } else {
+            listToDisplay.addAll(allArchivedEventsWithoutStartDate);
+            listToDisplay.addAll(allArchivedEventsWithStartDate);
+        }
+        if (listToDisplay.size() == 0) {
+            emptyEventListContainer.setVisibility(View.VISIBLE);
+            eventListContainer.setVisibility(View.GONE);
+            if (showingActive) {
+                emptyEventListMsg.setText(R.string.empty_event_list_msg);
             } else {
-                listToDisplay.addAll(allEventsWithoutStartDate);
-                listToDisplay.addAll(allEventsWithStartDate);
+                emptyEventListMsg.setText(R.string.empty_archived_event_list_msg);
             }
-            this.eventListAdapter.setEventsWrapped(listToDisplay);
+        } else {
+            emptyEventListContainer.setVisibility(View.GONE);
+            eventListContainer.setVisibility(View.VISIBLE);
+        }
+        this.eventListAdapter.setEventsWrapped(listToDisplay);
+    }
+
+    private void updateListDueToListChange(boolean fromActive) {
+        if (showingActive && fromActive || !showingActive && !fromActive) {
+            this.updateList();
+        }
+    }
+
+    public static boolean isShowingActive() {
+        return showingActive;
+    }
+
+    public void setShowingActive(boolean showingActive) {
+        if (this.showingActive != showingActive) {
+            this.showingActive = showingActive;
+            this.updateList();
         }
     }
 
@@ -66,18 +102,18 @@ public class EventListManager {
 
     public void setAllEventsWithStartDate(List<Event> allEventsWithStartDate) {
         this.allEventsWithStartDate = this.generateEventListWrapped(allEventsWithStartDate, true);
-        updateListDueToListChange(false);
+        updateListDueToListChange(true);
     }
     public void setAllEventsWithoutStartDate(List<Event> allEventsWithoutStartDate) {
         this.allEventsWithoutStartDate = this.generateEventListWrapped(allEventsWithoutStartDate, false);
-        updateListDueToListChange(false);
+        updateListDueToListChange(true);
     }
     public void setAllArchivedEventsWithStartDate(List<Event> allArchivedEventsWithStartDate) {
         this.allArchivedEventsWithStartDate = this.generateEventListWrapped(allArchivedEventsWithStartDate, true);
-        updateListDueToListChange(true);
+        updateListDueToListChange(false);
     }
     public void setAllArchivedEventsWithoutStartDate(List<Event> allArchivedEventsWithoutStartDate) {
         this.allArchivedEventsWithoutStartDate = this.generateEventListWrapped(allArchivedEventsWithoutStartDate, false);
-        updateListDueToListChange(true);
+        updateListDueToListChange(false);
     }
 }

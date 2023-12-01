@@ -1,5 +1,6 @@
 package com.kykarenlin.physiotracker.ui.eventlogs;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,14 +23,17 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEventLogsBinding;
 import com.kykarenlin.physiotracker.enums.EventBundleKeys;
 import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
+import com.kykarenlin.physiotracker.enums.ListTabs;
 import com.kykarenlin.physiotracker.model.event.Event;
 import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventLogsFragment extends Fragment {
@@ -117,7 +122,9 @@ public class EventLogsFragment extends Fragment {
                 }
 
                 if (event.isArchived()) {
-
+                    menu.removeItem(R.id.archiveEvent);
+                } else {
+                    menu.removeItem(R.id.unarchiveEvent);
                 }
                 eventPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -130,9 +137,19 @@ public class EventLogsFragment extends Fragment {
                             event.setImportant(false);
                             eventViewModel.update(event);
                         } else if (id == R.id.deleteEvent) {
-                            eventViewModel.delete(event);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Confirm Deletion").setMessage("Are you sure you want to delete this event?");
+                            builder.setPositiveButton(R.string.lbl_confirm, (dialogInterface, i) -> {
+                                eventViewModel.delete(event);
+                            });
+                            builder.setNegativeButton(R.string.lbl_cancel, (dialogInterface, i) -> {});
+                            builder.show();
                         } else if (id == R.id.archiveEvent) {
-
+                            event.setArchived(true);
+                            eventViewModel.update(event);
+                        } else if (id == R.id.unarchiveEvent) {
+                            event.setArchived(false);
+                            eventViewModel.update(event);
                         }
                         return true;
                     }
@@ -142,21 +159,44 @@ public class EventLogsFragment extends Fragment {
             }
         });
 
-        EventListManager eventListManager = new EventListManager(eventListAdapter);
-
         RelativeLayout emptyEventListContainer = binding.emptyEventListContainer;
         ScrollView eventListContainer = binding.eventListContainer;
-        eventViewModel.getAllEvents().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+        TextView emptyEventListMsg = binding.emptyEventListMsg;
+
+        EventListManager eventListManager = new EventListManager(eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer);
+
+        final TabLayout tabsEventList = binding.tabsEventList;
+
+        HashMap<ListTabs, Integer> tabsIndices = new HashMap<>();
+        tabsIndices.put(ListTabs.ACTIVE, 0);
+        tabsIndices.put(ListTabs.ARCHIVED, 1);
+
+        TabLayout.Tab selectedListTab = tabsEventList.getTabAt(tabsIndices.get(ListTabs.ACTIVE));
+        if (!EventListManager.isShowingActive()) {
+            selectedListTab = tabsEventList.getTabAt(tabsIndices.get(ListTabs.ARCHIVED));
+        }
+        if (selectedListTab != null) {
+            selectedListTab.select();
+        }
+        tabsEventList.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onChanged(List<Event> events) {
-                // TODO: move to manager, doesn't work when archive feature is in
-                if (events.size() == 0) {
-                    emptyEventListContainer.setVisibility(View.VISIBLE);
-                    eventListContainer.setVisibility(View.GONE);
-                } else {
-                    emptyEventListContainer.setVisibility(View.GONE);
-                    eventListContainer.setVisibility(View.VISIBLE);
+            public void onTabSelected(TabLayout.Tab tab) {
+                int selectedTabIndex = tab.getPosition();
+                if (selectedTabIndex == tabsIndices.get(ListTabs.ACTIVE)) {
+                    eventListManager.setShowingActive(true);
+                } else if (selectedTabIndex == tabsIndices.get(ListTabs.ARCHIVED)) {
+                    eventListManager.setShowingActive(false);
                 }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                return;
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                return;
             }
         });
 
