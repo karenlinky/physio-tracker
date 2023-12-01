@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.tabs.TabLayout;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEventLogsBinding;
+import com.kykarenlin.physiotracker.enums.EditMode;
 import com.kykarenlin.physiotracker.enums.EventBundleKeys;
 import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
 import com.kykarenlin.physiotracker.enums.ListTabs;
@@ -60,26 +61,19 @@ public class EventLogsFragment extends Fragment {
 
         btnAddEvent.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
-            Bundle bundle = new Bundle();
-            bundle.putInt(EventBundleKeys.ID.toString(), -1);
-            bundle.putString(EventBundleKeys.DETAILS.toString(), "");
-            bundle.putLong(EventBundleKeys.START_TIME.toString(), cal.getTimeInMillis());
-            bundle.putLong(EventBundleKeys.END_TIME.toString(), cal.getTimeInMillis());
-            bundle.putBoolean(EventBundleKeys.IS_ACTIVITY.toString(), false);
-            bundle.putBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString(), false);
-            bundle.putString(EventBundleKeys.IMPROVEMENT_STATUS.toString(), EventImprovementStatus.UNCHANGED.toString());
-            bundle.putBoolean(EventBundleKeys.IS_ARCHIVED.toString(), false);
+            Bundle bundle = generateBundle(
+                    -1,
+                    "",
+                    cal.getTimeInMillis(),
+                    cal.getTimeInMillis(),
+                    false,
+                    false,
+                    EventImprovementStatus.UNCHANGED.toString(),
+                    false,
+                    EditMode.CREATE
+            );
             Navigation.findNavController(root).navigate(R.id.action_event_to_editEvent, bundle);
         });
-
-
-
-
-
-
-
-
-
 
         RecyclerView rclvEvents = binding.rclvEvents;
         rclvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -92,15 +86,17 @@ public class EventLogsFragment extends Fragment {
             @Override
             public void onItemClick(EventWrapped eventWrapped) {
                 Event event = eventWrapped.getEvent();
-                Bundle bundle = new Bundle();
-                bundle.putInt(EventBundleKeys.ID.toString(), event.getId());
-                bundle.putString(EventBundleKeys.DETAILS.toString(), event.getEventDetails());
-                bundle.putLong(EventBundleKeys.START_TIME.toString(), event.getEventStartTime());
-                bundle.putLong(EventBundleKeys.END_TIME.toString(), event.getEventEndTime());
-                bundle.putBoolean(EventBundleKeys.IS_ACTIVITY.toString(), event.isActivity());
-                bundle.putBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString(), event.isPainOrDiscomfort());
-                bundle.putString(EventBundleKeys.IMPROVEMENT_STATUS.toString(), event.getImprovementStatus());
-                bundle.putBoolean(EventBundleKeys.IS_ARCHIVED.toString(), event.isArchived());
+                Bundle bundle = generateBundle(
+                        event.getId(),
+                        event.getEventDetails(),
+                        event.getEventStartTime(),
+                        event.getEventEndTime(),
+                        event.isActivity(),
+                        event.isPainOrDiscomfort(),
+                        event.getImprovementStatus(),
+                        event.isArchived(),
+                        EditMode.EDIT
+                );
                 Navigation.findNavController(root).navigate(R.id.action_event_to_editEvent, bundle);
             }
         });
@@ -150,6 +146,21 @@ public class EventLogsFragment extends Fragment {
                         } else if (id == R.id.unarchiveEvent) {
                             event.setArchived(false);
                             eventViewModel.update(event);
+                        } else if (id == R.id.duplicateEvent) {
+                            Calendar cal = Calendar.getInstance();
+                            Event event = eventWrapped.getEvent();
+                            Bundle bundle = generateBundle(
+                                    -1,
+                                    event.getEventDetails(),
+                                    cal.getTimeInMillis(),
+                                    cal.getTimeInMillis(),
+                                    event.isActivity(),
+                                    event.isPainOrDiscomfort(),
+                                    event.getImprovementStatus(),
+                                    false,
+                                    EditMode.DUPLICATE
+                            );
+                            Navigation.findNavController(root).navigate(R.id.action_event_to_editEvent, bundle);
                         }
                         return true;
                     }
@@ -228,6 +239,20 @@ public class EventLogsFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    private Bundle generateBundle(int id, String details, long startTime, long endTime, boolean isActivity, boolean isPain, String improvementStatus, boolean isArchived, EditMode editMode) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(EventBundleKeys.ID.toString(), id);
+        bundle.putString(EventBundleKeys.DETAILS.toString(), details);
+        bundle.putLong(EventBundleKeys.START_TIME.toString(), startTime);
+        bundle.putLong(EventBundleKeys.END_TIME.toString(), endTime);
+        bundle.putBoolean(EventBundleKeys.IS_ACTIVITY.toString(), isActivity);
+        bundle.putBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString(), isPain);
+        bundle.putString(EventBundleKeys.IMPROVEMENT_STATUS.toString(), improvementStatus);
+        bundle.putBoolean(EventBundleKeys.IS_ARCHIVED.toString(), isArchived);
+        bundle.putString(EventBundleKeys.EDIT_MODE.toString(), editMode.toString());
+        return bundle;
     }
 
     @Override

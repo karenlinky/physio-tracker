@@ -10,4 +10,5 @@ public enum EventBundleKeys {
     IMPROVEMENT_STATUS,
     IS_ARCHIVED,
     LAST_MODIFIED_TIME,
+    EDIT_MODE,
 }

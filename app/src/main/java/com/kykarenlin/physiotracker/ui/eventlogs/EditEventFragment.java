@@ -5,10 +5,13 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEditEventBinding;
+import com.kykarenlin.physiotracker.enums.EditMode;
 import com.kykarenlin.physiotracker.enums.EventBundleKeys;
 import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
 import com.kykarenlin.physiotracker.model.event.Event;
@@ -221,5 +225,10 @@ public class EditEventFragment extends Fragment {
         });
 
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 }
