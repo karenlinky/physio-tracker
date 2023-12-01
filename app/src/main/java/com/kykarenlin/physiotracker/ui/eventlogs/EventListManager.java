@@ -33,7 +33,6 @@ public class EventListManager {
                 listToDisplay.addAll(allEventsWithoutStartDate);
                 listToDisplay.addAll(allEventsWithStartDate);
             }
-            Log.e("TAG", "updateListDueToListChange: size: " + listToDisplay.size());
             this.eventListAdapter.setEventsWrapped(listToDisplay);
         }
     }
@@ -62,7 +61,6 @@ public class EventListManager {
                 newList.get(newList.size() - 1).setShowEndOfWeekIndicator();
             }
         }
-        Log.e("TAG", "generateEventListWrapped: newList.size(): " + newList.size());
         return newList;
     }
 

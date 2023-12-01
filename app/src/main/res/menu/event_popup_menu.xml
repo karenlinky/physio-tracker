@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/markImportantEvent"
+        android:title="@string/title_mark_as_important" />
+
+    <item
+        android:id="@+id/unmarkImportantEvent"
+        android:title="@string/title_unmark_as_important" />
+
+    <item
+        android:id="@+id/duplicateEvent"
+        android:title="@string/title_duplicate_event" />
+
+    <item
+        android:id="@+id/archiveEvent"
+        android:title="@string/title_archive_event" />
+
+    <item
+        android:id="@+id/unarchiveEvent"
+        android:title="@string/title_unarchive_event" />
+
+    <item
+        android:id="@+id/deleteEvent"
+        android:title="@string/title_delete_event" />
+
+
+</menu>

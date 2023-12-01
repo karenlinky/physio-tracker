@@ -44,6 +44,13 @@
     <string name="lbl_play_sound">Play 🔊</string>
     <string name="lbl_event_active">Sport or Gym</string>
     <string name="lbl_event_pain">Pain or Discomfort</string>
+    <string name="title_duplicate_event">Duplicate event</string>
+    <string name="title_archive_event">Archive event</string>
+    <string name="title_archive_event_before_date">Archive all events before </string>
+    <string name="title_unarchive_event">Unarchive event</string>
+    <string name="title_mark_as_important">Mark as important</string>
+    <string name="title_unmark_as_important">Mark as not important</string>
+    <string name="title_delete_event">Delete event</string>
     <string-array name="units">
         <item>s</item>
         <item>min</item>

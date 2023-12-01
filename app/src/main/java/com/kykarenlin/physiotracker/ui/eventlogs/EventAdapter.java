@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
 
     private List<EventWrapped> eventsWrapped = new ArrayList<>();
 
-    private OnItemClickListener listener;
+    private OnItemClickListener clicklistener;
+
+    private OnItemLongClickListener longClicklistener;
 
     private Context context;
     @NonNull
@@ -47,16 +50,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         holder.txtDatePeriod.setVisibility(View.GONE);
 //        holder.txtDatePeriod.setText(strStartDate);
 
-//        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-//        boolean isNightMode = nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
-//
-//        int painColor = ContextCompat.getColor(context, R.color.eventWithPain);
-//        int withoutPainColor = ContextCompat.getColor(context, R.color.trackerListEnabled);
-//
-//        if (isNightMode) {
-//            painColor = ContextCompat.getColor(context, R.color.eventWithPainDark);
-//            withoutPainColor = ContextCompat.getColor(context, R.color.trackerListEnabledDark);
-//        }
+        if (event.isImportant()) {
+            holder.importantIndicator.setVisibility(View.VISIBLE);
+        } else {
+            holder.importantIndicator.setVisibility(View.GONE);
+        }
 
         if (event.isPainOrDiscomfort()) {
             holder.painIndicator.setVisibility(View.VISIBLE);
@@ -106,6 +104,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
 
     class EventHolder extends RecyclerView.ViewHolder {
         private ImageView painIndicator;
+        private ImageView importantIndicator;
         private TextView txtEventDate;
         private TextView txtEventDetails;
         private TextView txtDatePeriod;
@@ -113,11 +112,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         private CardView icUp;
         private CardView icDown;
 
+        private LinearLayout cardEvent;
+
         private View viewWeekSeparator;
 
         public EventHolder(View itemView) {
             super(itemView);
-            painIndicator= itemView.findViewById(R.id.painIndicator);
+            painIndicator = itemView.findViewById(R.id.painIndicator);
+            importantIndicator = itemView.findViewById(R.id.importantIndicator);
             txtEventDate = itemView.findViewById(R.id.txtEventDate);
             txtEventDetails = itemView.findViewById(R.id.txtEventDetails);
             txtDatePeriod = itemView.findViewById(R.id.txtDatePeriod);
@@ -125,12 +127,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
             icUp = itemView.findViewById(R.id.icUp);
             icDown = itemView.findViewById(R.id.icDown);
             viewWeekSeparator = itemView.findViewById(R.id.viewWeekSeparator);
+            cardEvent = itemView.findViewById(R.id.cardEvent);
 
-            itemView.setOnClickListener(view -> {
+            cardEvent.setOnClickListener(view -> {
                 int position = getAdapterPosition();
-                if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(eventsWrapped.get(position));
+                if (clicklistener != null && position != RecyclerView.NO_POSITION) {
+                    clicklistener.onItemClick(eventsWrapped.get(position));
                 }
+            });
+
+            cardEvent.setOnLongClickListener(view -> {
+                int position = getAdapterPosition();
+                if (longClicklistener != null && position != RecyclerView.NO_POSITION) {
+                    longClicklistener.onItemLongClick(eventsWrapped.get(position), cardEvent);
+                }
+                return true;
             });
         }
     }
@@ -139,7 +150,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         void onItemClick(EventWrapped event);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
+    public void setOnItemClickListener(OnItemClickListener clicklistener) {
+        this.clicklistener = clicklistener;
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(EventWrapped event, View itemView);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener longClicklistener) {
+        this.longClicklistener = longClicklistener;
     }
 }

@@ -3,11 +3,15 @@ package com.kykarenlin.physiotracker.ui.eventlogs;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -96,6 +100,48 @@ public class EventLogsFragment extends Fragment {
             }
         });
 
+        eventListAdapter.setOnItemLongClickListener(new EventAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(EventWrapped eventWrapped, View itemView) {
+                Event event = eventWrapped.getEvent();
+
+                PopupMenu eventPopupMenu = new PopupMenu(getContext(), itemView);
+                eventPopupMenu.getMenuInflater().inflate(R.menu.event_popup_menu, eventPopupMenu.getMenu());
+
+                Menu menu = eventPopupMenu.getMenu();
+
+                if (event.isImportant()) {
+                    menu.removeItem(R.id.markImportantEvent);
+                } else {
+                    menu.removeItem(R.id.unmarkImportantEvent);
+                }
+
+                if (event.isArchived()) {
+
+                }
+                eventPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+                        if (id == R.id.markImportantEvent) {
+                            event.setImportant(true);
+                            eventViewModel.update(event);
+                        } else if (id == R.id.unmarkImportantEvent) {
+                            event.setImportant(false);
+                            eventViewModel.update(event);
+                        } else if (id == R.id.deleteEvent) {
+                            eventViewModel.delete(event);
+                        } else if (id == R.id.archiveEvent) {
+
+                        }
+                        return true;
+                    }
+                });
+                // Showing the popup menu
+                eventPopupMenu.show();
+            }
+        });
+
         EventListManager eventListManager = new EventListManager(eventListAdapter);
 
         RelativeLayout emptyEventListContainer = binding.emptyEventListContainer;
@@ -117,7 +163,6 @@ public class EventLogsFragment extends Fragment {
         eventViewModel.getEventsWithStartDate().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                Log.e("TAG", "onChanged: WITH");
                 eventListManager.setAllEventsWithStartDate(events);
             }
         });
@@ -125,7 +170,6 @@ public class EventLogsFragment extends Fragment {
         eventViewModel.getEventsWithoutStartDate().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                Log.e("TAG", "onChanged: WITHOUT");
                 eventListManager.setAllEventsWithoutStartDate(events);
             }
         });
@@ -133,7 +177,6 @@ public class EventLogsFragment extends Fragment {
         eventViewModel.getArchivedEventsWithStartDate().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                Log.e("TAG", "onChanged: ARCHIVED WITH");
                 eventListManager.setAllArchivedEventsWithStartDate(events);
             }
         });
@@ -141,7 +184,6 @@ public class EventLogsFragment extends Fragment {
         eventViewModel.getArchivedEventsWithoutStartDate().observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                Log.e("TAG", "onChanged: ARCHIVED WITHOUT");
                 eventListManager.setAllArchivedEventsWithoutStartDate(events);
             }
         });
