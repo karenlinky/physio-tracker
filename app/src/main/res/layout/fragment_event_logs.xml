@@ -7,38 +7,61 @@
     android:paddingTop="20dp"
     tools:context=".ui.eventlogs.EventLogsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/containerEventHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txtEventHeading"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Events"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnAddEvent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/txtEventHeading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Events"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btnAddEvent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnAddEvent"
-            android:layout_width="wrap_content"
+            <ImageButton
+                android:id="@+id/btnAddEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shp_primary_img_btn_background"
+                android:contentDescription="Create new event"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                app:tint="?attr/colorImgBtnTint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_add" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabsEventsList"
             android:layout_height="wrap_content"
-            android:background="@drawable/shp_primary_img_btn_background"
-            android:contentDescription="Create new event"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="3dp"
-            app:tint="?attr/colorImgBtnTint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="match_parent"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            android:backgroundTint="@android:color/transparent">
+
+            <com.google.android.material.tabs.TabItem
+                android:text="Active"
+                android:layout_height="wrap_content"
+                android:layout_width="20dp"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:text="Archived"
+                android:layout_height="wrap_content"
+                android:layout_width="20dp"/>
+
+        </com.google.android.material.tabs.TabLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/emptyEventListContainer"
@@ -66,7 +89,6 @@
         android:id="@+id/eventListContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
