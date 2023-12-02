@@ -68,6 +68,7 @@ public class EventLogsFragment extends Fragment {
                     cal.getTimeInMillis(),
                     false,
                     false,
+                    false,
                     EventImprovementStatus.UNCHANGED.toString(),
                     false,
                     EditMode.CREATE
@@ -91,6 +92,7 @@ public class EventLogsFragment extends Fragment {
                         event.getEventDetails(),
                         event.getEventStartTime(),
                         event.getEventEndTime(),
+                        event.isExercise(),
                         event.isActivity(),
                         event.isPainOrDiscomfort(),
                         event.getImprovementStatus(),
@@ -170,6 +172,7 @@ public class EventLogsFragment extends Fragment {
                                     event.getEventDetails(),
                                     cal.getTimeInMillis(),
                                     cal.getTimeInMillis(),
+                                    event.isExercise(),
                                     event.isActivity(),
                                     event.isPainOrDiscomfort(),
                                     event.getImprovementStatus(),
@@ -266,12 +269,13 @@ public class EventLogsFragment extends Fragment {
         return root;
     }
 
-    private Bundle generateBundle(int id, String details, long startTime, long endTime, boolean isActivity, boolean isPain, String improvementStatus, boolean isArchived, EditMode editMode) {
+    private Bundle generateBundle(int id, String details, long startTime, long endTime, boolean isExercise, boolean isActivity, boolean isPain, String improvementStatus, boolean isArchived, EditMode editMode) {
         Bundle bundle = new Bundle();
         bundle.putInt(EventBundleKeys.ID.toString(), id);
         bundle.putString(EventBundleKeys.DETAILS.toString(), details);
         bundle.putLong(EventBundleKeys.START_TIME.toString(), startTime);
         bundle.putLong(EventBundleKeys.END_TIME.toString(), endTime);
+        bundle.putBoolean(EventBundleKeys.IS_EXERCISE.toString(), isExercise);
         bundle.putBoolean(EventBundleKeys.IS_ACTIVITY.toString(), isActivity);
         bundle.putBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString(), isPain);
         bundle.putString(EventBundleKeys.IMPROVEMENT_STATUS.toString(), improvementStatus);

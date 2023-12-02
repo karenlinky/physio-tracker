@@ -59,6 +59,7 @@ public class EditEventFragment extends Fragment {
     private TextView txtSelectedEndDate;
     private TextView invisibleEndDate;
     private ImageButton btnSelectEndDate;
+    private CheckBox chkbxIsExercise;
     private CheckBox chkbxIsActivity;
     private CheckBox chkbxIsPainDiscomfort;
     private RadioGroup rgChanges;
@@ -79,6 +80,7 @@ public class EditEventFragment extends Fragment {
         String initDetails = getArguments().getString(EventBundleKeys.DETAILS.toString());
         long initStartTime = getArguments().getLong(EventBundleKeys.START_TIME.toString());
         long initEndTime = getArguments().getLong(EventBundleKeys.END_TIME.toString());
+        boolean isExercise = getArguments().getBoolean(EventBundleKeys.IS_EXERCISE.toString());
         boolean isActivity = getArguments().getBoolean(EventBundleKeys.IS_ACTIVITY.toString());
         boolean isPain = getArguments().getBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString());
         String improvementStatus = getArguments().getString(EventBundleKeys.IMPROVEMENT_STATUS.toString());
@@ -91,6 +93,7 @@ public class EditEventFragment extends Fragment {
         txtSelectedEndDate = binding.txtSelectedEndDate;
         invisibleEndDate = binding.invisibleEndDate;
         btnSelectEndDate = binding.btnSelectEndDate;
+        chkbxIsExercise = binding.chkbxIsExercise;
         chkbxIsActivity = binding.chkbxIsActivity;
         chkbxIsPainDiscomfort = binding.chkbxIsPainDiscomfort;
         rgChanges = binding.rgChanges;
@@ -98,6 +101,7 @@ public class EditEventFragment extends Fragment {
         edtEventDetails.setText(initDetails);
         updateStartTime(initStartTime);
         updateEndTime(initEndTime);
+        chkbxIsExercise.setChecked(isExercise);
         chkbxIsActivity.setChecked(isActivity);
         chkbxIsPainDiscomfort.setChecked(isPain);
 
@@ -139,6 +143,7 @@ public class EditEventFragment extends Fragment {
                 String details = edtEventDetails.getText().toString().trim();
                 String strStartTime = invisibleStartDate.getText().toString().trim();
                 String strEndTime = invisibleEndDate.getText().toString().trim();
+                boolean isExercise = chkbxIsExercise.isChecked();
                 boolean isActivity = chkbxIsActivity.isChecked();
                 boolean isPain = chkbxIsPainDiscomfort.isChecked();
                 int selectedChangesId = rgChanges.getCheckedRadioButtonId();
@@ -164,6 +169,7 @@ public class EditEventFragment extends Fragment {
                     details,
                     startTime,
                     endTime,
+                    isExercise,
                     isActivity,
                     isPain,
                     improvementStatus

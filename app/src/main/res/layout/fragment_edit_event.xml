@@ -111,6 +111,11 @@
             </LinearLayout>
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:layout_marginTop="24dp"
+                android:id="@+id/chkbxIsExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_event_exercise" />
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/chkbxIsActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

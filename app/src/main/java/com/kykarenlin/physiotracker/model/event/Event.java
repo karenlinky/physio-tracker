@@ -17,6 +17,8 @@ public class Event {
 
     private long eventEndTime;
 
+    private boolean isExercise;
+
     private boolean isActivity;
 
     private boolean isPainOrDiscomfort;
@@ -29,7 +31,7 @@ public class Event {
 
     private long lastModifiedTime;
 
-    public Event(String eventDetails, long eventStartTime, long eventEndTime, boolean isActivity, boolean isPainOrDiscomfort, String improvementStatus) {
+    public Event(String eventDetails, long eventStartTime, long eventEndTime, boolean isExercise, boolean isActivity, boolean isPainOrDiscomfort, String improvementStatus) {
         this.eventDetails = eventDetails;
         this.eventStartTime = eventStartTime;
         if (eventEndTime < eventStartTime) {
@@ -41,6 +43,7 @@ public class Event {
         } else if (eventEndTime == 0) {
             this.eventEndTime = eventStartTime;
         }
+        this.isExercise = isExercise;
         this.isActivity = isActivity;
         this.isPainOrDiscomfort = isPainOrDiscomfort;
         this.improvementStatus = improvementStatus;
@@ -83,6 +86,10 @@ public class Event {
 
     public long getEventEndTime() {
         return eventEndTime;
+    }
+
+    public boolean isExercise() {
+        return isExercise;
     }
 
     public boolean isActivity() {

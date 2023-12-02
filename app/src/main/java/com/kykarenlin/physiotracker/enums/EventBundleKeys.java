@@ -5,6 +5,7 @@ public enum EventBundleKeys {
     DETAILS,
     START_TIME,
     END_TIME,
+    IS_EXERCISE,
     IS_ACTIVITY,
     IS_PAIN_DISCOMFORT,
     IMPROVEMENT_STATUS,
