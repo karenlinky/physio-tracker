@@ -87,6 +87,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
             holder.viewWeekSeparator.setVisibility(View.GONE);
         }
 
+        if (event.isExercise()) {
+            holder.icExercise.setVisibility(View.VISIBLE);
+        } else {
+            holder.icExercise.setVisibility(View.GONE);
+        }
+
         if (event.isActivity()) {
             holder.icActive.setVisibility(View.VISIBLE);
         } else {
@@ -121,6 +127,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
         private TextView txtEventDate;
         private TextView txtEventDetails;
         private TextView txtDatePeriod;
+
+        private CardView icExercise;
         private CardView icActive;
         private CardView icUp;
         private CardView icDown;
@@ -136,6 +144,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
             txtEventDate = itemView.findViewById(R.id.txtEventDate);
             txtEventDetails = itemView.findViewById(R.id.txtEventDetails);
             txtDatePeriod = itemView.findViewById(R.id.txtDatePeriod);
+            icExercise = itemView.findViewById(R.id.icExercise);
             icActive = itemView.findViewById(R.id.icActive);
             icUp = itemView.findViewById(R.id.icUp);
             icDown = itemView.findViewById(R.id.icDown);
