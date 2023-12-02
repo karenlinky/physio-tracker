@@ -126,5 +126,5 @@
         android:layout_marginHorizontal="16dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:backgroundTint="?attr/colorEventWeekSeparator" />
+        android:background="?attr/colorEventWeekSeparator" />
 </LinearLayout>
