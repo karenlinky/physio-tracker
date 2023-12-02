@@ -21,7 +21,7 @@
         <item name="colorRedBtn">@color/red_btn</item>
         <item name="colorNavIconSelected">@color/white</item>
         <item name="colorEventIconsBackground">@color/eventIconsBackground</item>
-        <item name="colorIcon">@color/black</item>
+        <item name="colorIcon">@color/eventActiveIcon</item>
         <item name="colorEventWeekSeparator">@color/eventWeekSeparator</item>
     </style>
 </resources>

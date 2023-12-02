@@ -43,6 +43,10 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_add" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Press and hold an event for more options." />
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabsEventList"
             android:layout_height="wrap_content"
