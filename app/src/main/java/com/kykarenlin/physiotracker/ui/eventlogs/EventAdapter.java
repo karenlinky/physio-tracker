@@ -42,13 +42,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
     public void onBindViewHolder(@NonNull EventHolder holder, int position) {
         EventWrapped currentWrapped = eventsWrapped.get(position);
         Event event = currentWrapped.getEvent();
-        String strStartDate = DateTimeHelper.toStringDateWithDay(event.getEventStartTime());
-        String strEndDate = DateTimeHelper.toStringDateWithDay(event.getEventEndTime());
+        long startDate = event.getEventStartTime();
+        long endDate = event.getEventEndTime();
+        String strStartDate = DateTimeHelper.toStringDateWithDay(startDate);
+        String strEndDate = DateTimeHelper.toStringDateWithDay(endDate);
         holder.txtEventDate.setText(strStartDate);
         holder.txtEventDetails.setText(event.getEventDetails());
-//        holder.txtDatePeriod.setText("");
-        holder.txtDatePeriod.setVisibility(View.GONE);
+//        holder.txtDatePeriod.setVisibility(View.GONE);
 //        holder.txtDatePeriod.setText(strStartDate);
+        if (event.hasStartDate()) {
+            holder.txtDatePeriod.setVisibility(View.VISIBLE);
+            if (startDate == endDate) {
+                holder.txtDatePeriod.setText(DateTimeHelper.toStringTime(startDate));
+            } else if (DateTimeHelper.isWithinSameDay(startDate, endDate)) {
+                holder.txtDatePeriod.setText(DateTimeHelper.toStringTime(startDate) + " - " + DateTimeHelper.toStringTime(endDate));
+            } else {
+                holder.txtDatePeriod.setText(DateTimeHelper.toStringDateWithTime(startDate) + " - " + DateTimeHelper.toStringDateWithTime(endDate));
+            }
+        } else {
+            holder.txtDatePeriod.setVisibility(View.GONE);
+        }
 
         if (event.isImportant()) {
             holder.importantIndicator.setVisibility(View.VISIBLE);

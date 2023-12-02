@@ -10,28 +10,39 @@ import java.util.Date;
 public class DateTimeHelper {
     public final static String INVALID_DATE_RESULT = "";
     private final static String STR_DATE_FORMAT = "yyyy MMM dd";
-
     private final static Format DATE_FORMAT = new SimpleDateFormat(STR_DATE_FORMAT);
+    private final static String STR_DATE_WITHOUT_YEAR_FORMAT = "MMM dd";
+    private final static Format DATE_WITHOUT_YEAR_FORMAT = new SimpleDateFormat(STR_DATE_WITHOUT_YEAR_FORMAT);
+    private final static String STR_TIME_FORMAT = "HH:mm";
 
-    private final static String STR_DATE_TIME_FORMAT = STR_DATE_FORMAT + " " + "HH:mm";
-
-    private final static Format DATE_TIME_FORMAT = new SimpleDateFormat(STR_DATE_TIME_FORMAT);
-
+    private final static Format TIME_FORMAT = new SimpleDateFormat(STR_TIME_FORMAT);
     private final static String[] DAY_OF_WEEK = new String[] {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     public static String toStringDate(long dateTime) {
         if ((dateTime) == 0) {
             return INVALID_DATE_RESULT;
         }
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        calendar.setTimeInMillis(dateTime);
+        int dateYear = calendar.get(Calendar.YEAR);
+        boolean sameYear = currentYear == dateYear;
         Date date = new Date(dateTime);
-        return DATE_FORMAT.format(date);
+        return sameYear ? DATE_WITHOUT_YEAR_FORMAT.format(date) : DATE_FORMAT.format(date);
+    }
+
+    public static String toStringTime(long dateTime) {
+        if ((dateTime) == 0) {
+            return INVALID_DATE_RESULT;
+        }
+        Date date = new Date(dateTime);
+        return TIME_FORMAT.format(date);
     }
 
     public static String toStringDateWithTime(long dateTime) {
         if ((dateTime) == 0) {
             return INVALID_DATE_RESULT;
         }
-        Date date = new Date(dateTime);
-        return DATE_TIME_FORMAT.format(date);
+        return toStringDate(dateTime) + " " + toStringTime(dateTime);
     }
 
     private static int getIntDayOfWeek(long dateTime) {
