@@ -111,6 +111,10 @@ public class EventLogsFragment extends Fragment {
 
                 Menu menu = eventPopupMenu.getMenu();
 
+                if (!event.hasStartDate()) {
+                    menu.removeItem(R.id.extendEndDate);
+                }
+
                 if (event.isImportant()) {
                     menu.removeItem(R.id.markImportantEvent);
                 } else {
@@ -177,6 +181,11 @@ public class EventLogsFragment extends Fragment {
                             eventViewModel.archiveAllEventsBeforeTimestamp(event);
                         } else if (id == R.id.archivePreviousEventsWithoutStartTime) {
                             eventViewModel.archiveAllEventsWithoutStartDateCreatedBeforeTimestamp(event);
+                        } else if (id == R.id.extendEndDate) {
+                            if (event.hasStartDate()) {
+                                event.setEventEndTime(Calendar.getInstance().getTimeInMillis());
+                                eventViewModel.update(event);
+                            }
                         }
                         return true;
                     }
