@@ -49,8 +49,11 @@
     <string name="title_archive_event">Archive event</string>
     <string name="title_archive_event_before_date">Archive all events before </string>
     <string name="title_unarchive_event">Unarchive event</string>
+    <string name="title_archive_events_before_start_time">Archive all previous events</string>
+    <string name="title_archive_events_without_start_time">Archive events with earlier modification dates</string>
     <string name="title_mark_as_important">Mark as important</string>
     <string name="title_unmark_as_important">Mark as not important</string>
+    <string name="title_extend_end_date">Extend end date to current time</string>
     <string name="title_delete_event">Delete event</string>
     <string-array name="units">
         <item>s</item>

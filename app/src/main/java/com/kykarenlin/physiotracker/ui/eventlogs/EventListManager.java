@@ -6,16 +6,21 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.model.event.Event;
 import com.kykarenlin.physiotracker.utils.DateTimeHelper;
+import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventListManager {
+
+    private EventViewModel eventViewModel;
+    private LifecycleOwner lifecycleOwner;
     private List<EventWrapped> allEventsWithStartDate = new ArrayList<>();
     private List<EventWrapped> allEventsWithoutStartDate = new ArrayList<>();
     private List<EventWrapped> allArchivedEventsWithStartDate = new ArrayList<>();
@@ -25,7 +30,9 @@ public class EventListManager {
     private ScrollView eventListContainer;
     private TextView emptyEventListMsg;
     private static boolean showingActive = true;
-    public EventListManager(EventAdapter eventListAdapter, RelativeLayout emptyEventListContainer, TextView emptyEventListMsg, ScrollView eventListContainer) {
+    public EventListManager(EventViewModel eventViewModel, LifecycleOwner lifecycleOwner, EventAdapter eventListAdapter, RelativeLayout emptyEventListContainer, TextView emptyEventListMsg, ScrollView eventListContainer) {
+        this.eventViewModel = eventViewModel;
+        this.lifecycleOwner = lifecycleOwner;
         this.eventListAdapter = eventListAdapter;
         this.emptyEventListContainer = emptyEventListContainer;
         this.eventListContainer = eventListContainer;
@@ -79,6 +86,8 @@ public class EventListManager {
             Event event = events.get(i);
             newList.add(
                 new EventWrapped(
+                    eventViewModel,
+                    this.lifecycleOwner,
                     event,
                     hasStartDate &&
                         (i == 0 ||                                       // first item of list

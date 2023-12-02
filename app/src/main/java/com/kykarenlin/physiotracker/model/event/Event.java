@@ -32,10 +32,10 @@ public class Event {
     public Event(String eventDetails, long eventStartTime, long eventEndTime, boolean isActivity, boolean isPainOrDiscomfort, String improvementStatus) {
         this.eventDetails = eventDetails;
         this.eventStartTime = eventStartTime;
-        this.eventEndTime = eventEndTime;
-        if (eventEndTime < eventStartTime && eventEndTime != 0) {
-            this.eventEndTime = eventStartTime;
+        if (eventEndTime < eventStartTime) {
+            eventEndTime = eventStartTime;
         }
+        this.eventEndTime = eventEndTime;
         if (eventStartTime == 0) {
             this.eventEndTime = 0;
         } else if (eventEndTime == 0) {
@@ -107,5 +107,9 @@ public class Event {
 
     public boolean isImportant() {
         return isImportant;
+    }
+
+    public boolean hasStartDate() {
+        return this.eventStartTime != 0;
     }
 }

@@ -46,6 +46,31 @@ public class EventRepository {
         });
     }
 
+    public void archiveAllEventsBeforeTimestamp(long timestamp) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            eventDao.archiveAllEventsBeforeTimestamp(timestamp);
+        });
+    }
+
+    public LiveData<List<Event>> getEventsBeforeTimestamp(long timestamp) {
+        return eventDao.getEventsBeforeTimestamp(timestamp);
+    }
+
+    public void archiveAllEventsWithoutStartDateCreatedBeforeTimestamp(int id, long lastModifiedTime) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        executor.execute(() -> {
+            eventDao.archiveAllEventsWithoutStartDateCreatedBeforeTimestamp(id, lastModifiedTime);
+        });
+    }
+
+    public LiveData<List<Event>> getEventsWithoutStartDateBeforeTimestamp(int id, long lastModifiedTime) {
+        return eventDao.getEventsWithoutStartDateBeforeTimestamp(id, lastModifiedTime);
+    }
+
+
     public void delete(Event event) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 

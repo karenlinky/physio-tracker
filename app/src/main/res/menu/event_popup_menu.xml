@@ -10,12 +10,24 @@
         android:title="@string/title_unmark_as_important" />
 
     <item
+        android:id="@+id/extendEndDate"
+        android:title="@string/title_extend_end_date" />
+
+    <item
         android:id="@+id/duplicateEvent"
         android:title="@string/title_duplicate_event" />
 
     <item
         android:id="@+id/archiveEvent"
         android:title="@string/title_archive_event" />
+
+    <item
+        android:id="@+id/archivePreviousEvents"
+        android:title="@string/title_archive_events_before_start_time" />
+
+    <item
+        android:id="@+id/archivePreviousEventsWithoutStartTime"
+        android:title="@string/title_archive_events_without_start_time" />
 
     <item
         android:id="@+id/unarchiveEvent"

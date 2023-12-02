@@ -1,6 +1,7 @@
 package com.kykarenlin.physiotracker.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,6 +11,7 @@ import com.kykarenlin.physiotracker.model.event.Event;
 import com.kykarenlin.physiotracker.model.event.EventRepository;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventViewModel extends AndroidViewModel {
@@ -41,6 +43,26 @@ public class EventViewModel extends AndroidViewModel {
 
     public void update(Event event) {
         repository.update(event);
+    }
+
+    public void archiveAllEventsBeforeTimestamp(Event event) {
+        long startTime = event.getEventStartTime();
+        repository.archiveAllEventsBeforeTimestamp(startTime);
+    }
+
+    public void archiveAllEventsWithoutStartDateCreatedBeforeTimestamp(Event event) {
+        int id = event.getId();
+        long lastModifiedTime = event.getLastModifiedTime();
+        repository.archiveAllEventsWithoutStartDateCreatedBeforeTimestamp(id, lastModifiedTime);
+    }
+
+    public LiveData<List<Event>> getPrevEvents(Event event) {
+        List<Event> prevEvents = new ArrayList<>();
+        if (event.hasStartDate()) {
+            return repository.getEventsBeforeTimestamp(event.getEventStartTime());
+        } else {
+            return repository.getEventsWithoutStartDateBeforeTimestamp(event.getId(), event.getLastModifiedTime());
+        }
     }
 
     public void delete(Event event) {

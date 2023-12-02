@@ -119,9 +119,21 @@ public class EventLogsFragment extends Fragment {
 
                 if (event.isArchived()) {
                     menu.removeItem(R.id.archiveEvent);
+                    menu.removeItem(R.id.archivePreviousEvents);
+                    menu.removeItem(R.id.archivePreviousEventsWithoutStartTime);
                 } else {
                     menu.removeItem(R.id.unarchiveEvent);
+                    if (!eventWrapped.getHasPreviousEvents()) {
+                        menu.removeItem(R.id.archivePreviousEvents);
+                        menu.removeItem(R.id.archivePreviousEventsWithoutStartTime);
+                    } else if (event.hasStartDate()) {
+                        menu.removeItem(R.id.archivePreviousEventsWithoutStartTime);
+                    } else {
+                        menu.removeItem(R.id.archivePreviousEvents);
+                    }
                 }
+
+                //TODO: extend end date
                 eventPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -161,6 +173,10 @@ public class EventLogsFragment extends Fragment {
                                     EditMode.DUPLICATE
                             );
                             Navigation.findNavController(root).navigate(R.id.action_event_to_editEvent, bundle);
+                        } else if (id == R.id.archivePreviousEvents) {
+                            eventViewModel.archiveAllEventsBeforeTimestamp(event);
+                        } else if (id == R.id.archivePreviousEventsWithoutStartTime) {
+                            eventViewModel.archiveAllEventsWithoutStartDateCreatedBeforeTimestamp(event);
                         }
                         return true;
                     }
@@ -174,7 +190,7 @@ public class EventLogsFragment extends Fragment {
         ScrollView eventListContainer = binding.eventListContainer;
         TextView emptyEventListMsg = binding.emptyEventListMsg;
 
-        EventListManager eventListManager = new EventListManager(eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer);
+        EventListManager eventListManager = new EventListManager(eventViewModel, getViewLifecycleOwner(), eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer);
 
         final TabLayout tabsEventList = binding.tabsEventList;
 
