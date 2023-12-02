@@ -1,5 +1,6 @@
 package com.kykarenlin.physiotracker.ui.eventlogs;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -148,10 +149,21 @@ public class EditEventFragment extends Fragment {
                     improvementStatus = EventImprovementStatus.WORSENED.toString();
                 }
 
+                if (details.isEmpty()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(fragmentActivity);
+                    builder.setTitle("Required Fields").setMessage("Please provide the details of what happened.");
+                    builder.setPositiveButton("Confirm", (dialogInterface, i) -> {});
+                    builder.show();
+                    return;
+                }
+
+                long startTime = Long.parseLong(strStartTime);
+                long endTime = Long.parseLong(strEndTime);
+
                 Event newEvent = new Event(
                     details,
-                    Long.parseLong(strStartTime),
-                    Long.parseLong(strEndTime),
+                    startTime,
+                    endTime,
                     isActivity,
                     isPain,
                     improvementStatus
@@ -214,6 +226,7 @@ public class EditEventFragment extends Fragment {
                         updateTime(0, visibleDate, invisibleDate, emptyMsg);
                     }
                 });
+
                 timePickerDialog.show();
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -223,6 +236,8 @@ public class EditEventFragment extends Fragment {
                 updateTime(0, visibleDate, invisibleDate, emptyMsg);
             }
         });
+
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
         datePickerDialog.show();
     }
