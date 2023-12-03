@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,6 +26,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.kykarenlin.physiotracker.databinding.ActivityMainBinding;
+import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.SoundManager;
 import com.kykarenlin.physiotracker.ui.settings.NightModeSettings;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SoundManager.getInstance(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -99,5 +103,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onDestroy() {
+//        SoundManager.getInstance(getApplicationContext()).onDestroy();
+        super.onDestroy();
     }
 }
