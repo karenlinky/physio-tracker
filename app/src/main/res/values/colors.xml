@@ -13,6 +13,7 @@
     <color name="primary_color">#FF000000</color>
     <color name="grey_btn">#888888</color>
     <color name="green_checkmark">#047C00</color>
+    <color name="red_disabled">#7C0000</color>
     <color name="green_btn">#047C00</color>
     <color name="orange_btn">#FFC700</color>
     <color name="statusNotStarted">#919191</color>

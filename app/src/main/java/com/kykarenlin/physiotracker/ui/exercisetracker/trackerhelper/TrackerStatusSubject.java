@@ -1,13 +1,22 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.navigation.Navigation;
 
+import com.kykarenlin.physiotracker.R;
+import com.kykarenlin.physiotracker.enums.EditMode;
 import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.enums.TrackerStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
@@ -208,6 +217,59 @@ public class TrackerStatusSubject {
                 break;
         }
         this.notifyStateChanged();
+    }
+
+    public void onExerciseProgressLongClicked(ExerciseProgress exerciseProgress, View itemView) {
+        switch(getStatus()) {
+            case WORKOUT_IN_PROGRESS:
+            case SESSION_COMPLETED:
+                break;
+            case SESSION_NOT_STARTED:
+            case BREAK:
+                Exercise exercise = exerciseProgress.getExercise();
+                PopupMenu trackerExercisePopupMenu = new PopupMenu(getContext(), itemView);
+                trackerExercisePopupMenu.getMenuInflater().inflate(R.menu.tracker_exercise_popup_menu, trackerExercisePopupMenu.getMenu());
+
+                Menu menu = trackerExercisePopupMenu.getMenu();
+
+                String status = exercise.getSessionStatus();
+
+                if (status.equals(ExerciseSessionStatus.NOT_COMPLETED.toString())) {
+                    menu.removeItem(R.id.markUncompleted);
+                } else if (status.equals(ExerciseSessionStatus.COMPLETED.toString())) {
+//                    menu.removeItem(R.id.markCompleted);
+                    menu.removeItem(R.id.markRemovedFromSession);
+                } else if (status.equals(ExerciseSessionStatus.REMOVED_FROM_SESSION.toString())) {
+                    menu.removeItem(R.id.markRemovedFromSession);
+                }
+
+                trackerExercisePopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+                        String newStatus = "";
+                        if (id == R.id.markUncompleted) {
+                            newStatus = ExerciseSessionStatus.NOT_COMPLETED.toString();
+//                        } else if (id == R.id.markCompleted) {
+//                            newStatus = ExerciseSessionStatus.COMPLETED.toString();
+                        } else if (id == R.id.markRemovedFromSession) {
+                            newStatus = ExerciseSessionStatus.REMOVED_FROM_SESSION.toString();
+                        }
+                        if (!newStatus.equals("")) {
+                            exercise.setSessionStatus(newStatus);
+                            if (selectedExerciseId == exercise.getId()) {
+                                selectedExerciseId = DEFAULT_EXERCISE_ID;
+                                notifyStateChanged();
+                            }
+                            exerciseViewModel.update(exercise);
+                        }
+                        return true;
+                    }
+                });
+                // Showing the popup menu
+                trackerExercisePopupMenu.show();
+                break;
+        }
     }
 
     public int getNumExercise() {

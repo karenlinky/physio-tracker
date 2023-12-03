@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentExerciseTrackerBinding;
 import com.kykarenlin.physiotracker.enums.ExerciseBundleKeys;
 import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
+import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.commonfragments.ExerciseDetailsFragment;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.SessionControlObserver;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.StopwatchNotificationObserver;
@@ -83,6 +86,7 @@ public class DashboardFragment extends Fragment {
         trackerStatusSubject.registerObserver(exerciseProgressObserver);
         exerciseViewModel.getAllActiveExercises().observe(getViewLifecycleOwner(), exercises ->trackerStatusSubject.updateExercises(exercises));
         adapter.setOnItemClickListener(exerciseProgress -> trackerStatusSubject.onExerciseProgressClicked(exerciseProgress));
+        adapter.setOnItemLongClickListener((exerciseProgress, itemView) -> trackerStatusSubject.onExerciseProgressLongClicked(exerciseProgress, itemView));
 
 
         final Chronometer cnmtTracker = binding.cnmtTracker;

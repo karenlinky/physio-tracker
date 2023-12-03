@@ -24,7 +24,9 @@ import java.util.List;
 
 public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExerciseListAdapter.TrackerExerciseListHolder> {
     private List<ExerciseProgress> exercisesWithProgress = new ArrayList<>();
-    private OnItemClickListener listener;
+    private OnItemClickListener clickListener;
+
+    private OnItemLongClickListener longClickListener;
 
     private Context context;
     @NonNull
@@ -61,6 +63,15 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
             // exercise completed
             holder.trackerItemCard.setBackgroundColor(disabledColor);
             holder.trackerItemIconStatusContainer.setVisibility(View.VISIBLE);
+            holder.imgTrackerItemCheckmark.setVisibility(View.VISIBLE);
+            holder.imgTrackerItemRemoved.setVisibility(View.GONE);
+            holder.txtTrackerExerciseItemName.setTextColor(disabledTextColor);
+        } else if (currentExercise.getExercise().getSessionStatus().equals(ExerciseSessionStatus.REMOVED_FROM_SESSION.toString())) {
+            // exercise removed from session
+            holder.trackerItemCard.setBackgroundColor(disabledColor);
+            holder.trackerItemIconStatusContainer.setVisibility(View.VISIBLE);
+            holder.imgTrackerItemCheckmark.setVisibility(View.GONE);
+            holder.imgTrackerItemRemoved.setVisibility(View.VISIBLE);
             holder.txtTrackerExerciseItemName.setTextColor(disabledTextColor);
         } else if (currentExercise.getButtonDisabled()) {
             // session completed or session in progress
@@ -98,18 +109,29 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
 
         private ImageView imgTrackerItemCheckmark;
 
+        private ImageView imgTrackerItemRemoved;
+
         public TrackerExerciseListHolder(@NonNull View itemView) {
             super(itemView);
             txtTrackerExerciseItemName = itemView.findViewById(R.id.txtTrackerExerciseItemName);
             trackerItemCard = itemView.findViewById(R.id.trackerItemCard);
             trackerItemIconStatusContainer = itemView.findViewById(R.id.trackerItemIconStatusContainer);
             imgTrackerItemCheckmark = itemView.findViewById(R.id.imgTrackerItemCheckmark);
+            imgTrackerItemRemoved = itemView.findViewById(R.id.imgTrackerItemRemoved);
 
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();
-                if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(exercisesWithProgress.get(position));
+                if (clickListener != null && position != RecyclerView.NO_POSITION) {
+                    clickListener.onItemClick(exercisesWithProgress.get(position));
                 }
+            });
+
+            itemView.setOnLongClickListener(view -> {
+                int position = getAdapterPosition();
+                if (longClickListener != null && position != RecyclerView.NO_POSITION) {
+                    longClickListener.onItemLongClick(exercisesWithProgress.get(position), itemView);
+                }
+                return true;
             });
         }
     }
@@ -118,7 +140,15 @@ public class TrackerExerciseListAdapter extends RecyclerView.Adapter<TrackerExer
         void onItemClick(ExerciseProgress exerciseProgress);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
+    public void setOnItemClickListener(OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(ExerciseProgress exerciseProgress, View itemView);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
     }
 }
