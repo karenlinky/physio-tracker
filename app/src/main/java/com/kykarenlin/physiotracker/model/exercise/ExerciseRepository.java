@@ -208,6 +208,18 @@ public class ExerciseRepository {
                     ""
             )));
 
+            exerciseDao.insert(insertArchived(new Exercise(
+                    "Quadruped Chin Tuck",
+                    "",
+                    "1",
+                    15,
+                    0,
+                    "s",
+                    "Perform 15 reps in a row. Hold briefly at the top. " +
+                            "Make sure the chin stays tucked throughout the entire exercise. " +
+                            "We added neck rotation in the clinic yesterday."
+            )));
+
             exerciseDao.insert(
                     new Exercise(
                             "Single leg balance on soft surface",
