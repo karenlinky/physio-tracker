@@ -1,5 +1,6 @@
 package com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper;
 
+import com.kykarenlin.physiotracker.enums.ExerciseSessionStatus;
 import com.kykarenlin.physiotracker.enums.TrackerStatus;
 import com.kykarenlin.physiotracker.model.exercise.Exercise;
 import com.kykarenlin.physiotracker.ui.exercisetracker.ExerciseProgress;
@@ -38,11 +39,23 @@ public class ExerciseProgressObserver extends TrackerObserver {
         }
         exercisesWithProgress.clear();
         exerciseMap.clear();
+        List<ExerciseProgress> uncompletedExercises = new ArrayList<>();
+        List<ExerciseProgress> completedExercises = new ArrayList<>();
+        List<ExerciseProgress> removedExercises = new ArrayList<>();
         for (Exercise exercise : exercises) {
             ExerciseProgress exerciseProgress = new ExerciseProgress(exercise, selectedId == exercise.getId(), buttonDisabled);
-            exercisesWithProgress.add(exerciseProgress);
+            if (exercise.getSessionStatus().equals(ExerciseSessionStatus.NOT_COMPLETED.toString())) {
+                uncompletedExercises.add(exerciseProgress);
+            } else if (exercise.getSessionStatus().equals(ExerciseSessionStatus.COMPLETED.toString())) {
+                completedExercises.add(exerciseProgress);
+            } else if (exercise.getSessionStatus().equals(ExerciseSessionStatus.REMOVED_FROM_SESSION.toString())) {
+                removedExercises.add(exerciseProgress);
+            }
             exerciseMap.put(exercise.getId(), exerciseProgress);
         }
+        exercisesWithProgress.addAll(uncompletedExercises);
+        exercisesWithProgress.addAll(completedExercises);
+        exercisesWithProgress.addAll(removedExercises);
         adapter.setExercises(exercisesWithProgress);
     }
 
