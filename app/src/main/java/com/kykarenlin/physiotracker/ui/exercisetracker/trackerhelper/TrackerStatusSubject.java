@@ -221,18 +221,18 @@ public class TrackerStatusSubject {
         if (numExercise == 0) {
             resetSession();
         } else {
-            int numCompleted = 0;
+            int numUncompleted = 0;
             boolean activeExerciseFound = false; // make sure that activeExercise is not removed
             for (Exercise exercise : exercises) {
-                if (exercise.getSessionStatus().equals(ExerciseSessionStatus.COMPLETED.toString())) {
-                    numCompleted += 1;
+                if (exercise.getSessionStatus().equals(ExerciseSessionStatus.NOT_COMPLETED.toString())) {
+                    numUncompleted += 1;
                 }
                 if (activeExerciseId == exercise.getId()) {
                     activeExerciseFound = true;
                 }
             }
 
-            if (numCompleted == numExercise) {
+            if (numUncompleted == 0) {
                 // all exercises are completed
                 this.finishSession();
             } else if (!activeExerciseFound && this.status == TrackerStatus.WORKOUT_IN_PROGRESS) {
