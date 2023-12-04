@@ -8,6 +8,7 @@ public enum EventBundleKeys {
     IS_EXERCISE,
     IS_ACTIVITY,
     IS_PAIN_DISCOMFORT,
+    IS_IMPORTANT,
     IMPROVEMENT_STATUS,
     IS_ARCHIVED,
     LAST_MODIFIED_TIME,

@@ -117,6 +117,7 @@ public class EventRepository {
                 false,
                 true,
                 false,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -126,6 +127,7 @@ public class EventRepository {
                 0,
                 false,
                 true,
+                false,
                 false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
@@ -137,6 +139,7 @@ public class EventRepository {
                 false,
                 true,
                 false,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -146,6 +149,7 @@ public class EventRepository {
                 0,
                 false,
                 true,
+                false,
                 false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
@@ -157,6 +161,7 @@ public class EventRepository {
                 false,
                 true,
                 false,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -167,6 +172,7 @@ public class EventRepository {
                 false,
                 true,
                 false,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -176,6 +182,7 @@ public class EventRepository {
                 0,
                 false,
                 true,
+                false,
                 false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
@@ -187,6 +194,7 @@ public class EventRepository {
                 false,
                 false,
                 true,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -197,6 +205,7 @@ public class EventRepository {
                 false,
                 false,
                 true,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -206,6 +215,7 @@ public class EventRepository {
                 0,
                 false,
                 true,
+                false,
                 false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
@@ -217,6 +227,7 @@ public class EventRepository {
                 false,
                 true,
                 false,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -224,6 +235,7 @@ public class EventRepository {
                 "Glute exercise - the other side also feels tired",
                 0,
                 0,
+                false,
                 false,
                 false,
                 false,
@@ -237,6 +249,7 @@ public class EventRepository {
                 false,
                 false,
                 true,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -247,6 +260,7 @@ public class EventRepository {
                 false,
                 false,
                 true,
+                false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -257,6 +271,7 @@ public class EventRepository {
                 false,
                 true,
                 false,
+                false,
                 EventImprovementStatus.IMPROVED.toString()
         ));
 
@@ -266,6 +281,7 @@ public class EventRepository {
                 0,
                 false,
                 true,
+                false,
                 false,
                 EventImprovementStatus.IMPROVED.toString()
         ));
@@ -286,6 +302,7 @@ public class EventRepository {
                 false,
                 false,
                 true,
+                true,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
 
@@ -295,6 +312,7 @@ public class EventRepository {
                 0,
                 false,
                 true,
+                false,
                 false,
                 EventImprovementStatus.UNCHANGED.toString()
         ));
@@ -307,6 +325,7 @@ public class EventRepository {
                 0,
                 true,
                 false,
+                true,
                 true,
                 EventImprovementStatus.UNCHANGED.toString()
         ));

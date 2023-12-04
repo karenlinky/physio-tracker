@@ -59,6 +59,8 @@ public class EditEventFragment extends Fragment {
     private TextView txtSelectedEndDate;
     private TextView invisibleEndDate;
     private ImageButton btnSelectEndDate;
+
+    private CheckBox chkbxIsImportant;
     private CheckBox chkbxIsExercise;
     private CheckBox chkbxIsActivity;
     private CheckBox chkbxIsPainDiscomfort;
@@ -83,6 +85,7 @@ public class EditEventFragment extends Fragment {
         boolean isExercise = getArguments().getBoolean(EventBundleKeys.IS_EXERCISE.toString());
         boolean isActivity = getArguments().getBoolean(EventBundleKeys.IS_ACTIVITY.toString());
         boolean isPain = getArguments().getBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString());
+        boolean isImportant = getArguments().getBoolean(EventBundleKeys.IS_IMPORTANT.toString());
         String improvementStatus = getArguments().getString(EventBundleKeys.IMPROVEMENT_STATUS.toString());
         boolean isArchived = getArguments().getBoolean(EventBundleKeys.IS_ARCHIVED.toString());
 
@@ -93,6 +96,7 @@ public class EditEventFragment extends Fragment {
         txtSelectedEndDate = binding.txtSelectedEndDate;
         invisibleEndDate = binding.invisibleEndDate;
         btnSelectEndDate = binding.btnSelectEndDate;
+        chkbxIsImportant = binding.chkbxIsImportant;
         chkbxIsExercise = binding.chkbxIsExercise;
         chkbxIsActivity = binding.chkbxIsActivity;
         chkbxIsPainDiscomfort = binding.chkbxIsPainDiscomfort;
@@ -101,6 +105,7 @@ public class EditEventFragment extends Fragment {
         edtEventDetails.setText(initDetails);
         updateStartTime(initStartTime);
         updateEndTime(initEndTime);
+        chkbxIsImportant.setChecked(isImportant);
         chkbxIsExercise.setChecked(isExercise);
         chkbxIsActivity.setChecked(isActivity);
         chkbxIsPainDiscomfort.setChecked(isPain);
@@ -143,6 +148,7 @@ public class EditEventFragment extends Fragment {
                 String details = edtEventDetails.getText().toString().trim();
                 String strStartTime = invisibleStartDate.getText().toString().trim();
                 String strEndTime = invisibleEndDate.getText().toString().trim();
+                boolean isImportant = chkbxIsImportant.isChecked();
                 boolean isExercise = chkbxIsExercise.isChecked();
                 boolean isActivity = chkbxIsActivity.isChecked();
                 boolean isPain = chkbxIsPainDiscomfort.isChecked();
@@ -172,6 +178,7 @@ public class EditEventFragment extends Fragment {
                     isExercise,
                     isActivity,
                     isPain,
+                    isImportant,
                     improvementStatus
                 );
                 if (eventId == -1) {

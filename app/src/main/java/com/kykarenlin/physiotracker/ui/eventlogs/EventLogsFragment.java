@@ -73,6 +73,7 @@ public class EventLogsFragment extends Fragment {
                     false,
                     false,
                     false,
+                    false,
                     EventImprovementStatus.UNCHANGED.toString(),
                     false,
                     EditMode.CREATE
@@ -99,6 +100,7 @@ public class EventLogsFragment extends Fragment {
                         event.isExercise(),
                         event.isActivity(),
                         event.isPainOrDiscomfort(),
+                        event.isImportant(),
                         event.getImprovementStatus(),
                         event.isArchived(),
                         EditMode.EDIT
@@ -177,6 +179,7 @@ public class EventLogsFragment extends Fragment {
                                     event.isExercise(),
                                     event.isActivity(),
                                     event.isPainOrDiscomfort(),
+                                    event.isImportant(),
                                     event.getImprovementStatus(),
                                     false,
                                     EditMode.DUPLICATE
@@ -304,7 +307,7 @@ public class EventLogsFragment extends Fragment {
         return root;
     }
 
-    private Bundle generateBundle(int id, String details, long startTime, long endTime, boolean isExercise, boolean isActivity, boolean isPain, String improvementStatus, boolean isArchived, EditMode editMode) {
+    private Bundle generateBundle(int id, String details, long startTime, long endTime, boolean isExercise, boolean isActivity, boolean isPain, boolean isImportant, String improvementStatus, boolean isArchived, EditMode editMode) {
         Bundle bundle = new Bundle();
         bundle.putInt(EventBundleKeys.ID.toString(), id);
         bundle.putString(EventBundleKeys.DETAILS.toString(), details);
@@ -313,6 +316,7 @@ public class EventLogsFragment extends Fragment {
         bundle.putBoolean(EventBundleKeys.IS_EXERCISE.toString(), isExercise);
         bundle.putBoolean(EventBundleKeys.IS_ACTIVITY.toString(), isActivity);
         bundle.putBoolean(EventBundleKeys.IS_PAIN_DISCOMFORT.toString(), isPain);
+        bundle.putBoolean(EventBundleKeys.IS_IMPORTANT.toString(), isImportant);
         bundle.putString(EventBundleKeys.IMPROVEMENT_STATUS.toString(), improvementStatus);
         bundle.putBoolean(EventBundleKeys.IS_ARCHIVED.toString(), isArchived);
         bundle.putString(EventBundleKeys.EDIT_MODE.toString(), editMode.toString());

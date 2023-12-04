@@ -31,7 +31,7 @@ public class Event {
 
     private long lastModifiedTime;
 
-    public Event(String eventDetails, long eventStartTime, long eventEndTime, boolean isExercise, boolean isActivity, boolean isPainOrDiscomfort, String improvementStatus) {
+    public Event(String eventDetails, long eventStartTime, long eventEndTime, boolean isExercise, boolean isActivity, boolean isPainOrDiscomfort, boolean isImportant, String improvementStatus) {
         this.eventDetails = eventDetails;
         this.eventStartTime = eventStartTime;
         if (eventEndTime < eventStartTime) {
@@ -47,7 +47,7 @@ public class Event {
         this.isActivity = isActivity;
         this.isPainOrDiscomfort = isPainOrDiscomfort;
         this.improvementStatus = improvementStatus;
-        this.isImportant = false;
+        this.isImportant = isImportant;
         this.isArchived = false;
         this.lastModifiedTime = Calendar.getInstance().getTimeInMillis();
     }
