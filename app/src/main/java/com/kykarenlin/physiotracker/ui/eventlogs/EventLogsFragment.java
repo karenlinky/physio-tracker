@@ -2,11 +2,14 @@ package com.kykarenlin.physiotracker.ui.eventlogs;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -30,6 +33,7 @@ import com.kykarenlin.physiotracker.enums.EventBundleKeys;
 import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
 import com.kykarenlin.physiotracker.enums.ListTabs;
 import com.kykarenlin.physiotracker.model.event.Event;
+import com.kykarenlin.physiotracker.ui.eventlogs.filters.FilterKeyword;
 import com.kykarenlin.physiotracker.ui.eventlogs.filters.FilterManager;
 import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
 
@@ -138,8 +142,6 @@ public class EventLogsFragment extends Fragment {
                         menu.removeItem(R.id.archivePreviousEvents);
                     }
                 }
-
-                //TODO: extend end date
                 eventPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -202,12 +204,30 @@ public class EventLogsFragment extends Fragment {
         ScrollView eventListContainer = binding.eventListContainer;
         TextView emptyEventListMsg = binding.emptyEventListMsg;
 
+        EditText edtFilterKeyword = binding.edtFilterKeyword;
         Chip chpFilterImportance = binding.chpFilterImportance;
         Chip chpFilterPainDiscomfort = binding.chpFilterPainDiscomfort;
 
-        FilterManager filterManager = new FilterManager(getContext(), chpFilterImportance, chpFilterPainDiscomfort);
+        FilterManager filterManager = new FilterManager(getContext(), edtFilterKeyword, chpFilterImportance, chpFilterPainDiscomfort);
 
         EventListManager eventListManager = new EventListManager(eventViewModel, getViewLifecycleOwner(), eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer, filterManager);
+
+        edtFilterKeyword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                FilterKeyword filterKeyword = FilterManager.getKeywordFilter();
+                filterKeyword.notifyKeywordChanged();
+                String keyword = editable.toString().trim();
+                filterManager.updateFilter(filterKeyword, !keyword.isEmpty());
+                eventListManager.notifyFilterUpdated();
+            }
+        });
 
         chpFilterImportance.setOnCheckedChangeListener((compoundButton, checked) -> {
             filterManager.updateFilter(FilterManager.getImportantFilter(), checked);

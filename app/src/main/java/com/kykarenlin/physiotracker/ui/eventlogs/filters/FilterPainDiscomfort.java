@@ -15,7 +15,12 @@ public class FilterPainDiscomfort extends EventFilter {
     }
 
     @Override
-    public boolean getIsActivated() {
-        return FilterManager.getPainDiscomfortFilterActivated();
+    public FilterPainDiscomfort getFilter() {
+        return FilterManager.getPainDiscomfortFilter();
+    }
+
+    @Override
+    public void updateUIElement() {
+        this.getUIElement().setChecked(this.getIsActivated());
     }
 }

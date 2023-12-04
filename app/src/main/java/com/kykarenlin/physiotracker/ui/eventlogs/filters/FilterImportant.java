@@ -16,7 +16,12 @@ public class FilterImportant extends EventFilter {
     }
 
     @Override
-    public boolean getIsActivated() {
-        return FilterManager.getImportantFilterActivated();
+    public FilterImportant getFilter() {
+        return FilterManager.getImportantFilter();
+    }
+
+    @Override
+    public void updateUIElement() {
+        this.getUIElement().setChecked(this.getIsActivated());
     }
 }
