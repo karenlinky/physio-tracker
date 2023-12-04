@@ -17,9 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 
+import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentSettingsBinding;
+import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
 import com.kykarenlin.physiotracker.enums.NotificationType;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerNotifItem;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerNotifItemList;
@@ -36,7 +39,10 @@ public class SettingsFragment extends Fragment {
 
     private NightModeSettings nightModeSettings;
 
+    private EventFilterSettings eventFilterSettings;
+
     private Switch switchNightMode;
+    private RadioGroup rgEventFilterMode;
 
     private boolean switchStopwatchNotificationChecked;
 
@@ -111,12 +117,29 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-
-
         switchNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 nightModeSettings.setNightModeEnabled(b);
+            }
+        });
+
+        eventFilterSettings = EventFilterSettings.getInstance(context, fragmentActivity);
+        rgEventFilterMode = binding.cbsEventFilterMode;
+
+        if (eventFilterSettings.isMatchOne()) {
+            rgEventFilterMode.check(R.id.rbMatchOne);
+        } else if (eventFilterSettings.isMatchAll()) {
+            rgEventFilterMode.check(R.id.rbMatchAll);
+        }
+        rgEventFilterMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                if (id == R.id.rbMatchOne) {
+                    eventFilterSettings.setMatchOne();
+                } else if (id == R.id.rbMatchAll) {
+                    eventFilterSettings.setMatchAll();
+                }
             }
         });
 

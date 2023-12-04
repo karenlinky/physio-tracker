@@ -7,9 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.material.chip.Chip;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.ui.eventlogs.EventWrapped;
+import com.kykarenlin.physiotracker.ui.settings.EventFilterSettings;
+import com.kykarenlin.physiotracker.utils.SharedPref;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +37,9 @@ public class FilterManager {
     private static Chip chpFilterImportance;
     private static Chip chpFilterPainDiscomfort;
 
-    public FilterManager(Context context, EditText edtFilterKeyword, Chip chpFilterImportance, Chip chpFilterPainDiscomfort) {
+    private EventFilterSettings eventFilterSettings;
+
+    public FilterManager(Context context, FragmentActivity fragmentActivity, EditText edtFilterKeyword, Chip chpFilterImportance, Chip chpFilterPainDiscomfort) {
         TypedValue activatedBgTypedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorChipBackgroundActivated, activatedBgTypedValue, true);
         this.activatedBgColorId = activatedBgTypedValue.resourceId;
@@ -41,6 +47,8 @@ public class FilterManager {
         TypedValue notActivatedBgTypedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorChipBackground, notActivatedBgTypedValue, true);
         this.notActivatedBgColorId = notActivatedBgTypedValue.resourceId;
+
+        eventFilterSettings = EventFilterSettings.getInstance(context, fragmentActivity);
 
         FilterManager.edtFilterKeyword = edtFilterKeyword;
         FilterManager.chpFilterImportance = chpFilterImportance;
@@ -53,13 +61,29 @@ public class FilterManager {
         if (FilterManager.noFilterActivated()) {
             return eventsWrapped;
         }
+        boolean matchOne = eventFilterSettings.isMatchOne();
+        boolean notMatchFound = false;
         List<EventWrapped> filteredList = new ArrayList<>();
         for (EventWrapped eventWrapped : eventsWrapped) {
+            notMatchFound = false;
             for (EventFilter eventFilter : activatedFilters) {
                 if (eventFilter.matchesCondition(eventWrapped)) {
-                    filteredList.add(eventWrapped);
-                    break;
+                    if (matchOne) {
+                        filteredList.add(eventWrapped);
+                        break;
+                    }
+                } else {
+                    // filter requirement not match
+                    notMatchFound = true;
+                    if (!matchOne) {
+                        // break because matchAll requires all filter to match
+                        break;
+                    }
                 }
+            }
+            if (!matchOne && !notMatchFound) {
+                // needs to match all and all filter requirement met
+                filteredList.add(eventWrapped);
             }
         }
         return filteredList;

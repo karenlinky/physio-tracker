@@ -1,6 +1,7 @@
 package com.kykarenlin.physiotracker.ui.eventlogs;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -81,8 +83,11 @@ public class EventLogsFragment extends Fragment {
             Navigation.findNavController(root).navigate(R.id.action_event_to_editEvent, bundle);
         });
 
+        Context context = getContext();
+        FragmentActivity fragmentActivity = getActivity();
+
         RecyclerView rclvEvents = binding.rclvEvents;
-        rclvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+        rclvEvents.setLayoutManager(new LinearLayoutManager(context));
         rclvEvents.setHasFixedSize(true);
 
         EventAdapter eventListAdapter = new EventAdapter();
@@ -114,7 +119,7 @@ public class EventLogsFragment extends Fragment {
             public void onItemLongClick(EventWrapped eventWrapped, View itemView) {
                 Event event = eventWrapped.getEvent();
 
-                PopupMenu eventPopupMenu = new PopupMenu(getContext(), itemView);
+                PopupMenu eventPopupMenu = new PopupMenu(context, itemView);
                 eventPopupMenu.getMenuInflater().inflate(R.menu.event_popup_menu, eventPopupMenu.getMenu());
 
                 Menu menu = eventPopupMenu.getMenu();
@@ -155,7 +160,7 @@ public class EventLogsFragment extends Fragment {
                             event.setImportant(false);
                             eventViewModel.update(event);
                         } else if (id == R.id.deleteEvent) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            AlertDialog.Builder builder = new AlertDialog.Builder(fragmentActivity);
                             builder.setTitle("Confirm Deletion").setMessage("Are you sure you want to delete this event?");
                             builder.setPositiveButton(R.string.lbl_confirm, (dialogInterface, i) -> {
                                 eventViewModel.delete(event);
@@ -211,7 +216,7 @@ public class EventLogsFragment extends Fragment {
         Chip chpFilterImportance = binding.chpFilterImportance;
         Chip chpFilterPainDiscomfort = binding.chpFilterPainDiscomfort;
 
-        FilterManager filterManager = new FilterManager(getContext(), edtFilterKeyword, chpFilterImportance, chpFilterPainDiscomfort);
+        FilterManager filterManager = new FilterManager(context, fragmentActivity, edtFilterKeyword, chpFilterImportance, chpFilterPainDiscomfort);
 
         EventListManager eventListManager = new EventListManager(eventViewModel, getViewLifecycleOwner(), eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer, filterManager);
 
