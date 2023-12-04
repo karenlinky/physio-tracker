@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.PhysioTracker" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#54719C</item>
+        <item name="colorPrimary">@color/primary_color</item>
 <!--        <item name="colorPrimary">#1D0036</item>-->
         <item name="colorPrimaryVariant">@color/menuDefaultGrey</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -23,5 +23,7 @@
         <item name="colorEventIconsBackground">@color/eventIconsBackground</item>
         <item name="colorIcon">@color/eventActiveIcon</item>
         <item name="colorEventWeekSeparator">@color/eventWeekSeparator</item>
+        <item name="colorChipBackground">@color/chipBackground</item>
+        <item name="colorChipBackgroundActivated">@color/primary_color</item>
     </style>
 </resources>

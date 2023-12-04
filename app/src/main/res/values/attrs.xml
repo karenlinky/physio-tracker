@@ -9,4 +9,6 @@
     <attr name="colorEventIconsBackground" format="reference" />
     <attr name="colorIcon" format="reference" />
     <attr name="colorEventWeekSeparator" format="reference" />
+    <attr name="colorChipBackground" format="reference" />
+    <attr name="colorChipBackgroundActivated" format="reference" />
 </resources>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.model.event.Event;
+import com.kykarenlin.physiotracker.ui.eventlogs.filters.FilterManager;
 import com.kykarenlin.physiotracker.utils.DateTimeHelper;
 import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
 
@@ -29,14 +30,16 @@ public class EventListManager {
     private RelativeLayout emptyEventListContainer;
     private ScrollView eventListContainer;
     private TextView emptyEventListMsg;
+    private FilterManager filterManager;
     private static boolean showingActive = true;
-    public EventListManager(EventViewModel eventViewModel, LifecycleOwner lifecycleOwner, EventAdapter eventListAdapter, RelativeLayout emptyEventListContainer, TextView emptyEventListMsg, ScrollView eventListContainer) {
+    public EventListManager(EventViewModel eventViewModel, LifecycleOwner lifecycleOwner, EventAdapter eventListAdapter, RelativeLayout emptyEventListContainer, TextView emptyEventListMsg, ScrollView eventListContainer, FilterManager filterManager) {
         this.eventViewModel = eventViewModel;
         this.lifecycleOwner = lifecycleOwner;
         this.eventListAdapter = eventListAdapter;
         this.emptyEventListContainer = emptyEventListContainer;
         this.eventListContainer = eventListContainer;
         this.emptyEventListMsg = emptyEventListMsg;
+        this.filterManager = filterManager;
     }
 
     private void updateList() {
@@ -48,6 +51,9 @@ public class EventListManager {
             listToDisplay.addAll(allArchivedEventsWithoutStartDate);
             listToDisplay.addAll(allArchivedEventsWithStartDate);
         }
+
+        List<EventWrapped> filteredList = this.filterManager.filter(listToDisplay);
+
         if (listToDisplay.size() == 0) {
             emptyEventListContainer.setVisibility(View.VISIBLE);
             eventListContainer.setVisibility(View.GONE);
@@ -56,11 +62,19 @@ public class EventListManager {
             } else {
                 emptyEventListMsg.setText(R.string.empty_archived_event_list_msg);
             }
+        } else if (filteredList.size() == 0) {
+            emptyEventListContainer.setVisibility(View.VISIBLE);
+            eventListContainer.setVisibility(View.GONE);
+            emptyEventListMsg.setText("We couldn't find any results that match your filter.");
         } else {
             emptyEventListContainer.setVisibility(View.GONE);
             eventListContainer.setVisibility(View.VISIBLE);
         }
-        this.eventListAdapter.setEventsWrapped(listToDisplay);
+        this.eventListAdapter.setEventsWrapped(filteredList);
+    }
+
+    public void notifyFilterUpdated() {
+        this.updateList();
     }
 
     private void updateListDueToListChange(boolean fromActive) {

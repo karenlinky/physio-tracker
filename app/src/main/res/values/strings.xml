@@ -56,6 +56,8 @@
     <string name="title_unmark_as_important">Mark as not important</string>
     <string name="title_extend_end_date">Extend end date to current time</string>
     <string name="title_delete_event">Delete event</string>
+    <string name="lbl_filter_important">Important</string>
+    <string name="lbl_filter_pain_discomfort">Pain or Discomfort</string>
     <string-array name="units">
         <item>s</item>
         <item>min</item>

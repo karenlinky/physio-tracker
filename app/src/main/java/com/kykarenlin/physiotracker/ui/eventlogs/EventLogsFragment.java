@@ -2,7 +2,6 @@ package com.kykarenlin.physiotracker.ui.eventlogs;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +12,6 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
 import com.google.android.material.tabs.TabLayout;
 import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentEventLogsBinding;
@@ -31,6 +30,7 @@ import com.kykarenlin.physiotracker.enums.EventBundleKeys;
 import com.kykarenlin.physiotracker.enums.EventImprovementStatus;
 import com.kykarenlin.physiotracker.enums.ListTabs;
 import com.kykarenlin.physiotracker.model.event.Event;
+import com.kykarenlin.physiotracker.ui.eventlogs.filters.FilterManager;
 import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
 
 import java.util.Calendar;
@@ -202,7 +202,22 @@ public class EventLogsFragment extends Fragment {
         ScrollView eventListContainer = binding.eventListContainer;
         TextView emptyEventListMsg = binding.emptyEventListMsg;
 
-        EventListManager eventListManager = new EventListManager(eventViewModel, getViewLifecycleOwner(), eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer);
+        Chip chpFilterImportance = binding.chpFilterImportance;
+        Chip chpFilterPainDiscomfort = binding.chpFilterPainDiscomfort;
+
+        FilterManager filterManager = new FilterManager(getContext(), chpFilterImportance, chpFilterPainDiscomfort);
+
+        EventListManager eventListManager = new EventListManager(eventViewModel, getViewLifecycleOwner(), eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer, filterManager);
+
+        chpFilterImportance.setOnCheckedChangeListener((compoundButton, checked) -> {
+            filterManager.updateFilter(FilterManager.getImportantFilter(), checked);
+            eventListManager.notifyFilterUpdated();
+        });
+
+        chpFilterPainDiscomfort.setOnCheckedChangeListener((compoundButton, checked) -> {
+            filterManager.updateFilter(FilterManager.getPainDiscomfortFilter(), checked);
+            eventListManager.notifyFilterUpdated();
+        });
 
         final TabLayout tabsEventList = binding.tabsEventList;
 

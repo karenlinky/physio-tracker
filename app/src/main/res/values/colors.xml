@@ -10,7 +10,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red_btn">#8F4646</color>
     <color name="red_btn_dark">#CA1F1F</color>
-    <color name="primary_color">#FF000000</color>
+    <color name="primary_color">#54719C</color>
+    <color name="primary_color_dark">#ABEA00</color>
     <color name="grey_btn">#888888</color>
     <color name="green_checkmark">#047C00</color>
     <color name="red_disabled">#7C0000</color>
@@ -47,4 +48,6 @@
     <color name="eventWeekSeparatorDark">#616161</color>
     <color name="eventActiveIcon">#656565</color>
     <color name="eventActiveIconDark">#C1C1C1</color>
+    <color name="chipBackground">#E4E4E4</color>
+    <color name="chipBackgroundDark">#131313</color>
 </resources>
