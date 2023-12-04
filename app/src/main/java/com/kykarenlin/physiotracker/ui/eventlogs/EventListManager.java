@@ -54,6 +54,31 @@ public class EventListManager {
 
         List<EventWrapped> filteredList = this.filterManager.filter(listToDisplay);
 
+        boolean hasStartDateEventFound = false;
+        for (int i = 0; i < filteredList.size(); i++) {
+            EventWrapped eventWrapped = filteredList.get(i);
+            Event event = eventWrapped.getEvent();
+            eventWrapped.setShowDate(
+                event.hasStartDate() &&
+                    (!hasStartDateEventFound ||                                      // first item of list
+                    !DateTimeHelper.isWithinSameDay(                // not the same day as the previous item
+                        event.getEventStartTime(),
+                        filteredList.get(i - 1).getEvent().getEventStartTime())));
+
+            hasStartDateEventFound = event.hasStartDate();
+
+            eventWrapped.setShowEndOfWeekIndicator(
+                i < filteredList.size() - 1 &&                        // not the last item
+                    ((!event.hasStartDate() &&
+                        filteredList.get(i + 1).getEvent().hasStartDate()) ||       // no start date but next item has start date
+                    (event.hasStartDate() &&
+                    !DateTimeHelper.isWithinSameWeek(               //  has start date not the same week as the next item
+                        event.getEventStartTime(),
+                            filteredList.get(i + 1).getEvent().getEventStartTime()
+                    )))
+            );
+        }
+
         if (listToDisplay.size() == 0) {
             emptyEventListContainer.setVisibility(View.VISIBLE);
             eventListContainer.setVisibility(View.GONE);
@@ -102,24 +127,24 @@ public class EventListManager {
                 new EventWrapped(
                     eventViewModel,
                     this.lifecycleOwner,
-                    event,
-                    hasStartDate &&
-                        (i == 0 ||                                       // first item of list
-                        !DateTimeHelper.isWithinSameDay(                // not the same day as the previous item
-                            event.getEventStartTime(),
-                            events.get(i - 1).getEventStartTime())),
-                    hasStartDate &&
-                        i < events.size() - 1 &&                        // not the last item
-                        !DateTimeHelper.isWithinSameWeek(               // not the same week as the next item
-                            event.getEventStartTime(),
-                            events.get(i + 1).getEventStartTime()
-                        )));
+                    event));
+//                    hasStartDate &&
+//                        (i == 0 ||                                       // first item of list
+//                        !DateTimeHelper.isWithinSameDay(                // not the same day as the previous item
+//                            event.getEventStartTime(),
+//                            events.get(i - 1).getEventStartTime())),
+//                    hasStartDate &&
+//                        i < events.size() - 1 &&                        // not the last item
+//                        !DateTimeHelper.isWithinSameWeek(               // not the same week as the next item
+//                            event.getEventStartTime(),
+//                            events.get(i + 1).getEventStartTime()
+//                        )));
         }
-        if (!hasStartDate) {
-            if (newList.size() > 0) {
-                newList.get(newList.size() - 1).setShowEndOfWeekIndicator();
-            }
-        }
+//        if (!hasStartDate) {
+//            if (newList.size() > 0) {
+//                newList.get(newList.size() - 1).setShowEndOfWeekIndicator();
+//            }
+//        }
         return newList;
     }
 

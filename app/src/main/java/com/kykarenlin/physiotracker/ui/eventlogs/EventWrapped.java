@@ -26,10 +26,10 @@ public class EventWrapped {
 
 
 
-    public EventWrapped(EventViewModel eventViewModel, LifecycleOwner lifecycleOwner, Event event, boolean showDate, boolean showEndOfWeekIndicator) {
+    public EventWrapped(EventViewModel eventViewModel, LifecycleOwner lifecycleOwner, Event event) {
         this.event = event;
-        this.showDate = showDate;
-        this.showEndOfWeekIndicator = showEndOfWeekIndicator;
+        this.showDate = false;
+        this.showEndOfWeekIndicator = false;
         this.hasPreviousEvents = false;
 
         String[] lstStrDetails = this.event.getEventDetails().toLowerCase().split(FilterKeyword.KEYWORD_DELIMETER);
@@ -43,6 +43,14 @@ public class EventWrapped {
                 hasPreviousEvents = prevEvents.size() > 0;
             }
         });
+    }
+
+    public void setShowDate(boolean showDate) {
+        this.showDate = showDate;
+    }
+
+    public void setShowEndOfWeekIndicator(boolean showEndOfWeekIndicator) {
+        this.showEndOfWeekIndicator = showEndOfWeekIndicator;
     }
 
     public Set<String> getSetStrDetails() {
@@ -59,10 +67,6 @@ public class EventWrapped {
 
     public boolean shouldShowEndOfWeekIndicator() {
         return showEndOfWeekIndicator;
-    }
-
-    public void setShowEndOfWeekIndicator() {
-        this.showEndOfWeekIndicator = true;
     }
 
     public boolean getHasPreviousEvents() {
