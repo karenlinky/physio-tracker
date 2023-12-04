@@ -67,28 +67,6 @@
         </com.google.android.material.tabs.TabLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/emptyEventListContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerEventHeader">
-
-        <TextView
-            android:id="@+id/emptyEventListMsg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingHorizontal="64dp"
-            android:text="@string/empty_event_list_msg"
-            android:textAlignment="center"
-            android:translationY="-48dp" />
-    </RelativeLayout>
-
     <HorizontalScrollView
         android:id="@+id/eventFilterContainer"
         android:layout_width="match_parent"
@@ -191,6 +169,28 @@
 <!--            </androidx.cardview.widget.CardView>-->
         </LinearLayout>
     </HorizontalScrollView>
+
+    <RelativeLayout
+        android:id="@+id/emptyEventListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventFilterContainer">
+
+        <TextView
+            android:id="@+id/emptyEventListMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingHorizontal="64dp"
+            android:text="@string/empty_event_list_msg"
+            android:textAlignment="center"
+            android:translationY="-30dp" />
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/eventListContainer"
