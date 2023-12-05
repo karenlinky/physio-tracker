@@ -20,35 +20,59 @@ As someone in the midst of physiotherapy, I've got a routine of over 10 exercise
 ## Usage
 ### Exercises
 The home page allows users to view the list of exercises of the user.<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/a75b843a-fd9e-40db-abe0-8f16f9437d0a" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/36a6ee27-4cc3-4fc7-8527-5a90014ba2e4" height="600" />
 
 Clicking on the exercises will allow the user to view the exercise in detail.<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/6dc6c675-4421-4cb0-a359-8a0abb361eaa" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/3fe1c320-60b2-499a-8f58-9165062f8977" height="600" />
 
 Users can also edit the exercise by using the edit exercise page.<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/10058a58-d797-4858-acfb-82fdd3324efb" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/9233099c-37ab-49a6-881f-f6e3a873ea8b" height="600" />
+
 
 
 ### Progress Tracker
 Users can use this tracker to track the progress of their exercises. When the user is taking a time longer than a certain period, they will receive a notification. (Delay and Message is customizable in settings)<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/e7f3b512-f66f-4c2f-bec5-ce4f28a5636a" height="600" />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/c253f9d8-3dfd-4d83-9736-1fea91641df3" height="600" />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/adbe9d98-161f-4f82-9e5d-9f1fa0a56103" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/1720e1f3-c03d-4e3b-acbf-e6d03a173661" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/f0e65f49-991f-4f22-85c5-d356ca0bd113" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/c590ab00-2307-41ac-9a33-31329f3fbb29" height="600" />
+
+For exercises that have the duration stored, users also have the option to play a beeping sound according to the duration and the number of reps. A beeping sound will occur every second, lasting for a duration specified by the user. 3 Seconds after after the sound stops, the sound will resume, repeating according to the number of repetitions specified by the users. This would help prevent users taking too much break between each rep.<br />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/432e1f60-5423-48d5-9178-e3bc09d6491d" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/b9b0ea78-afab-41c5-82a9-7043077ecfd2" height="600" />
 
 
 
 Users can also go on breaks between each exercise, and they will also receive a notification if a break is too long. (Delay and Message is customizable in settings)<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/f12331a5-79ed-4b22-b58f-ce037a74d0b8" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/01c39cb7-5d8c-436f-94e9-e220831e77f1" height="600" />
+
 
 During the session, users can also pause, end and reset the session at any time.<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/2227b2d6-9427-459e-ab5c-85092d463d90" height="600" />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/d05ec496-7d12-44cd-9425-761ac10489d5" height="600" />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/3123ef5c-4466-4e9e-80e2-9c630332bf40" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/98ab34c1-eb04-41a2-918d-453d25dee3e3" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/5896bc60-1fc5-48e3-acae-598a0464496a" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/1ffcbdf7-5dee-4cc3-8f77-2dedf6fba71f" height="600" />
+
+
+### Event logs
+Using the event logs, users can take notes about their situation or activities (including their pain or exercises/sports that they do) to track their progress.<br />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/e35aabb4-36a7-4591-8944-0b9d891a9b5c" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/c22aa89e-ef4e-40f8-bc39-a726400ddfc9" height="600" />
+
+By press-and-holding an event, a pop-up menu will show up and users will be able to quickly edit the event.<br />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/a26da587-1d22-4b69-841e-049804973aca" height="600" />
+
+Users can also quickly search for an event by searching for keywords or using different filters.<br />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/69a292cc-0129-4ad7-a3e5-5aca27015fbe" height="600" />
+
 
 
 ### Settings
-Users can customize their notification settings (including the delay and message).<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/95ed77f6-5430-4b33-a92f-ca98810173f0" height="600" />
+Using the settings page, users can customize their notification settings (including the delay and message).<br />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/5eec2d06-1a4e-4782-b1a3-89b69bbbb9f3" height="600" />
+
+Users can also decide whether or not they would use the night mode.<br />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/eb7ef62a-5bfa-4328-baec-87e5a878ad7a" height="600" />
+
+
 
 
 
