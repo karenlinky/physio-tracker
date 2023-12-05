@@ -341,7 +341,15 @@ public class TrackerStatusSubject {
         updateStatus(TrackerStatus.WORKOUT_IN_PROGRESS);
         updateSessionPaused(false);
         updateActiveId(selectedExerciseId);
+
+//        for testing stopwatch resetting session
+//        Calendar cal = Calendar.getInstance();
+//        cal.add(Calendar.DATE, -1);
+//        cal.add(Calendar.SECOND, 10);
+//        long tempTimestamp = cal.getTimeInMillis();
+//        updateTimestamp(tempTimestamp);
         updateTimestampToCurrentTime();
+
         notifyStateChanged();
 
         for (TrackerObserver trackerObserver : trackerObservers) {
@@ -398,7 +406,16 @@ public class TrackerStatusSubject {
     public void pauseSession() {
         updateSessionPaused(true);
 //        updateTimestamp(SystemClock.elapsedRealtime() - this.getTimestamp());   // time difference between now and start time
+
+//        for testing stopwatch resetting session
+//        Calendar cal = Calendar.getInstance();
+//        cal.add(Calendar.DATE, -1);
+//        cal.add(Calendar.SECOND, -10);
+//        long tempTimestamp = cal.getTimeInMillis();
+//        updateTimestamp(Calendar.getInstance().getTimeInMillis() - tempTimestamp);   // time difference between now and start time
         updateTimestamp(Calendar.getInstance().getTimeInMillis() - this.getTimestamp());   // time difference between now and start time
+
+
         notifyStateChanged();
 
         for (TrackerObserver trackerObserver : trackerObservers) {
