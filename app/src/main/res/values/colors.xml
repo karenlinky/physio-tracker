@@ -50,4 +50,6 @@
     <color name="eventActiveIconDark">#C1C1C1</color>
     <color name="chipBackground">#E4E4E4</color>
     <color name="chipBackgroundDark">#131313</color>
+    <color name="notificationIconInProgress">#08FF00</color>
+    <color name="notificationIconBreak">#FF0000</color>
 </resources>

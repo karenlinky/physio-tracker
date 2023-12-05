@@ -308,32 +308,32 @@
                     android:singleLine="true"
                     android:textSize="12sp" />
             </LinearLayout>
+            <TextView
+                android:layout_marginTop="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event Logs Filter Mode"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/cbsEventFilterMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/rbMatchOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="Match One"/>
+                <RadioButton
+                    android:id="@+id/rbMatchAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="Match All"/>
+            </RadioGroup>
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="32dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Event Logs Filter Mode"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-        <RadioGroup
-            android:id="@+id/cbsEventFilterMode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/rbMatchOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="Match One"/>
-            <RadioButton
-                android:id="@+id/rbMatchAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="Match All"/>
-        </RadioGroup>
     </LinearLayout>
 </ScrollView>

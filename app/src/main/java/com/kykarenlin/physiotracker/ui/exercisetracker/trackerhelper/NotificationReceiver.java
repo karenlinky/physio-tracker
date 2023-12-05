@@ -12,6 +12,7 @@ import android.media.RingtoneManager;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.kykarenlin.physiotracker.MainActivity;
 import com.kykarenlin.physiotracker.R;
@@ -22,6 +23,8 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String title = intent.getStringExtra(StopwatchNotificationObserver.INTENT_KEY_TITLE);
         String text = intent.getStringExtra(StopwatchNotificationObserver.INTENT_KEY_TEXT);
+        boolean workingOut = intent.getBooleanExtra(StopwatchNotificationObserver.INTENT_KEY_SESSION_MODE_WORKING_OUT, true);
+        int color = workingOut ? ContextCompat.getColor(context, R.color.notificationIconInProgress) : ContextCompat.getColor(context, R.color.notificationIconBreak);
 
         Intent openAppIntent = new Intent(context, MainActivity.class);
         openAppIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -32,6 +35,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_run_circle)
                 .setContentTitle(title)
                 .setContentText(text)
+                .setColor(color)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))

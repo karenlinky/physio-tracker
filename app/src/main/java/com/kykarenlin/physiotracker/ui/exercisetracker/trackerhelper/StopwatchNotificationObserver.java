@@ -5,12 +5,10 @@ import static com.kykarenlin.physiotracker.utils.NotificationIds.NOTIFICATION_ST
 import static com.kykarenlin.physiotracker.utils.NotificationIds.notificationExplanation;
 import static com.kykarenlin.physiotracker.utils.NotificationIds.notificationPermissions;
 
-import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -29,6 +27,7 @@ public class StopwatchNotificationObserver extends TrackerObserver {
 
     public static final String INTENT_KEY_TITLE = "intent_title";
     public static final String INTENT_KEY_TEXT = "intent_text";
+    public static final String INTENT_KEY_SESSION_MODE_WORKING_OUT = "intent_session_mode";
     private static final String NOTIF_WORKOUT_TITLE = "Workout In Progress";
     private static final String NOTIF_BREAK_TITLE = "Break Is Over";
 
@@ -58,17 +57,18 @@ public class StopwatchNotificationObserver extends TrackerObserver {
         notificationPermissionCheck(context, fragmentActivity);
     }
 
-    private void scheduleNotif(long launchTime, String notifTitle, String msg, int notifId) {
+    private void scheduleNotif(long launchTime, String notifTitle, String msg, int notifId, boolean workingOut) {
         Intent notificationIntent = new Intent(this.context, NotificationReceiver.class);
         notificationIntent.putExtra(INTENT_KEY_TITLE, notifTitle);
         notificationIntent.putExtra(INTENT_KEY_TEXT, msg);
+        notificationIntent.putExtra(INTENT_KEY_SESSION_MODE_WORKING_OUT, workingOut);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notifId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, launchTime, pendingIntent);
     }
 
-    private void scheduleNotif(TrackerNotifItemList trackerNotifItemList, String notifTitle, long offset) {
+    private void scheduleNotif(TrackerNotifItemList trackerNotifItemList, String notifTitle, long offset, boolean workingOut) {
         ArrayList<TrackerNotifItem> notifList = trackerNotifItemList.getValidList();
         if (!trackerNotifItemList.getNotificationOn() || notifList.size() == 0) {
             return; // no notification needs to be scheduled
@@ -86,7 +86,7 @@ public class StopwatchNotificationObserver extends TrackerObserver {
             if (scheduledTime < currentTime) {    // scheduled time is in the past
                 continue;
             }
-            this.scheduleNotif(scheduledTime, notifTitle, notifItem.getMessage(), counter);
+            this.scheduleNotif(scheduledTime, notifTitle, notifItem.getMessage(), counter, workingOut);
         }
     }
 
@@ -144,23 +144,23 @@ public class StopwatchNotificationObserver extends TrackerObserver {
     public void notifyStartExercise() {
 //        this.removeNotifications();
         this.cancelScheduledNotifications();
-        this.scheduleNotif(this.trackerNotifPreferences.getExerciseNotifications(), NOTIF_WORKOUT_TITLE, 0);
+        this.scheduleNotif(this.trackerNotifPreferences.getExerciseNotifications(), NOTIF_WORKOUT_TITLE, 0, true);
     }
 
     @Override
     public void notifyStartBreak() {
 //        this.removeNotifications();
         this.cancelScheduledNotifications();
-        this.scheduleNotif(this.trackerNotifPreferences.getBreakNotifications(), NOTIF_BREAK_TITLE, 0);
+        this.scheduleNotif(this.trackerNotifPreferences.getBreakNotifications(), NOTIF_BREAK_TITLE, 0, false);
     }
 
     @Override
     public void notifyContinueSession() {
         long offset = Calendar.getInstance().getTimeInMillis() - this.trackerStatusSubject.getTimestamp(); // duration the stopwatch has been running
         if (this.trackerStatusSubject.getStatus() == TrackerStatus.WORKOUT_IN_PROGRESS) {
-            this.scheduleNotif(this.trackerNotifPreferences.getExerciseNotifications(), NOTIF_WORKOUT_TITLE, offset);
+            this.scheduleNotif(this.trackerNotifPreferences.getExerciseNotifications(), NOTIF_WORKOUT_TITLE, offset, true);
         } else {
-            this.scheduleNotif(this.trackerNotifPreferences.getBreakNotifications(), NOTIF_BREAK_TITLE, offset);
+            this.scheduleNotif(this.trackerNotifPreferences.getBreakNotifications(), NOTIF_BREAK_TITLE, offset, false);
         }
     }
 

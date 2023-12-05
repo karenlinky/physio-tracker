@@ -20,10 +20,10 @@
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/title_settings" />
-    <item
-    android:id="@+id/navigation_developer"
-    android:icon="@drawable/ic_code"
-    android:title="@string/title_developer" />
+<!--    <item-->
+<!--    android:id="@+id/navigation_developer"-->
+<!--    android:icon="@drawable/ic_code"-->
+<!--    android:title="@string/title_developer" />-->
 
 
 </menu>
