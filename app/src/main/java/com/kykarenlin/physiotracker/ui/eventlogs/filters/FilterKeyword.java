@@ -39,10 +39,10 @@ public class FilterKeyword extends EventFilter{
         return FilterManager.getKeywordFilterUI();
     }
 
-    @Override
-    public FilterKeyword getFilter() {
-        return FilterManager.getKeywordFilter();
-    }
+//    @Override
+//    public FilterKeyword getFilter() {
+//        return FilterManager.getKeywordFilter();
+//    }
 
     @Override
     public void updateUIElement() {

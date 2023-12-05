@@ -215,8 +215,10 @@ public class EventLogsFragment extends Fragment {
         EditText edtFilterKeyword = binding.edtFilterKeyword;
         Chip chpFilterImportance = binding.chpFilterImportance;
         Chip chpFilterPainDiscomfort = binding.chpFilterPainDiscomfort;
+        Chip chpFilterExercise = binding.chpFilterExercise;
+        Chip chpFilterActivity = binding.chpFilterActivity;
 
-        FilterManager filterManager = new FilterManager(context, fragmentActivity, edtFilterKeyword, chpFilterImportance, chpFilterPainDiscomfort);
+        FilterManager filterManager = new FilterManager(context, fragmentActivity, edtFilterKeyword, chpFilterImportance, chpFilterPainDiscomfort, chpFilterExercise, chpFilterActivity);
 
         EventListManager eventListManager = new EventListManager(eventViewModel, getViewLifecycleOwner(), eventListAdapter, emptyEventListContainer, emptyEventListMsg, eventListContainer, filterManager);
 
@@ -244,6 +246,16 @@ public class EventLogsFragment extends Fragment {
 
         chpFilterPainDiscomfort.setOnCheckedChangeListener((compoundButton, checked) -> {
             filterManager.updateFilter(FilterManager.getPainDiscomfortFilter(), checked);
+            eventListManager.notifyFilterUpdated();
+        });
+
+        chpFilterExercise.setOnCheckedChangeListener((compoundButton, checked) -> {
+            filterManager.updateFilter(FilterManager.getExerciseFilter(), checked);
+            eventListManager.notifyFilterUpdated();
+        });
+
+        chpFilterActivity.setOnCheckedChangeListener((compoundButton, checked) -> {
+            filterManager.updateFilter(FilterManager.getActivityFilter(), checked);
             eventListManager.notifyFilterUpdated();
         });
 

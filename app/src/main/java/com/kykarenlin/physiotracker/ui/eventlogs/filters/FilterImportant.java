@@ -15,10 +15,10 @@ public class FilterImportant extends EventFilter {
         return FilterManager.getImportanceFilterUI();
     }
 
-    @Override
-    public FilterImportant getFilter() {
-        return FilterManager.getImportantFilter();
-    }
+//    @Override
+//    public FilterImportant getFilter() {
+//        return FilterManager.getImportantFilter();
+//    }
 
     @Override
     public void updateUIElement() {

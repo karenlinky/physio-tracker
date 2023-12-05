@@ -3,20 +3,20 @@ package com.kykarenlin.physiotracker.ui.eventlogs.filters;
 import com.google.android.material.chip.Chip;
 import com.kykarenlin.physiotracker.ui.eventlogs.EventWrapped;
 
-public class FilterPainDiscomfort extends EventFilter {
+public class FilterExercise extends EventFilter {
     @Override
     public boolean matchesCondition(EventWrapped eventWrapped) {
-        return eventWrapped.getEvent().isPainOrDiscomfort();
+        return eventWrapped.getEvent().isExercise();
     }
 
     @Override
     public Chip getUIElement() {
-        return FilterManager.getPainDiscomfortFilterUI();
+        return FilterManager.getExerciseFilterUI();
     }
 
 //    @Override
-//    public FilterPainDiscomfort getFilter() {
-//        return FilterManager.getPainDiscomfortFilter();
+//    public FilterExercise getFilter() {
+//        return FilterManager.getExerciseFilter();
 //    }
 
     @Override

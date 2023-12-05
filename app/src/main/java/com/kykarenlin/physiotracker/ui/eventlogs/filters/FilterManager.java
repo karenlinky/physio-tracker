@@ -28,6 +28,8 @@ public class FilterManager {
     private static FilterKeyword filterKeyword = new FilterKeyword();
     private static FilterImportant filterImportant = new FilterImportant();
     private static FilterPainDiscomfort filterPainDiscomfort = new FilterPainDiscomfort();
+    private static FilterExercise filterExercise = new FilterExercise();
+    private static FilterActivity filterActivity = new FilterActivity();
     private static Set<EventFilter> allFilters = new HashSet<>(Arrays.asList(filterKeyword, filterImportant, filterPainDiscomfort));
 
     private int activatedBgColorId;
@@ -36,10 +38,12 @@ public class FilterManager {
     private static EditText edtFilterKeyword;
     private static Chip chpFilterImportance;
     private static Chip chpFilterPainDiscomfort;
+    private static Chip chpFilterExercise;
+    private static Chip chpFilterActivity;
 
     private EventFilterSettings eventFilterSettings;
 
-    public FilterManager(Context context, FragmentActivity fragmentActivity, EditText edtFilterKeyword, Chip chpFilterImportance, Chip chpFilterPainDiscomfort) {
+    public FilterManager(Context context, FragmentActivity fragmentActivity, EditText edtFilterKeyword, Chip chpFilterImportance, Chip chpFilterPainDiscomfort, Chip chpFilterExercise, Chip chpFilterActivity) {
         TypedValue activatedBgTypedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorChipBackgroundActivated, activatedBgTypedValue, true);
         this.activatedBgColorId = activatedBgTypedValue.resourceId;
@@ -53,6 +57,8 @@ public class FilterManager {
         FilterManager.edtFilterKeyword = edtFilterKeyword;
         FilterManager.chpFilterImportance = chpFilterImportance;
         FilterManager.chpFilterPainDiscomfort = chpFilterPainDiscomfort;
+        FilterManager.chpFilterExercise = chpFilterExercise;
+        FilterManager.chpFilterActivity = chpFilterActivity;
 
         updateAllFilterUIElements();
     }
@@ -124,9 +130,18 @@ public class FilterManager {
         return FilterManager.filterPainDiscomfort;
     }
 
+    public static FilterExercise getExerciseFilter() {
+        return FilterManager.filterExercise;
+    }
+
+    public static FilterActivity getActivityFilter() {
+        return FilterManager.filterActivity;
+    }
+
     public static boolean getFilterActivated(EventFilter eventFilter) {
         return FilterManager.activatedFilters.contains(eventFilter);
     }
+
 
 //    public static boolean getImportantFilterActivated() {
 //        return FilterManager.activatedFilters.contains(FilterManager.filterImportant);
@@ -146,5 +161,13 @@ public class FilterManager {
 
     public static Chip getPainDiscomfortFilterUI() {
         return FilterManager.chpFilterPainDiscomfort;
+    }
+
+    public static Chip getExerciseFilterUI() {
+        return FilterManager.chpFilterExercise;
+    }
+
+    public static Chip getActivityFilterUI() {
+        return FilterManager.chpFilterActivity;
     }
 }
