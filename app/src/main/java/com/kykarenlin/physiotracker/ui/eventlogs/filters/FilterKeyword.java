@@ -46,6 +46,6 @@ public class FilterKeyword extends EventFilter{
 
     @Override
     public void updateUIElement() {
-        this.getUIElement().setText(this.getIsActivated() ? "" : FilterKeyword.keyword);
+        this.getUIElement().setText(this.getIsActivated() ? FilterKeyword.keyword : "");
     }
 }
