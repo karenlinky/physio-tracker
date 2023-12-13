@@ -19,6 +19,7 @@ import com.kykarenlin.physiotracker.R;
 import com.kykarenlin.physiotracker.databinding.FragmentDeveloperBinding;
 import com.kykarenlin.physiotracker.databinding.FragmentSettingsBinding;
 import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.StopwatchNotificationObserver;
+import com.kykarenlin.physiotracker.ui.exercisetracker.trackerhelper.TrackerNotifPreferences;
 import com.kykarenlin.physiotracker.utils.SharedPref;
 import com.kykarenlin.physiotracker.viewmodel.EventViewModel;
 import com.kykarenlin.physiotracker.viewmodel.ExerciseViewModel;
@@ -32,6 +33,8 @@ public class DeveloperFragment extends Fragment {
     private ExerciseViewModel exerciseViewModel;
 
     private EventViewModel eventViewModel;
+
+    private TrackerNotifPreferences trackerNotifPreferences;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -71,7 +74,27 @@ public class DeveloperFragment extends Fragment {
             Toast.makeText(getContext(), "Data successfully cleared", Toast.LENGTH_SHORT).show();
         });
 
+        this.trackerNotifPreferences = TrackerNotifPreferences.getInstance(getContext(), getActivity());
+
         return root;
+    }
+
+    private void loadNotifPreferences() {
+        trackerNotifPreferences.saveStopwachNotificationSettings(
+                true,
+                "8",
+                "10",
+                "12",
+                "🤔 It's been awhile. I think you should be done by now.",
+                "🤔 I hope you are not slacking.",
+                "😒 I am a bit disappointed.",
+                "3",
+                "5",
+                "8",
+                "⏲️ Time's up! Break is over.",
+                "🫵 Get back to your exercise!",
+                "😶 You are a failure. I am speechless."
+        );
     }
 
     private void clearData() {
@@ -83,6 +106,7 @@ public class DeveloperFragment extends Fragment {
         this.clearData();
         exerciseViewModel.loadTestData();
         eventViewModel.loadTestData();
+        this.loadNotifPreferences();
     }
 
     private void clearDataWithoutClearingPreference() {

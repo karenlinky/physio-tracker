@@ -92,7 +92,7 @@ public class TrackerNotifPreferences {
         trackerNotifItemList.addItem(delay, msg);
 
         delay = this.sharedPref.getData(KEY_BREAK_NOTIF_DELAY_3, 8);
-        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_3, "😶 You are a failure. I am speechless.");
+        msg = this.sharedPref.getData(KEY_BREAK_NOTIF_MSG_3, "😶 I am speechless.");
         trackerNotifItemList.addItem(delay, msg);
 
         return trackerNotifItemList;
