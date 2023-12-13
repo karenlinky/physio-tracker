@@ -67,11 +67,10 @@ Users can also quickly search for an event by searching for keywords or using di
 
 ### Settings
 Using the settings page, users can customize their notification settings (including the delay and message).<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/5eec2d06-1a4e-4782-b1a3-89b69bbbb9f3" height="600" />
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/f99088ea-5cbc-4c30-a9c4-ca2664d596d3" height="600" />
 
 Users can also decide whether or not they would use the night mode.<br />
-<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/eb7ef62a-5bfa-4328-baec-87e5a878ad7a" height="600" />
-
+<img src="https://github.com/karenlinky/physio-tracker/assets/61481010/2b63d796-29c3-4c14-be75-fa2a461a0641" height="600" />
 
 
 
